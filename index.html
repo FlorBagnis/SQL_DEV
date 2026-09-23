@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COR SQL Dev Prep ✨ Kawaii Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #fdf2f8 50%, #f5e8ff 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --pink-primary: #ff70a6;
+      --pink-dark: #e0528b;
+      --pink-soft: #ffd7e8;
+      --pink-light: #fff0f6;
+      --purple-accent: #8b5cf6;
+      --purple-soft: #ede9fe;
+      --text-main: #3d2336;
+      --text-muted: #85617a;
+      --border-pink: #fbcfe8;
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --success-text: #065f46;
+      --error-bg: #fff1f2;
+      --error-border: #fecdd3;
+      --error-text: #9f1239;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-main);
+      padding: 36px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      max-width: 860px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 2px solid #ffffff;
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: 0 24px 48px rgba(255, 112, 166, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px dashed var(--pink-soft);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .title-group h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-group p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1.5px solid var(--pink-soft);
+      padding: 6px 14px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pink-dark);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    .progress-wrapper {
+      margin-bottom: 24px;
+    }
+
+    .progress-bar-bg {
+      background: #fce7f3;
+      height: 10px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, var(--pink-primary), var(--purple-accent));
+      height: 100%;
+      width: 0%;
+      border-radius: 12px;
+      transition: width 0.4s ease;
+    }
+
+    .db-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-pink);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 26px;
+      box-shadow: 0 4px 16px rgba(244, 114, 182, 0.06);
+    }
+
+    .db-header {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pink-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    th {
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--pink-soft);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    th:first-child { border-top-left-radius: 10px; }
+    th:last-child { border-top-right-radius: 10px; }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--pink-light);
+      color: #4a2840;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .level-chip {
+      display: inline-block;
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .scenario-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .question-title {
+      font-size: 17.5px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 2px solid var(--pink-soft);
+      padding: 15px 18px;
+      border-radius: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #381e31;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      line-height: 1.4;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--pink-primary);
+      background: var(--pink-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(255, 112, 166, 0.18);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+      transform: none;
+    }
+
+    .feedback-box {
+      margin-top: 22px;
+      padding: 18px 22px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-box.correct {
+      background: var(--success-bg);
+      border: 1.5px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .feedback-box.incorrect {
+      background: var(--error-bg);
+      border: 1.5px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    .footer-bar {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .counter-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
+      color: #ffffff;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 16px rgba(224, 82, 139, 0.28);
+      display: none;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(224, 82, 139, 0.4);
+    }
+
+    .credits {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      letter-spacing: 0.04em;
+      border-top: 1px dashed var(--pink-soft);
+      padding-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="title-group">
+      <h1><span>🌸</span> COR SQL Dev Bootcamp</h1>
+      <p>Entrenamiento técnico para soporte, gestión y métricas en bases relacionales</p>
+    </div>
+    <div class="badge-status">
+      <div class="dot"></div>
+      readonly_session
+    </div>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <div class="db-card">
+    <div class="db-header">
+      <span>📁</span> Esquema de Datos en Vivo: <code>proyectos</code>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>cliente</th>
+            <th>servicio</th>
+            <th>horas_estimadas</th>
+            <th>horas_reales</th>
+            <th>estado</th>
+            <th>rentable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>101</td><td>Mercado Tech</td><td>Branding</td><td>120</td><td>110</td><td>entregado</td><td>true</td></tr>
+          <tr><td>102</td><td>Banco Futuro</td><td>App Dev</td><td>300</td><td>345</td><td>en progreso</td><td>false</td></tr>
+          <tr><td>103</td><td>Fintech Sol</td><td>UX Audit</td><td>80</td><td>75</td><td>entregado</td><td>true</td></tr>
+          <tr><td>104</td><td>Mercado Tech</td><td>Social Media</td><td>50</td><td>65</td><td>pausado</td><td>false</td></tr>
+          <tr><td>105</td><td>Logística Express</td><td>App Dev</td><td>220</td><td>210</td><td>entregado</td><td>true</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="quiz-area">
+    <span class="level-chip" id="level-chip">Módulo 1</span>
+    <div class="scenario-text" id="scenario-text"></div>
+    <div class="question-title" id="question-title"></div>
+    <div class="options-container" id="options-container"></div>
+
+    <div id="feedback" class="feedback-box"></div>
+
+    <div class="footer-bar">
+      <span class="counter-text" id="counter-text"></span>
+      <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Desafío →</button>
+    </div>
+  </div>
+
+  <div class="credits">
+    Diseñado by Flor Bagnis 💗
+  </div>
+</div>
+
+<script>
+  const modulos = [
+    {
+      nivel: "Módulo 1 • Recuperación Base",
+      escenario: "Un project manager quiere auditar todas las columnas y filas de la tabla de proyectos en el sistema.",
+      pregunta: "¿Qué consulta SQL recupera absolutamente toda la estructura y datos de la tabla?",
+      opciones: [
+        "SELECT ALL FROM proyectos;",
+        "SELECT * FROM proyectos;",
+        "FETCH EVERYTHING FROM proyectos;",
+        "SELECT (id, cliente, servicio, horas_estimadas, horas_reales, estado, rentable);"
+      ],
+      correcta: 1,
+      explicacion: "En SQL relacional, el asterisco (*) representa el comodín de proyección para traer todas las columnas registradas en la tabla especificada con FROM."
+    },
+    {
+      nivel: "Módulo 2 • Proyección Selectiva",
+      escenario: "Para un reporte de tiempos, solo necesitamos el nombre del cliente, las horas estimadas y las horas reales.",
+      pregunta: "¿Cómo seleccionamos únicamente esos tres campos específicos?",
+      opciones: [
+        "SELECT cliente AND horas_estimadas AND horas_reales FROM proyectos;",
+        "SELECT cliente, horas_estimadas, horas_reales FROM proyectos;",
+        "GET cliente, horas_estimadas, horas_reales IN proyectos;",
+        "SELECT FROM proyectos COLUMNS (cliente, horas_estimadas, horas_reales);"
+      ],
+      correcta: 1,
+      explicacion: "Los nombres de los campos que queremos proyectar se listan inmediatamente después de SELECT separados por comas. El origen se fija con FROM proyectos."
+    },
+    {
+      nivel: "Módulo 3 • Filtrado por Texto (WHERE)",
+      escenario: "Queremos analizar únicamente los proyectos del cliente 'Mercado Tech'.",
+      pregunta: "¿Cuál es la sintaxis precisa para filtrar registros que coincidan exactamente con un texto?",
+      opciones: [
+        "SELECT * FROM proyectos WHERE cliente = 'Mercado Tech';",
+        "SELECT * FROM proyectos WHERE cliente = Mercado Tech;",
+        "SELECT * FROM proyectos FILTER cliente == 'Mercado Tech';",
+        "SELECT * FROM proyectos IF cliente = 'Mercado Tech';"
+      ],
+      correcta: 0,
+      explicacion: "En SQL los textos (strings) deben ir siempre entre comillas simples ('Mercado Tech'). El operador de comparación es un único signo = y la cláusula es WHERE."
+    },
+    {
+      nivel: "Módulo 4 • Desvío Numérico (Mayor que)",
+      escenario: "COR monitorea horas reales cargadas. Buscamos detectar proyectos que hayan insumido más de 100 horas reales.",
+      pregunta: "¿Qué condición en el WHERE aísla números mayores estrictos?",
+      opciones: [
+        "SELECT * FROM proyectos WHERE horas_reales > '100';",
+        "SELECT * FROM proyectos WHERE horas_reales > 100;",
+        "SELECT * FROM proyectos WHERE horas_reales >= 101;",
+        "SELECT * FROM proyectos HAVING horas_reales > 100;"
+      ],
+      correcta: 1,
+      explicacion: "Los números en SQL van sin comillas para ser evaluados aritméticamente. HAVING se reserva para agregaciones agrupadas, mientras que WHERE filtra fila por fila antes de agrupar."
+    },
+    {
+      nivel: "Módulo 5 • Múltiples Criterios (AND)",
+      escenario: "Buscamos proyectos que estén finalizados ('entregado') Y que además hayan sido marcados como rentables (rentable = true).",
+      pregunta: "¿Cómo se combinan dos condiciones simultáneas y obligatorias?",
+      opciones: [
+        "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
+        "SELECT * FROM proyectos WHERE estado = 'entregado' AND rentable = true;",
+        "SELECT * FROM proyectos WHERE estado = 'entregado' WITH rentable = true;",
+        "SELECT * FROM proyectos WHERE estado = 'entregado', rentable = true;"
+      ],
+      correcta: 1,
+      explicacion: "En SQL estándar se utiliza la palabra clave AND (no &&) para exigir que ambas condiciones lógicas se cumplan al mismo tiempo."
+    },
+    {
+      nivel: "Módulo 6 • Alternativa Lógica (OR)",
+      escenario: "Soporte necesita auditar proyectos que estén en estado 'en progreso' O en estado 'pausado'.",
+      pregunta: "¿Cuál consulta devuelve los registros que cumplan cualquiera de los dos estados?",
+      opciones: [
+        "SELECT * FROM proyectos WHERE estado = 'en progreso' OR estado = 'pausado';",
+        "SELECT * FROM proyectos WHERE estado = 'en progreso' || 'pausado';",
+        "SELECT * FROM proyectos WHERE estado = 'en progreso' / 'pausado';",
+        "SELECT * FROM proyectos WHERE estado IN ('en progreso' AND 'pausado');"
+      ],
+      correcta: 0,
+      explicacion: "La cláusula OR permite que la fila sea seleccionada si cumple al menos una de las dos condiciones evaluadas de forma completa (campo = valor)."
+    },
+    {
+      nivel: "Módulo 7 • Descarte de Repetidos (DISTINCT)",
+      escenario: "Queremos ver la lista de todos los clientes que tienen proyectos registrados, sin que sus nombres salgan duplicados.",
+      pregunta: "¿Qué instrucción SQL descarta automáticamente valores repetidos en el resultado?",
+      opciones: [
+        "SELECT UNIQUE cliente FROM proyectos;",
+        "SELECT DISTINCT cliente FROM proyectos;",
+        "SELECT DIFFERENT cliente FROM proyectos;",
+        "SELECT cliente FROM proyectos CLEAN DUPLICATES;"
+      ],
+      correcta: 1,
+      explicacion: "DISTINCT se coloca inmediatamente a la derecha de SELECT para devolver un único registro por cada valor distinto hallado en esa columna."
+    },
+    {
+      nivel: "Módulo 8 • Ordenamiento de Datos (ORDER BY)",
+      escenario: "Queremos listar todos los proyectos ordenados de mayor a menor según las horas reales registradas.",
+      pregunta: "¿Cómo se ordenan los resultados de forma descendente?",
+      opciones: [
+        "SELECT * FROM proyectos SORT BY horas_reales DESC;",
+        "SELECT * FROM proyectos ORDER BY horas_reales DESC;",
+        "SELECT * FROM proyectos ORDER BY horas_reales DOWN;",
+        "SELECT * FROM proyectos ARRANGE BY horas_reales HIGH_TO_LOW;"
+      ],
+      correcta: 1,
+      explicacion: "Se usa la cláusula ORDER BY seguida de la columna y el modificador DESC (descendente). Por defecto el ordenamiento siempre es ascendente (ASC)."
+    },
+    {
+      nivel: "Módulo 9 • Criterio de Rendimiento (LIMIT)",
+      escenario: "En una base de datos con 500.000 tareas, queremos comprobar rápidamente la estructura trayendo solo los primeros 5 registros para no saturar el servidor.",
+      pregunta: "¿Cómo limitamos el volumen de registros retornados?",
+      opciones: [
+        "SELECT TOP 5 * FROM proyectos;",
+        "SELECT * FROM proyectos LIMIT 5;",
+        "SELECT * FROM proyectos MAX 5;",
+        "SELECT * FROM proyectos STOP AT 5;"
+      ],
+      correcta: 1,
+      explicacion: "En los motores relacionales modernos como PostgreSQL y SQLite, LIMIT 5 al final de la consulta restringe la salida a exactamente cinco filas."
+    },
+    {
+      nivel: "Módulo 10 • Conteo de Filas (COUNT)",
+      escenario: "Gerencia necesita saber la cantidad total de proyectos cuyo servicio es 'App Dev'.",
+      pregunta: "¿Qué función de agregación cuenta la cantidad de filas que coinciden con el filtro?",
+      opciones: [
+        "SELECT TOTAL(*) FROM proyectos WHERE servicio = 'App Dev';",
+        "SELECT COUNT(*) FROM proyectos WHERE servicio = 'App Dev';",
+        "SELECT SUM(proyectos) WHERE servicio = 'App Dev';",
+        "SELECT ROWS(*) FROM proyectos WHERE servicio = 'App Dev';"
+      ],
+      correcta: 1,
+      explicacion: "COUNT(*) es la función de agregación estándar de SQL para contar el número de registros que satisfacen la condición del WHERE."
+    },
+    {
+      nivel: "Módulo 11 • Acumulación Total (SUM)",
+      escenario: "Queremos calcular el total acumulado de todas las horas reales trabajadas en la compañía.",
+      pregunta: "¿Cuál consulta calcula la suma matemática de los valores de esa columna?",
+      opciones: [
+        "SELECT TOTAL(horas_reales) FROM proyectos;",
+        "SELECT SUM(horas_reales) AS total_horas FROM proyectos;",
+        "SELECT ADD(horas_reales) FROM proyectos;",
+        "SELECT COUNT(horas_reales) AS total_horas FROM proyectos;"
+      ],
+      correcta: 1,
+      explicacion: "SUM(nombre_columna) totaliza numéricamente los valores del campo. El alias AS total_horas le da un nombre claro y profesional a la columna de salida."
+    },
+    {
+      nivel: "Módulo 12 • Agrupamiento de Métricas (GROUP BY)",
+      escenario: "Queremos calcular cuántos proyectos tiene asignado cada cliente individual en el sistema.",
+      pregunta: "¿Cómo agrupamos los resultados por cliente y contamos sus proyectos?",
+      opciones: [
+        "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos GROUP BY cliente;",
+        "SELECT cliente, COUNT(id) FROM proyectos ORDER BY cliente;",
+        "SELECT cliente, SUM(id) FROM proyectos GROUP BY id;",
+        "SELECT GROUP(cliente), COUNT(*) FROM proyectos;"
+      ],
+      correcta: 0,
+      explicacion: "GROUP BY cliente reúne todas las filas de un mismo cliente en un único bloque y ejecuta COUNT(id) para calcular la cantidad de registros pertenecientes a cada uno."
+    }
+  ];
+
+  let paso = 0;
+
+  function renderizarModulo() {
+    const data = modulos[paso];
+    document.getElementById("level-chip").textContent = data.nivel;
+    document.getElementById("scenario-text").textContent = `Caso de uso: "${data.escenario}"`;
+    document.getElementById("question-title").textContent = data.pregunta;
+    document.getElementById("counter-text").textContent = `Desafío ${paso + 1} de ${modulos.length}`;
+
+    const porcentaje = (paso / modulos.length) * 100;
+    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
+
+    const feedback = document.getElementById("feedback");
+    feedback.style.display = "none";
+    feedback.className = "feedback-box";
+
+    document.getElementById("next-btn").style.display = "none";
+
+    const cont = document.getElementById("options-container");
+    cont.innerHTML = "";
+
+    data.opciones.forEach((opc, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opc;
+      btn.onclick = () => validarRespuesta(i);
+      cont.appendChild(btn);
+    });
+  }
+
+  function validarRespuesta(indice) {
+    const data = modulos[paso];
+    const botones = document.querySelectorAll(".option-btn");
+    const feedback = document.getElementById("feedback");
+    const nextBtn = document.getElementById("next-btn");
+
+    botones.forEach(b => b.disabled = true);
+
+    if (indice === data.correcta) {
+      botones[indice].style.borderColor = "#10b981";
+      botones[indice].style.background = "#ecfdf5";
+      feedback.className = "feedback-box correct";
+      feedback.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${data.explicacion}`;
+    } else {
+      botones[indice].style.borderColor = "#f43f5e";
+      botones[indice].style.background = "#fff1f2";
+      botones[data.correcta].style.borderColor = "#10b981";
+      feedback.className = "feedback-box incorrect";
+      feedback.innerHTML = `<strong>💔 Repasemos el concepto:</strong><br>${data.explicacion}`;
+    }
+
+    feedback.style.display = "block";
+
+    if (paso < modulos.length - 1) {
+      nextBtn.style.display = "inline-block";
+    } else {
+      document.getElementById("progress-fill").style.width = "100%";
+      nextBtn.textContent = "🏆 ¡Completaste el Bootcamp de SQL!";
+      nextBtn.style.display = "inline-block";
+      nextBtn.onclick = () => {
+        alert("¡Excelente! Tenés los fundamentos de lectura, filtrado, ordenamiento, funciones de agregación y agrupamientos listos para tu entrevista.");
+      };
+    }
+  }
+
+  function proximoDesafio() {
+    paso++;
+    renderizarModulo();
+  }
+
+  renderizarModulo();
+</script>
+
+</body>
+</html>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> SQL Dev Prep ✨ Kawaii Edition</title>
+  <title> SQL Dev Prep ✨ Practical Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #fdf2f8 50%, #f5e8ff 100%);
-      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.94);
       --pink-primary: #ff70a6;
       --pink-dark: #e0528b;
       --pink-soft: #ffd7e8;
@@ -39,20 +39,20 @@
       background: var(--bg-gradient);
       min-height: 100vh;
       color: var(--text-main);
-      padding: 36px 16px;
+      padding: 30px 16px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
     }
 
     .container {
-      max-width: 860px;
+      max-width: 920px;
       width: 100%;
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       border: 2px solid #ffffff;
       border-radius: 28px;
-      padding: 36px;
+      padding: 32px;
       box-shadow: 0 24px 48px rgba(255, 112, 166, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04);
       position: relative;
     }
@@ -62,14 +62,14 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 2px dashed var(--pink-soft);
-      padding-bottom: 20px;
-      margin-bottom: 20px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
     .title-group h1 {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--pink-dark);
       display: flex;
@@ -78,9 +78,9 @@
     }
 
     .title-group p {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 3px;
       font-weight: 600;
     }
 
@@ -119,10 +119,10 @@
       background: #ffffff;
       border: 1.5px solid var(--border-pink);
       border-radius: 16px;
-      padding: 10px 16px;
+      padding: 8px 14px;
       margin-bottom: 20px;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     .diff-label {
@@ -143,9 +143,9 @@
       background: #fdf2f8;
       border: 1.5px solid var(--pink-soft);
       color: var(--text-muted);
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: 12px;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -164,12 +164,12 @@
     }
 
     .progress-wrapper {
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .progress-bar-bg {
       background: #fce7f3;
-      height: 10px;
+      height: 8px;
       border-radius: 12px;
       overflow: hidden;
     }
@@ -185,19 +185,19 @@
     .db-card {
       background: #ffffff;
       border: 1.5px solid var(--border-pink);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 26px;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 22px;
       box-shadow: 0 4px 16px rgba(244, 114, 182, 0.06);
     }
 
     .db-header {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--pink-dark);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -218,17 +218,17 @@
       background: var(--pink-light);
       color: var(--pink-dark);
       text-align: left;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border-bottom: 2px solid var(--pink-soft);
       font-weight: 700;
       white-space: nowrap;
     }
 
-    th:first-child { border-top-left-radius: 10px; }
-    th:last-child { border-top-right-radius: 10px; }
+    th:first-child { border-top-left-radius: 8px; }
+    th:last-child { border-top-right-radius: 8px; }
 
     td {
-      padding: 9px 12px;
+      padding: 7px 10px;
       border-bottom: 1px solid var(--pink-light);
       color: #4a2840;
       white-space: nowrap;
@@ -242,76 +242,144 @@
       display: inline-block;
       background: var(--pink-soft);
       color: var(--pink-dark);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
-      padding: 5px 14px;
-      border-radius: 14px;
-      margin-bottom: 12px;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
 
     .scenario-text {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
       font-style: italic;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .question-title {
-      font-size: 17.5px;
+      font-size: 16.5px;
       font-weight: 700;
-      line-height: 1.45;
-      margin-bottom: 20px;
+      line-height: 1.4;
+      margin-bottom: 16px;
       color: var(--text-main);
     }
 
-    .options-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    /* Editor Práctico */
+    .editor-section {
+      background: #1e1b2e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
     }
 
-    .option-btn {
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .editor-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: #f472b6;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-reset-code {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fbcfe8;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .btn-reset-code:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .sql-input {
       width: 100%;
-      text-align: left;
-      background: #ffffff;
-      border: 2px solid var(--pink-soft);
-      padding: 15px 18px;
-      border-radius: 14px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #f8fafc;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      color: #381e31;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 56px;
+    }
+
+    .editor-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .btn-execute {
+      background: linear-gradient(135deg, #ff70a6, #e0528b);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 800;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-      line-height: 1.4;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(255, 112, 166, 0.35);
+      transition: all 0.2s ease;
     }
 
-    .option-btn:hover:not(:disabled) {
-      border-color: var(--pink-primary);
-      background: var(--pink-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(255, 112, 166, 0.18);
+    .btn-execute:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 112, 166, 0.5);
     }
 
-    .option-btn:disabled {
-      cursor: default;
-      transform: none;
+    /* Sección de Salida Dinámica */
+    .dynamic-output-card {
+      background: #ffffff;
+      border: 1.5px solid var(--pink-soft);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+
+    .output-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .feedback-box {
-      margin-top: 22px;
-      padding: 18px 22px;
-      border-radius: 16px;
-      font-size: 14px;
-      line-height: 1.6;
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.55;
       display: none;
-      animation: fadeIn 0.25s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -328,7 +396,7 @@
     }
 
     .footer-bar {
-      margin-top: 30px;
+      margin-top: 26px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -352,67 +420,57 @@
       background: #ffffff;
       color: var(--text-muted);
       border: 1.5px solid var(--pink-soft);
-      padding: 11px 20px;
-      border-radius: 14px;
-      font-size: 13.5px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .btn-prev:hover:not(:disabled) {
       border-color: var(--pink-primary);
       color: var(--pink-dark);
       background: var(--pink-light);
-      transform: translateY(-2px);
     }
 
     .btn-prev:disabled {
-      opacity: 0.45;
+      opacity: 0.4;
       cursor: not-allowed;
-      border-color: #f3e8ee;
     }
 
     .next-btn {
       background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
       color: #ffffff;
       border: none;
-      padding: 12px 26px;
-      border-radius: 14px;
-      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 13px;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 6px 16px rgba(224, 82, 139, 0.28);
+      box-shadow: 0 4px 14px rgba(224, 82, 139, 0.28);
       display: none;
     }
 
     .next-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(224, 82, 139, 0.4);
+      transform: translateY(-1px);
     }
 
     .credits {
-      margin-top: 28px;
+      margin-top: 26px;
       text-align: center;
       font-size: 13px;
       font-weight: 700;
       color: var(--pink-dark);
       letter-spacing: 0.04em;
       border-top: 1px dashed var(--pink-soft);
-      padding-top: 16px;
+      padding-top: 14px;
     }
 
     /* Modal */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(61, 35, 54, 0.45);
       backdrop-filter: blur(5px);
       display: none;
@@ -426,29 +484,23 @@
       background: #ffffff;
       max-width: 520px;
       width: 100%;
-      border-radius: 22px;
-      padding: 28px;
+      border-radius: 20px;
+      padding: 24px;
       border: 2px solid var(--pink-soft);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      animation: modalPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes modalPop {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       border-bottom: 1.5px dashed var(--pink-soft);
-      padding-bottom: 12px;
+      padding-bottom: 10px;
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--pink-dark);
       display: flex;
@@ -459,41 +511,33 @@
     .btn-close {
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--text-muted);
       cursor: pointer;
-      line-height: 1;
-      padding: 4px;
-      border-radius: 50%;
-      transition: color 0.15s ease;
-    }
-
-    .btn-close:hover {
-      color: var(--pink-dark);
     }
 
     .modal-body p {
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.6;
       color: var(--text-main);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .tag-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 6px;
+      margin-top: 12px;
     }
 
     .pill-tag {
       background: var(--pink-light);
       border: 1px solid var(--pink-soft);
       color: var(--pink-dark);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
+      padding: 3px 9px;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -503,7 +547,7 @@
   <div class="header">
     <div class="title-group">
       <h1><span>🌸</span> SQL Dev Bootcamp</h1>
-      <p>Entrenamiento técnico para soporte, gestión y métricas en bases relacionales</p>
+      <p>Entrenamiento técnico interactivo con simulador y tablas dinámicas en vivo</p>
     </div>
     <div class="header-actions">
       <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
@@ -511,9 +555,8 @@
     </div>
   </div>
 
-  <!-- Selector de Dificultad -->
   <div class="difficulty-bar">
-    <span class="diff-label">Dificultad de Práctica:</span>
+    <span class="diff-label">Nivel de Retos Prácticos:</span>
     <div class="diff-buttons">
       <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil</button>
       <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio</button>
@@ -527,9 +570,10 @@
     </div>
   </div>
 
+  <!-- Tabla Maestra de Referencia -->
   <div class="db-card">
     <div class="db-header">
-      <span>📁</span> Esquema de Datos en Vivo: <code>proyectos</code>
+      <span>📁</span> Base de Datos en Memoria: Tabla <code>proyectos</code>
     </div>
     <div class="table-container">
       <table>
@@ -555,11 +599,35 @@
     </div>
   </div>
 
+  <!-- Sección de Práctica -->
   <div id="quiz-area">
     <span class="level-chip" id="level-chip">Módulo 1</span>
     <div class="scenario-text" id="scenario-text"></div>
     <div class="question-title" id="question-title"></div>
-    <div class="options-container" id="options-container"></div>
+
+    <!-- Terminal Editor -->
+    <div class="editor-section">
+      <div class="editor-header">
+        <span class="editor-label"><span>⌨️</span> Corregí la sintaxis SQL:</span>
+        <button class="btn-reset-code" onclick="restaurarCodigoInicial()">↺ Restaurar sugerencia</button>
+      </div>
+      <textarea id="sql-input" class="sql-input" spellcheck="false"></textarea>
+      <div class="editor-actions">
+        <button class="btn-execute" onclick="ejecutarQuery()"><span>▶</span> Ejecutar Query</button>
+      </div>
+    </div>
+
+    <!-- Tabla Dinámica en Vivo generada por la Query -->
+    <div class="dynamic-output-card">
+      <div class="output-title">
+        <span>📊</span> Resultado dinámico en vivo de tu consulta:
+      </div>
+      <div class="table-container" id="dynamic-table-container">
+        <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">
+          Hacé clic en "▶ Ejecutar Query" para compilar tu código y ver la tabla resultante.
+        </p>
+      </div>
+    </div>
 
     <div id="feedback" class="feedback-box"></div>
 
@@ -567,7 +635,7 @@
       <span class="counter-text" id="counter-text"></span>
       <div class="nav-buttons">
         <button class="btn-prev" id="btn-prev" onclick="anteriorDesafio()">← Volver</button>
-        <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Desafío →</button>
+        <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Reto →</button>
       </div>
     </div>
   </div>
@@ -589,7 +657,7 @@
         ¡Hola! Soy <strong>Flor Bagnis</strong>. Creé este simulador interactivo para dominar los fundamentos de bases de datos relacionales en SQL aplicadas a casos reales de operaciones, soporte técnico SaaS y métricas de rentabilidad.
       </p>
       <p>
-        Elegí el nivel de práctica que mejor se adapte a tu objetivo (Fácil, Medio o Experto) y navegá con total libertad sin perder tus avances.
+        Este entorno te permite corregir consultas con errores sintácticos y evaluar el resultado en tiempo real en una tabla dinámica en vivo.
       </p>
       <div class="tag-container">
         <span class="pill-tag">SQL & Queries</span>
@@ -602,301 +670,343 @@
 </div>
 
 <script>
-  // Banco de preguntas 100% separado por nivel de dificultad
-  const bancoPreguntas = {
+  // Datos crudos de la tabla proyectos
+  const dbProyectos = [
+    { id: 101, cliente: 'Mercado Tech', servicio: 'Branding', horas_estimadas: 120, horas_reales: 110, estado: 'entregado', rentable: 'true' },
+    { id: 102, cliente: 'Banco Futuro', servicio: 'App Dev', horas_estimadas: 300, horas_reales: 345, estado: 'en progreso', rentable: 'false' },
+    { id: 103, cliente: 'Fintech Sol', servicio: 'UX Audit', horas_estimadas: 80, horas_reales: 75, estado: 'entregado', rentable: 'true' },
+    { id: 104, cliente: 'Mercado Tech', servicio: 'Social Media', horas_estimadas: 50, horas_reales: 65, estado: 'pausado', rentable: 'false' },
+    { id: 105, cliente: 'Logística Express', servicio: 'App Dev', horas_estimadas: 220, horas_reales: 210, estado: 'entregado', rentable: 'true' }
+  ];
+
+  // Banco de Retos Prácticos 100% separados por Dificultad
+  const bancoPractico = {
     facil: [
       {
-        nivel: "Fácil 1 • Recuperación Base",
-        escenario: "Un project manager quiere auditar todas las columnas y filas de la tabla de proyectos.",
-        pregunta: "¿Qué consulta SQL recupera absolutamente toda la estructura y datos de la tabla?",
-        opciones: [
-          "SELECT ALL FROM proyectos;",
-          "SELECT * FROM proyectos;",
-          "FETCH EVERYTHING FROM proyectos;",
-          "SELECT (id, cliente, servicio, horas_estimadas, horas_reales, estado, rentable);"
-        ],
-        correcta: 1,
-        explicacion: "El asterisco (*) es el comodín estándar que indica 'todas las columnas'. La estructura elemental siempre es SELECT * FROM nombre_tabla;."
+        nivel: "Fácil 1 • Arreglar Proyección Completa",
+        escenario: "Un compañero intentó traer todos los datos pero escribió una consulta inválida.",
+        pregunta: "Corregí la consulta para traer absolutamente todas las columnas y filas de 'proyectos'.",
+        codigoInicial: "GET ALL COLUMNS IN proyectos;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio === "SELECT * FROM PROYECTOS" || limpio === "SELECT * FROM PROYECTOS;";
+        },
+        ejecutar: () => dbProyectos,
+        explicacion: "En SQL, el comodín asterisco (*) reemplaza a todas las columnas. La estructura correcta es SELECT * FROM proyectos;."
       },
       {
-        nivel: "Fácil 2 • Proyección Selectiva",
-        escenario: "Para un reporte rápido, solo necesitamos ver el cliente, las horas estimadas y las horas reales.",
-        pregunta: "¿Cómo seleccionamos únicamente esos tres campos específicos?",
-        opciones: [
-          "SELECT cliente AND horas_estimadas AND horas_reales FROM proyectos;",
-          "SELECT cliente, horas_estimadas, horas_reales FROM proyectos;",
-          "GET cliente, horas_estimadas, horas_reales IN proyectos;",
-          "SELECT FROM proyectos COLUMNS (cliente, horas_estimadas, horas_reales);"
-        ],
-        correcta: 1,
-        explicacion: "Las columnas deseadas se colocan después de SELECT separadas por comas (,). El origen se fija con FROM proyectos."
+        nivel: "Fácil 2 • Separar Columnas con Comas",
+        escenario: "El reporte falló porque se usó 'AND' para separar columnas en vez de comas.",
+        pregunta: "Arreglá la consulta para proyectar únicamente las columnas 'cliente', 'horas_estimadas' y 'horas_reales'.",
+        codigoInicial: "SELECT cliente AND horas_estimadas AND horas_reales FROM proyectos;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio.replace(/\s/g, '') === "SELECTCLIENTE,HORAS_ESTIMADAS,HORAS_REALESFROMPROYECTOS" ||
+                 limpio.replace(/\s/g, '') === "SELECTCLIENTE,HORAS_ESTIMADAS,HORAS_REALESFROMPROYECTOS;";
+        },
+        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente, horas_estimadas: p.horas_estimadas, horas_reales: p.horas_reales })),
+        explicacion: "En la cláusula SELECT, los nombres de los campos se separan por comas (,). El operador AND solo se utiliza en condiciones lógicas dentro del WHERE."
       },
       {
-        nivel: "Fácil 3 • Filtrado por Texto (WHERE)",
-        escenario: "Queremos aislar y analizar únicamente los proyectos del cliente 'Mercado Tech'.",
-        pregunta: "¿Cuál es la sintaxis precisa para filtrar registros que coincidan exactamente con un texto?",
-        opciones: [
-          "SELECT * FROM proyectos WHERE cliente = 'Mercado Tech';",
-          "SELECT * FROM proyectos WHERE cliente = Mercado Tech;",
-          "SELECT * FROM proyectos FILTER cliente == 'Mercado Tech';",
-          "SELECT * FROM proyectos IF cliente = 'Mercado Tech';"
-        ],
-        correcta: 0,
-        explicacion: "Las cadenas de texto en SQL relacional siempre se delimitan entre comillas simples ('Mercado Tech'). El operador de comparación es un único signo =."
+        nivel: "Fácil 3 • Corregir Comillas en Texto",
+        escenario: "La consulta tiró error de sintaxis porque el nombre del cliente se ingresó sin comillas y con operador doble '=='.",
+        pregunta: "Arreglá la consulta para filtrar solo al cliente 'Mercado Tech'.",
+        codigoInicial: "SELECT * FROM proyectos WHERE cliente == Mercado Tech;",
+        validar: (sql) => {
+          const limpio = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE cliente = ['"]Mercado Tech['"];?/i.test(limpio);
+        },
+        ejecutar: () => dbProyectos.filter(p => p.cliente === 'Mercado Tech'),
+        explicacion: "En SQL, las cadenas de texto siempre se encierran entre comillas simples ('Mercado Tech') y la comparación de igualdad se escribe con un solo signo igual (=)."
       },
       {
-        nivel: "Fácil 4 • Control de Volumen (LIMIT)",
-        escenario: "En una base con 50.000 tareas, queremos comprobar la estructura trayendo solo los primeros 3 registros.",
-        pregunta: "¿Cómo restringimos la salida a una cantidad exacta de filas?",
-        opciones: [
-          "SELECT FIRST 3 * FROM proyectos;",
-          "SELECT * FROM proyectos LIMIT 3;",
-          "SELECT * FROM proyectos MAX 3;",
-          "SELECT * FROM proyectos ROW_COUNT = 3;"
-        ],
-        correcta: 1,
-        explicacion: "La cláusula LIMIT 3 al final restringe el resultado a un máximo de tres filas, protegiendo los recursos y la memoria del servidor."
+        nivel: "Fácil 4 • Sintaxis de Límite",
+        escenario: "Quisieron traer solo 3 registros pero usaron una palabra clave inexistente.",
+        pregunta: "Cambiá la palabra incorrecta por la cláusula estándar para limitar la salida a 3 filas.",
+        codigoInicial: "SELECT * FROM proyectos MAX 3;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio === "SELECT * FROM PROYECTOS LIMIT 3" || limpio === "SELECT * FROM PROYECTOS LIMIT 3;";
+        },
+        ejecutar: () => dbProyectos.slice(0, 3),
+        explicacion: "La cláusula estándar para acotar el volumen de filas retornadas es LIMIT N al final de la consulta."
       }
     ],
     medio: [
       {
-        nivel: "Medio 1 • Comparación Numérica",
-        escenario: "COR monitorea desvíos de tiempo. Buscamos detectar proyectos que hayan consumido más de 100 horas reales de trabajo.",
-        pregunta: "¿Qué condición en el WHERE evalúa valores numéricos estrictamente mayores?",
-        opciones: [
-          "SELECT * FROM proyectos WHERE horas_reales > '100';",
-          "SELECT * FROM proyectos WHERE horas_reales > 100;",
-          "SELECT * FROM proyectos WHERE horas_reales >= 101;",
-          "SELECT * FROM proyectos HAVING horas_reales > 100;"
-        ],
-        correcta: 1,
-        explicacion: "Los números en SQL se escriben sin comillas para ser comparados aritméticamente. HAVING se reserva exclusivamente para agregaciones agrupadas."
+        nivel: "Medio 1 • Corregir Comparación Numérica",
+        escenario: "Se intentó comparar un número como texto y con operador inválido.",
+        pregunta: "Arreglá la fórmula para obtener los proyectos donde las 'horas_reales' sean estrictamente mayores a 100.",
+        codigoInicial: "SELECT * FROM proyectos WHERE horas_reales es mayor '100';",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql).replace(/\s/g, '');
+          return limpio === "SELECT*FROMPROYECTOSWHEREHORAS_REALES>100" ||
+                 limpio === "SELECT*FROMPROYECTOSWHEREHORAS_REALES>100;";
+        },
+        ejecutar: () => dbProyectos.filter(p => p.horas_reales > 100),
+        explicacion: "Los números en SQL se comparan con operadores estándar (> para mayor estricto) y no llevan comillas."
       },
       {
-        nivel: "Medio 2 • Condición Simultánea (AND)",
-        escenario: "Buscamos proyectos que estén finalizados ('entregado') Y que además hayan sido rentables (rentable = true).",
-        pregunta: "¿Cómo se combinan dos condiciones lógicas obligatorias?",
-        opciones: [
-          "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
-          "SELECT * FROM proyectos WHERE estado = 'entregado' AND rentable = true;",
-          "SELECT * FROM proyectos WHERE estado = 'entregado' WITH rentable = true;",
-          "SELECT * FROM proyectos WHERE estado = 'entregado', rentable = true;"
-        ],
-        correcta: 1,
-        explicacion: "En SQL relacional se utiliza la palabra reservada AND (no &&) para exigir que ambas condiciones se cumplan a la vez."
+        nivel: "Medio 2 • Corregir Operador Lógico 'AND'",
+        escenario: "Quisieron exigir dos condiciones al mismo tiempo usando '&&' como en JavaScript.",
+        pregunta: "Arreglá el operador para que use la palabra clave obligatoria de SQL para exigir estado 'entregado' y rentable = true.",
+        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
+        validar: (sql) => {
+          const limpio = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(limpio);
+        },
+        ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'),
+        explicacion: "SQL relacional no utiliza '&&'. Para concatenar condiciones obligatorias se escribe explícitamente la palabra clave AND."
       },
       {
-        nivel: "Medio 3 • Alternativa Lógica (OR)",
-        escenario: "Soporte necesita auditar proyectos que se encuentren en estado 'en progreso' O en estado 'pausado'.",
-        pregunta: "¿Cuál consulta devuelve registros que cumplan cualquiera de los dos estados?",
-        opciones: [
-          "SELECT * FROM proyectos WHERE estado = 'en progreso' OR estado = 'pausado';",
-          "SELECT * FROM proyectos WHERE estado = 'en progreso' || 'pausado';",
-          "SELECT * FROM proyectos WHERE estado = 'en progreso' / 'pausado';",
-          "SELECT * FROM proyectos WHERE estado IN ('en progreso' AND 'pausado');"
-        ],
-        correcta: 0,
-        explicacion: "El operador OR permite que la fila sea seleccionada si satisface al menos una de las dos condiciones completas evaluadas."
+        nivel: "Medio 3 • Corregir Alternativa 'OR'",
+        escenario: "La consulta intentó filtrar por dos estados pero la condición derecha está incompleta.",
+        pregunta: "Arreglá la sintaxis para que evalúe correctamente estado = 'en progreso' O estado = 'pausado'.",
+        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';",
+        validar: (sql) => {
+          const limpio = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(limpio);
+        },
+        ejecutar: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'),
+        explicacion: "Cada lado del operador OR debe formular una condición booleana completa: campo = valor OR campo = valor."
       },
       {
-        nivel: "Medio 4 • Deduplicación (DISTINCT)",
-        escenario: "Queremos la lista de todos los clientes con proyectos registrados sin que se repita ningún nombre.",
-        pregunta: "¿Qué instrucción SQL descarta los valores duplicados automáticamente?",
-        opciones: [
-          "SELECT UNIQUE cliente FROM proyectos;",
-          "SELECT DISTINCT cliente FROM proyectos;",
-          "SELECT DIFFERENT cliente FROM proyectos;",
-          "SELECT cliente FROM proyectos CLEAN DUPLICATES;"
-        ],
-        correcta: 1,
-        explicacion: "DISTINCT se antepone inmediatamente a la columna proyectada (SELECT DISTINCT cliente...) para descartar cualquier repetición en el resultado."
+        nivel: "Medio 4 • Eliminar Duplicados",
+        escenario: "El listado de clientes tiene nombres repetidos. Se intentó usar 'UNIQUE' en el SELECT.",
+        pregunta: "Reemplazá la palabra errónea por la instrucción estándar para deduplicar clientes.",
+        codigoInicial: "SELECT UNIQUE cliente FROM proyectos;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio === "SELECT DISTINCT CLIENTE FROM PROYECTOS" || limpio === "SELECT DISTINCT CLIENTE FROM PROYECTOS;";
+        },
+        ejecutar: () => {
+          const unicos = [...new Set(dbProyectos.map(p => p.cliente))];
+          return unicos.map(c => ({ cliente: c }));
+        },
+        explicacion: "La palabra reservada para eliminar filas duplicadas en consultas SQL estándar es DISTINCT."
       }
     ],
     experto: [
       {
-        nivel: "Experto 1 • Jerarquización (ORDER BY)",
-        escenario: "Queremos ordenar todos los proyectos desde el que demandó más horas reales hasta el que menos (de mayor a menor).",
-        pregunta: "¿Cómo se formula un ordenamiento de mayor a menor?",
-        opciones: [
-          "SELECT * FROM proyectos SORT BY horas_reales DESC;",
-          "SELECT * FROM proyectos ORDER BY horas_reales DESC;",
-          "SELECT * FROM proyectos ORDER BY horas_reales DOWN;",
-          "SELECT * FROM proyectos ARRANGE BY horas_reales HIGH;"
-        ],
-        correcta: 1,
-        explicacion: "La cláusula estándar es ORDER BY seguida del nombre del campo y la palabra clave DESC (descendente). Por defecto el orden es ASC."
+        nivel: "Experto 1 • Ordenamiento Descendente",
+        escenario: "La consulta intenta ordenar de mayor a menor pero usó palabras de hoja de cálculo.",
+        pregunta: "Corregí la cláusula para ordenar por 'horas_reales' de forma descendente (de mayor a menor).",
+        codigoInicial: "SELECT * FROM proyectos SORT BY horas_reales DOWN;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC" ||
+                 limpio === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC;";
+        },
+        ejecutar: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales),
+        explicacion: "Para ordenar se utiliza la cláusula ORDER BY y la palabra clave DESC para fijar el orden descendente."
       },
       {
-        nivel: "Experto 2 • Conteo y Filtro (COUNT)",
-        escenario: "Gerencia necesita saber la cantidad exacta de proyectos que corresponden al servicio de 'App Dev'.",
-        pregunta: "¿Qué función calcula la cantidad total de filas que cumplen el filtro?",
-        opciones: [
-          "SELECT TOTAL(*) FROM proyectos WHERE servicio = 'App Dev';",
-          "SELECT COUNT(*) FROM proyectos WHERE servicio = 'App Dev';",
-          "SELECT SUM(proyectos) WHERE servicio = 'App Dev';",
-          "SELECT ROWS(*) FROM proyectos WHERE servicio = 'App Dev';"
-        ],
-        correcta: 1,
-        explicacion: "COUNT(*) es la función de agregación estándar de SQL encargada de contabilizar la cantidad de filas que satisfacen el WHERE."
+        nivel: "Experto 2 • Conteo de Filas",
+        escenario: "Se intentó contar la cantidad de proyectos con una función inexistente.",
+        pregunta: "Arreglá la fórmula usando la función de agregación estándar para contar proyectos del servicio 'App Dev'.",
+        codigoInicial: "SELECT TOTAL(*) FROM proyectos WHERE servicio = 'App Dev';",
+        validar: (sql) => {
+          const limpio = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT COUNT\(\*\) FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(limpio);
+        },
+        ejecutar: () => {
+          const total = dbProyectos.filter(p => p.servicio === 'App Dev').length;
+          return [{ "COUNT(*)": total }];
+        },
+        explicacion: "La función de agregación en SQL para contar registros que cumplen el filtro es COUNT(*)."
       },
       {
-        nivel: "Experto 3 • Acumulación Total (SUM)",
-        escenario: "Queremos calcular el total de horas reales acumuladas entre todos los proyectos del sistema.",
-        pregunta: "¿Cuál consulta efectúa la suma matemática de toda la columna?",
-        opciones: [
-          "SELECT TOTAL(horas_reales) FROM proyectos;",
-          "SELECT SUM(horas_reales) AS total_horas FROM proyectos;",
-          "SELECT ADD(horas_reales) FROM proyectos;",
-          "SELECT COUNT(horas_reales) AS total_horas FROM proyectos;"
-        ],
-        correcta: 1,
-        explicacion: "SUM() totaliza numéricamente los valores del campo numérico, y el alias AS total_horas le da un nombre representativo a la columna de salida."
+        nivel: "Experto 3 • Suma y Alias",
+        escenario: "Quisieron calcular el acumulado de horas reales pero usaron ADD y olvidaron el alias.",
+        pregunta: "Corregí la función para calcular la suma de 'horas_reales' asignándole el alias 'total_horas'.",
+        codigoInicial: "SELECT ADD(horas_reales) FROM proyectos;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql).replace(/\s/g, '');
+          return limpio === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS" ||
+                 limpio === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS;";
+        },
+        ejecutar: () => {
+          const total = dbProyectos.reduce((acc, curr) => acc + curr.horas_reales, 0);
+          return [{ total_horas: total }];
+        },
+        explicacion: "Se usa SUM(columna) para la suma matemática y AS nombre_alias para darle un nombre profesional a la métrica."
       },
       {
         nivel: "Experto 4 • Agrupamiento de Métricas (GROUP BY)",
-        escenario: "Queremos obtener la cantidad total de proyectos que tiene asignado cada cliente individual en el sistema.",
-        pregunta: "¿Cómo agrupamos por cliente y calculamos el total correspondiente a cada uno?",
-        opciones: [
-          "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos GROUP BY cliente;",
-          "SELECT cliente, COUNT(id) FROM proyectos ORDER BY cliente;",
-          "SELECT cliente, SUM(id) FROM proyectos GROUP BY id;",
-          "SELECT GROUP(cliente), COUNT(*) FROM proyectos;"
-        ],
-        correcta: 0,
-        explicacion: "GROUP BY cliente reúne los registros en bloques por cliente para que COUNT(id) calcule el total de proyectos pertenecientes a cada uno."
+        escenario: "Se intentó contar proyectos por cliente pero falta agrupar los resultados.",
+        pregunta: "Completá la consulta agregando la cláusula GROUP BY cliente para obtener el conteo por cada empresa.",
+        codigoInicial: "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos;",
+        validar: (sql) => {
+          const limpio = normalizarSQL(sql);
+          return limpio === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE" ||
+                 limpio === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE;";
+        },
+        ejecutar: () => {
+          const conteo = {};
+          dbProyectos.forEach(p => {
+            conteo[p.cliente] = (conteo[p.cliente] || 0) + 1;
+          });
+          return Object.keys(conteo).map(k => ({ cliente: k, total_proyectos: conteo[k] }));
+        },
+        explicacion: "Cuando seleccionás una columna normal junto a una función de agregación como COUNT(), es obligatorio agrupar con GROUP BY esa misma columna."
       }
     ]
   };
 
   let modulosActivos = [];
-  let respuestasUsuario = [];
+  let respuestasGuardadas = [];
   let paso = 0;
   let dificultadActual = 'facil';
 
+  function normalizarSQL(str) {
+    return str.trim().toUpperCase().replace(/\s+/g, ' ');
+  }
+
   function cambiarDificultad(modo) {
     dificultadActual = modo;
-
-    // Actualizar apariencia de los botones
     document.getElementById("diff-facil").classList.toggle("active", modo === 'facil');
     document.getElementById("diff-medio").classList.toggle("active", modo === 'medio');
     document.getElementById("diff-experto").classList.toggle("active", modo === 'experto');
 
-    // Cargar el banco exclusivo de ese modo
-    modulosActivos = bancoPreguntas[modo];
-    
-    // Reiniciar estado
+    modulosActivos = bancoPractico[modo];
     paso = 0;
-    respuestasUsuario = new Array(modulosActivos.length).fill(null);
-    renderizarModulo();
+    respuestasGuardadas = new Array(modulosActivos.length).fill(null);
+    renderizarDesafio();
   }
 
   function reiniciarBootcamp() {
     paso = 0;
-    respuestasUsuario = new Array(modulosActivos.length).fill(null);
-    renderizarModulo();
-    alert("✨ ¡Cuestionario reiniciado a cero con éxito!");
+    respuestasGuardadas = new Array(modulosActivos.length).fill(null);
+    renderizarDesafio();
+    alert("✨ ¡Bootcamp reiniciado a cero con éxito!");
   }
 
-  function renderizarModulo() {
+  function restaurarCodigoInicial() {
+    const data = modulosActivos[paso];
+    document.getElementById("sql-input").value = data.codigoInicial;
+  }
+
+  function renderizarDesafio() {
     const data = modulosActivos[paso];
     document.getElementById("level-chip").textContent = data.nivel;
     document.getElementById("scenario-text").textContent = `Caso de uso: "${data.escenario}"`;
     document.getElementById("question-title").textContent = data.pregunta;
-    document.getElementById("counter-text").textContent = `Desafío ${paso + 1} de ${modulosActivos.length}`;
+    document.getElementById("counter-text").textContent = `Reto ${paso + 1} de ${modulosActivos.length}`;
 
-    // Deshabilitar botón volver en la primera pregunta
     const btnPrev = document.getElementById("btn-prev");
     btnPrev.disabled = (paso === 0);
 
-    // Calcular progreso
-    const respondidas = respuestasUsuario.filter(r => r !== null).length;
+    const respondidas = respuestasGuardadas.filter(r => r && r.valido).length;
     const porcentaje = (respondidas / modulosActivos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
 
+    const input = document.getElementById("sql-input");
     const feedback = document.getElementById("feedback");
     const nextBtn = document.getElementById("next-btn");
-    const cont = document.getElementById("options-container");
-    cont.innerHTML = "";
 
-    // Renderizar opciones
-    data.opciones.forEach((opc, i) => {
-      const btn = document.createElement("button");
-      btn.className = "option-btn";
-      btn.textContent = opc;
-      btn.onclick = () => validarRespuesta(i);
-      cont.appendChild(btn);
-    });
-
-    // Si ya fue respondida, mostrar su resultado previo
-    if (respuestasUsuario[paso] !== null) {
-      mostrarResultadoGuardado(respuestasUsuario[paso]);
+    if (respuestasGuardadas[paso]) {
+      input.value = respuestasGuardadas[paso].codigo;
+      mostrarResultadoDinamico(respuestasGuardadas[paso].valido);
     } else {
+      input.value = data.codigoInicial;
       feedback.style.display = "none";
       feedback.className = "feedback-box";
       nextBtn.style.display = "none";
+      renderizarTablaDinamica(null, "Escribí tu consulta corregida y hacé clic en '▶ Ejecutar Query'.");
     }
   }
 
-  function mostrarResultadoGuardado(indiceElegido) {
+  function ejecutarQuery() {
     const data = modulosActivos[paso];
-    const botones = document.querySelectorAll(".option-btn");
+    const codigoIngresado = document.getElementById("sql-input").value;
+    const esValido = data.validar(codigoIngresado);
+
+    respuestasGuardadas[paso] = {
+      codigo: codigoIngresado,
+      valido: esValido
+    };
+
+    mostrarResultadoDinamico(esValido);
+
+    const respondidas = respuestasGuardadas.filter(r => r && r.valido).length;
+    const porcentaje = (respondidas / modulosActivos.length) * 100;
+    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
+  }
+
+  function mostrarResultadoDinamico(esValido) {
+    const data = modulosActivos[paso];
     const feedback = document.getElementById("feedback");
     const nextBtn = document.getElementById("next-btn");
 
-    botones.forEach(b => b.disabled = true);
-
-    if (indiceElegido === data.correcta) {
-      botones[indiceElegido].style.borderColor = "#10b981";
-      botones[indiceElegido].style.background = "#ecfdf5";
+    if (esValido) {
       feedback.className = "feedback-box correct";
-      feedback.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${data.explicacion}`;
+      feedback.innerHTML = `<strong>✨ ¡Excelente corrección sintáctica!</strong><br>${data.explicacion}`;
+      const resultadoRows = data.ejecutar();
+      renderizarTablaDinamica(resultadoRows);
+
+      if (paso < modulosActivos.length - 1) {
+        nextBtn.style.display = "inline-block";
+        nextBtn.textContent = "Siguiente Reto →";
+        nextBtn.onclick = proximoDesafio;
+      } else {
+        nextBtn.style.display = "inline-block";
+        nextBtn.textContent = "🏆 ¡Modo completado con éxito!";
+        nextBtn.onclick = () => {
+          alert("¡Felicitaciones! Dominaste todas las consultas prácticas de este nivel.");
+        };
+      }
     } else {
-      botones[indiceElegido].style.borderColor = "#f43f5e";
-      botones[indiceElegido].style.background = "#fff1f2";
-      botones[data.correcta].style.borderColor = "#10b981";
       feedback.className = "feedback-box incorrect";
-      feedback.innerHTML = `<strong>💔 Repasemos el concepto:</strong><br>${data.explicacion}`;
+      feedback.innerHTML = `<strong>💔 Consulta incorrecta o error de sintaxis:</strong><br>Revisá la fórmula. Pista: ${data.explicacion}`;
+      renderizarTablaDinamica(null, "⚠️ Error al ejecutar: Sintaxis inválida. Corregí la consulta para ver los registros.");
+      nextBtn.style.display = "none";
     }
 
     feedback.style.display = "block";
-
-    if (paso < modulosActivos.length - 1) {
-      nextBtn.style.display = "inline-block";
-      nextBtn.textContent = "Siguiente Desafío →";
-      nextBtn.onclick = proximoDesafio;
-    } else {
-      nextBtn.style.display = "inline-block";
-      nextBtn.textContent = "🏆 ¡Modo completado con éxito!";
-      nextBtn.onclick = () => {
-        alert(`¡Felicitaciones! Terminaste todas las preguntas del ${document.getElementById("diff-" + dificultadActual).textContent}.`);
-      };
-    }
   }
 
-  function validarRespuesta(indice) {
-    respuestasUsuario[paso] = indice;
-    mostrarResultadoGuardado(indice);
+  // Generador dinámico de tabla HTML basado en el resultado de la consulta
+  function renderizarTablaDinamica(filas, mensajeAlternativo = null) {
+    const container = document.getElementById("dynamic-table-container");
 
-    const respondidas = respuestasUsuario.filter(r => r !== null).length;
-    const porcentaje = (respondidas / modulosActivos.length) * 100;
-    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
+    if (!filas || filas.length === 0) {
+      container.innerHTML = `<p style="font-size: 12px; color: #e0528b; font-weight: 600;">${mensajeAlternativo || '0 filas devueltas.'}</p>`;
+      return;
+    }
+
+    const headers = Object.keys(filas[0]);
+    let html = `<table><thead><tr>`;
+    headers.forEach(h => {
+      html += `<th>${h}</th>`;
+    });
+    html += `</tr></thead><tbody>`;
+
+    filas.forEach(row => {
+      html += `<tr>`;
+      headers.forEach(h => {
+        html += `<td>${row[h]}</td>`;
+      });
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
   }
 
   function proximoDesafio() {
     if (paso < modulosActivos.length - 1) {
       paso++;
-      renderizarModulo();
+      renderizarDesafio();
     }
   }
 
   function anteriorDesafio() {
     if (paso > 0) {
       paso--;
-      renderizarModulo();
+      renderizarDesafio();
     }
   }
 
-  // Modal About
   function abrirModal() {
     document.getElementById("modal-about").style.display = "flex";
   }
@@ -911,7 +1021,7 @@
     }
   }
 
-  // Inicializar en modo Fácil
+  // Iniciar en fácil
   cambiarDificultad('facil');
 </script>
 

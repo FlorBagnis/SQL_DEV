@@ -1,6 +1,6 @@
 # 🌸 COR SQL Dev Bootcamp — Kawaii Tech Edition
 
-<img width="1188" height="873" alt="image" src="https://github.com/user-attachments/assets/69c2ac94-7e70-4424-ab0e-e8b91ccc9700" />
+<img width="1117" height="882" alt="image" src="https://github.com/user-attachments/assets/3fe2f5ee-e0ec-48f6-bf26-7fe9befafe22" />
 
 
 Un simulador interactivo y visualmente guiado desarrollado para dominar la lógica de bases de datos relacionales (SQL), enfocado en la resolución de casos de negocio, métricas operativas y soporte en plataformas SaaS.

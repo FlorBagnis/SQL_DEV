@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COR SQL Dev Prep ✨ Kawaii Edition</title>
+  <title> SQL Dev Prep ✨ Kawaii Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -54,6 +54,7 @@
       border-radius: 28px;
       padding: 36px;
       box-shadow: 0 24px 48px rgba(255, 112, 166, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04);
+      position: relative;
     }
 
     .header {
@@ -63,6 +64,8 @@
       border-bottom: 2px dashed var(--pink-soft);
       padding-bottom: 20px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .title-group h1 {
@@ -79,6 +82,34 @@
       color: var(--text-muted);
       margin-top: 4px;
       font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-about {
+      background: var(--pink-light);
+      border: 1.5px solid var(--pink-primary);
+      color: var(--pink-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-about:hover {
+      background: var(--pink-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 112, 166, 0.3);
     }
 
     .badge-status {
@@ -308,6 +339,96 @@
       border-top: 1px dashed var(--pink-soft);
       padding-top: 16px;
     }
+
+    /* Estilos del Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(61, 35, 54, 0.45);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      max-width: 520px;
+      width: 100%;
+      border-radius: 22px;
+      padding: 28px;
+      border: 2px solid var(--pink-soft);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: modalPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalPop {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1.5px dashed var(--pink-soft);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      border-radius: 50%;
+      transition: color 0.15s ease;
+    }
+
+    .btn-close:hover {
+      color: var(--pink-dark);
+    }
+
+    .modal-body p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill-tag {
+      background: var(--pink-light);
+      border: 1px solid var(--pink-soft);
+      color: var(--pink-dark);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -315,12 +436,15 @@
 <div class="container">
   <div class="header">
     <div class="title-group">
-      <h1><span>🌸</span> COR SQL Dev Bootcamp</h1>
+      <h1><span>🌸</span> SQL Dev Bootcamp</h1>
       <p>Entrenamiento técnico para soporte, gestión y métricas en bases relacionales</p>
     </div>
-    <div class="badge-status">
-      <div class="dot"></div>
-      readonly_session
+    <div class="header-actions">
+      <button class="btn-about" onclick="abrirModal()"><span>✨</span> About</button>
+      <div class="badge-status">
+        <div class="dot"></div>
+        readonly_session
+      </div>
     </div>
   </div>
 
@@ -374,6 +498,30 @@
 
   <div class="credits">
     Diseñado by Flor Bagnis 💗
+  </div>
+</div>
+
+<!-- Ventana Modal About -->
+<div class="modal-overlay" id="modal-about" onclick="cerrarModalAfuera(event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title"><span>💗</span> About the Dev & Project</div>
+      <button class="btn-close" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Creé este entorno de entrenamiento interactivo para consolidar la lógica fundamental de consultas SQL aplicadas a casos de uso reales de gestión, métricas operativas y soporte SaaS.
+      </p>
+      <p>
+        El foco está puesto en el análisis ágil de datos, validación precisa de condiciones y comprensión de estructuras relacionales sin perder el dinamismo visual.
+      </p>
+      <div class="tag-container">
+        <span class="pill-tag">SQL & Queries</span>
+        <span class="pill-tag">Customer Support & QA</span>
+        <span class="pill-tag">Process Optimization</span>
+        <span class="pill-tag">Frontend Clean Code</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -605,6 +753,21 @@
   function proximoDesafio() {
     paso++;
     renderizarModulo();
+  }
+
+  // Control del modal
+  function abrirModal() {
+    document.getElementById("modal-about").style.display = "flex";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal-about").style.display = "none";
+  }
+
+  function cerrarModalAfuera(e) {
+    if (e.target.id === "modal-about") {
+      cerrarModal();
+    }
   }
 
   renderizarModulo();

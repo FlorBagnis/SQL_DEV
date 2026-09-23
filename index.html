@@ -302,12 +302,48 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .counter-text {
       font-size: 13px;
       font-weight: 700;
       color: var(--text-muted);
+    }
+
+    .btn-prev {
+      background: #ffffff;
+      color: var(--text-muted);
+      border: 1.5px solid var(--pink-soft);
+      padding: 11px 20px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-prev:hover:not(:disabled) {
+      border-color: var(--pink-primary);
+      color: var(--pink-dark);
+      background: var(--pink-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-prev:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      border-color: #f3e8ee;
     }
 
     .next-btn {
@@ -340,7 +376,7 @@
       padding-top: 16px;
     }
 
-    /* Estilos del Modal */
+    /* Modal About */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -492,7 +528,10 @@
 
     <div class="footer-bar">
       <span class="counter-text" id="counter-text"></span>
-      <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Desafío →</button>
+      <div class="nav-buttons">
+        <button class="btn-prev" id="btn-prev" onclick="anteriorDesafio()">← Volver</button>
+        <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Desafío →</button>
+      </div>
     </div>
   </div>
 
@@ -501,7 +540,7 @@
   </div>
 </div>
 
-<!-- Ventana Modal About -->
+<!-- Modal About -->
 <div class="modal-overlay" id="modal-about" onclick="cerrarModalAfuera(event)">
   <div class="modal-card">
     <div class="modal-header">
@@ -686,6 +725,7 @@
   ];
 
   let paso = 0;
+  const respuestasUsuario = new Array(modulos.length).fill(null);
 
   function renderizarModulo() {
     const data = modulos[paso];
@@ -694,15 +734,15 @@
     document.getElementById("question-title").textContent = data.pregunta;
     document.getElementById("counter-text").textContent = `Desafío ${paso + 1} de ${modulos.length}`;
 
-    const porcentaje = (paso / modulos.length) * 100;
+    const btnPrev = document.getElementById("btn-prev");
+    btnPrev.disabled = (paso === 0);
+
+    const respondidas = respuestasUsuario.filter(r => r !== null).length;
+    const porcentaje = (respondidas / modulos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
 
     const feedback = document.getElementById("feedback");
-    feedback.style.display = "none";
-    feedback.className = "feedback-box";
-
-    document.getElementById("next-btn").style.display = "none";
-
+    const nextBtn = document.getElementById("next-btn");
     const cont = document.getElementById("options-container");
     cont.innerHTML = "";
 
@@ -713,9 +753,17 @@
       btn.onclick = () => validarRespuesta(i);
       cont.appendChild(btn);
     });
+
+    if (respuestasUsuario[paso] !== null) {
+      mostrarResultadoGuardado(respuestasUsuario[paso]);
+    } else {
+      feedback.style.display = "none";
+      feedback.className = "feedback-box";
+      nextBtn.style.display = "none";
+    }
   }
 
-  function validarRespuesta(indice) {
+  function mostrarResultadoGuardado(indiceElegido) {
     const data = modulos[paso];
     const botones = document.querySelectorAll(".option-btn");
     const feedback = document.getElementById("feedback");
@@ -723,14 +771,14 @@
 
     botones.forEach(b => b.disabled = true);
 
-    if (indice === data.correcta) {
-      botones[indice].style.borderColor = "#10b981";
-      botones[indice].style.background = "#ecfdf5";
+    if (indiceElegido === data.correcta) {
+      botones[indiceElegido].style.borderColor = "#10b981";
+      botones[indiceElegido].style.background = "#ecfdf5";
       feedback.className = "feedback-box correct";
       feedback.innerHTML = `<strong>✨ ¡Respuesta Correcta!</strong><br>${data.explicacion}`;
     } else {
-      botones[indice].style.borderColor = "#f43f5e";
-      botones[indice].style.background = "#fff1f2";
+      botones[indiceElegido].style.borderColor = "#f43f5e";
+      botones[indiceElegido].style.background = "#fff1f2";
       botones[data.correcta].style.borderColor = "#10b981";
       feedback.className = "feedback-box incorrect";
       feedback.innerHTML = `<strong>💔 Repasemos el concepto:</strong><br>${data.explicacion}`;
@@ -740,22 +788,40 @@
 
     if (paso < modulos.length - 1) {
       nextBtn.style.display = "inline-block";
+      nextBtn.textContent = "Siguiente Desafío →";
+      nextBtn.onclick = proximoDesafio;
     } else {
-      document.getElementById("progress-fill").style.width = "100%";
-      nextBtn.textContent = "🏆 ¡Completaste el Bootcamp de SQL!";
       nextBtn.style.display = "inline-block";
+      nextBtn.textContent = "🏆 ¡Completaste el Bootcamp de SQL!";
       nextBtn.onclick = () => {
         alert("¡Excelente! Tenés los fundamentos de lectura, filtrado, ordenamiento, funciones de agregación y agrupamientos listos para tu entrevista.");
       };
     }
   }
 
-  function proximoDesafio() {
-    paso++;
-    renderizarModulo();
+  function validarRespuesta(indice) {
+    respuestasUsuario[paso] = indice;
+    mostrarResultadoGuardado(indice);
+
+    const respondidas = respuestasUsuario.filter(r => r !== null).length;
+    const porcentaje = (respondidas / modulos.length) * 100;
+    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
   }
 
-  // Control del modal
+  function proximoDesafio() {
+    if (paso < modulos.length - 1) {
+      paso++;
+      renderizarModulo();
+    }
+  }
+
+  function anteriorDesafio() {
+    if (paso > 0) {
+      paso--;
+      renderizarModulo();
+    }
+  }
+
   function abrirModal() {
     document.getElementById("modal-about").style.display = "flex";
   }

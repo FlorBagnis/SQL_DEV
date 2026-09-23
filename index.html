@@ -63,7 +63,7 @@
       justify-content: space-between;
       border-bottom: 2px dashed var(--pink-soft);
       padding-bottom: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       gap: 12px;
     }
@@ -87,50 +87,79 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .btn-about {
-      background: var(--pink-light);
-      border: 1.5px solid var(--pink-primary);
+    .btn-action {
+      background: #ffffff;
+      border: 1.5px solid var(--pink-soft);
       color: var(--pink-dark);
-      padding: 6px 14px;
+      padding: 6px 13px;
       border-radius: 20px;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s ease;
     }
 
-    .btn-about:hover {
-      background: var(--pink-primary);
-      color: #ffffff;
+    .btn-action:hover {
+      border-color: var(--pink-primary);
+      background: var(--pink-light);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 112, 166, 0.3);
     }
 
-    .badge-status {
-      display: inline-flex;
+    .difficulty-bar {
+      display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
       background: #ffffff;
+      border: 1.5px solid var(--border-pink);
+      border-radius: 16px;
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .diff-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .diff-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-diff {
+      background: #fdf2f8;
       border: 1.5px solid var(--pink-soft);
+      color: var(--text-muted);
       padding: 6px 14px;
-      border-radius: 24px;
+      border-radius: 12px;
       font-size: 12px;
       font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-diff:hover {
+      border-color: var(--pink-primary);
       color: var(--pink-dark);
     }
 
-    .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
+    .btn-diff.active {
+      background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 2px 8px rgba(224, 82, 139, 0.25);
     }
 
     .progress-wrapper {
@@ -149,7 +178,7 @@
       height: 100%;
       width: 0%;
       border-radius: 12px;
-      transition: width 0.4s ease;
+      transition: width 0.35s ease;
     }
 
     .db-card {
@@ -376,7 +405,7 @@
       padding-top: 16px;
     }
 
-    /* Modal About */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -476,11 +505,18 @@
       <p>Entrenamiento técnico para soporte, gestión y métricas en bases relacionales</p>
     </div>
     <div class="header-actions">
-      <button class="btn-about" onclick="abrirModal()"><span>✨</span> About</button>
-      <div class="badge-status">
-        <div class="dot"></div>
-        readonly_session
-      </div>
+      <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
+      <button class="btn-action" onclick="abrirModal()"><span>✨</span> About</button>
+    </div>
+  </div>
+
+  <!-- Selector de Dificultad -->
+  <div class="difficulty-bar">
+    <span class="diff-label">Dificultad de Práctica:</span>
+    <div class="diff-buttons">
+      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Fácil (Básico)</button>
+      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Medio (Lógica & Filtros)</button>
+      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Experto (Completo)</button>
     </div>
   </div>
 
@@ -549,10 +585,10 @@
     </div>
     <div class="modal-body">
       <p>
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Creé este entorno de entrenamiento interactivo para consolidar la lógica fundamental de consultas SQL aplicadas a casos de uso reales de gestión, métricas operativas y soporte SaaS.
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Creé este simulador interactivo para dominar los fundamentos de bases de datos relacionales en SQL aplicadas a casos reales de operaciones, soporte técnico SaaS y métricas de rentabilidad.
       </p>
       <p>
-        El foco está puesto en el análisis ágil de datos, validación precisa de condiciones y comprensión de estructuras relacionales sin perder el dinamismo visual.
+        Elegí el nivel de práctica que mejor se adapte a tu objetivo (Fácil, Medio o Experto) y navegá con total libertad sin perder tus avances.
       </p>
       <div class="tag-container">
         <span class="pill-tag">SQL & Queries</span>
@@ -565,10 +601,12 @@
 </div>
 
 <script>
-  const modulos = [
+  // Banco integral de ejercicios categorizado por dificultad
+  const todosLosModulos = [
     {
-      nivel: "Módulo 1 • Recuperación Base",
-      escenario: "Un project manager quiere auditar todas las columnas y filas de la tabla de proyectos en el sistema.",
+      dificultad: "facil",
+      nivel: "Fácil • Recuperación Base",
+      escenario: "Un project manager quiere auditar todas las columnas y filas de la tabla de proyectos.",
       pregunta: "¿Qué consulta SQL recupera absolutamente toda la estructura y datos de la tabla?",
       opciones: [
         "SELECT ALL FROM proyectos;",
@@ -577,11 +615,12 @@
         "SELECT (id, cliente, servicio, horas_estimadas, horas_reales, estado, rentable);"
       ],
       correcta: 1,
-      explicacion: "En SQL relacional, el asterisco (*) representa el comodín de proyección para traer todas las columnas registradas en la tabla especificada con FROM."
+      explicacion: "El asterisco (*) es el comodín estándar que indica 'todas las columnas'. La estructura elemental siempre es SELECT * FROM nombre_tabla;."
     },
     {
-      nivel: "Módulo 2 • Proyección Selectiva",
-      escenario: "Para un reporte de tiempos, solo necesitamos el nombre del cliente, las horas estimadas y las horas reales.",
+      dificultad: "facil",
+      nivel: "Fácil • Proyección Selectiva",
+      escenario: "Para un reporte de tiempos, solo necesitamos el cliente, las horas estimadas y las horas reales.",
       pregunta: "¿Cómo seleccionamos únicamente esos tres campos específicos?",
       opciones: [
         "SELECT cliente AND horas_estimadas AND horas_reales FROM proyectos;",
@@ -590,10 +629,11 @@
         "SELECT FROM proyectos COLUMNS (cliente, horas_estimadas, horas_reales);"
       ],
       correcta: 1,
-      explicacion: "Los nombres de los campos que queremos proyectar se listan inmediatamente después de SELECT separados por comas. El origen se fija con FROM proyectos."
+      explicacion: "Las columnas deseadas se enumeran después del SELECT separadas por comas. El origen se fija con FROM proyectos."
     },
     {
-      nivel: "Módulo 3 • Filtrado por Texto (WHERE)",
+      dificultad: "facil",
+      nivel: "Fácil • Filtrado por Texto (WHERE)",
       escenario: "Queremos analizar únicamente los proyectos del cliente 'Mercado Tech'.",
       pregunta: "¿Cuál es la sintaxis precisa para filtrar registros que coincidan exactamente con un texto?",
       opciones: [
@@ -603,12 +643,27 @@
         "SELECT * FROM proyectos IF cliente = 'Mercado Tech';"
       ],
       correcta: 0,
-      explicacion: "En SQL los textos (strings) deben ir siempre entre comillas simples ('Mercado Tech'). El operador de comparación es un único signo = y la cláusula es WHERE."
+      explicacion: "Las cadenas de texto siempre se delimitan entre comillas simples ('Mercado Tech'). El operador de igualdad estándar es un único signo =."
     },
     {
-      nivel: "Módulo 4 • Desvío Numérico (Mayor que)",
-      escenario: "COR monitorea horas reales cargadas. Buscamos detectar proyectos que hayan insumido más de 100 horas reales.",
-      pregunta: "¿Qué condición en el WHERE aísla números mayores estrictos?",
+      dificultad: "facil",
+      nivel: "Fácil • Control de Volumen (LIMIT)",
+      escenario: "En una base con miles de registros, queremos previsualizar la estructura trayendo solo los primeros 3 proyectos.",
+      pregunta: "¿Cómo restringimos la salida a una cantidad exacta de filas?",
+      opciones: [
+        "SELECT FIRST 3 * FROM proyectos;",
+        "SELECT * FROM proyectos LIMIT 3;",
+        "SELECT * FROM proyectos MAX 3;",
+        "SELECT * FROM proyectos ROW_COUNT = 3;"
+      ],
+      correcta: 1,
+      explicacion: "La instrucción LIMIT 3 colocada al final restringe el resultado a un máximo de tres filas, protegiendo los recursos del servidor."
+    },
+    {
+      dificultad: "medio",
+      nivel: "Medio • Comparación Numérica",
+      escenario: "Buscamos proyectos que hayan consumido más de 100 horas reales de trabajo.",
+      pregunta: "¿Qué condición en el WHERE evalúa valores numéricos estrictamente mayores?",
       opciones: [
         "SELECT * FROM proyectos WHERE horas_reales > '100';",
         "SELECT * FROM proyectos WHERE horas_reales > 100;",
@@ -616,11 +671,12 @@
         "SELECT * FROM proyectos HAVING horas_reales > 100;"
       ],
       correcta: 1,
-      explicacion: "Los números en SQL van sin comillas para ser evaluados aritméticamente. HAVING se reserva para agregaciones agrupadas, mientras que WHERE filtra fila por fila antes de agrupar."
+      explicacion: "Los números en SQL se ingresan sin comillas para ser evaluados aritméticamente. HAVING se reserva para agregaciones agrupadas."
     },
     {
-      nivel: "Módulo 5 • Múltiples Criterios (AND)",
-      escenario: "Buscamos proyectos que estén finalizados ('entregado') Y que además hayan sido marcados como rentables (rentable = true).",
+      dificultad: "medio",
+      nivel: "Medio • Condición Múltiple (AND)",
+      escenario: "Buscamos proyectos finalizados ('entregado') Y que además hayan sido rentables (rentable = true).",
       pregunta: "¿Cómo se combinan dos condiciones simultáneas y obligatorias?",
       opciones: [
         "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
@@ -629,12 +685,13 @@
         "SELECT * FROM proyectos WHERE estado = 'entregado', rentable = true;"
       ],
       correcta: 1,
-      explicacion: "En SQL estándar se utiliza la palabra clave AND (no &&) para exigir que ambas condiciones lógicas se cumplan al mismo tiempo."
+      explicacion: "En SQL relacional se utiliza la palabra AND para exigir que ambas condiciones se satisfagan al mismo tiempo."
     },
     {
-      nivel: "Módulo 6 • Alternativa Lógica (OR)",
-      escenario: "Soporte necesita auditar proyectos que estén en estado 'en progreso' O en estado 'pausado'.",
-      pregunta: "¿Cuál consulta devuelve los registros que cumplan cualquiera de los dos estados?",
+      dificultad: "medio",
+      nivel: "Medio • Alternativa Lógica (OR)",
+      escenario: "Soporte necesita auditar proyectos que se encuentren en estado 'en progreso' O en estado 'pausado'.",
+      pregunta: "¿Cuál consulta devuelve registros que cumplan cualquiera de los dos estados?",
       opciones: [
         "SELECT * FROM proyectos WHERE estado = 'en progreso' OR estado = 'pausado';",
         "SELECT * FROM proyectos WHERE estado = 'en progreso' || 'pausado';",
@@ -642,12 +699,13 @@
         "SELECT * FROM proyectos WHERE estado IN ('en progreso' AND 'pausado');"
       ],
       correcta: 0,
-      explicacion: "La cláusula OR permite que la fila sea seleccionada si cumple al menos una de las dos condiciones evaluadas de forma completa (campo = valor)."
+      explicacion: "OR permite que la fila se incluya si cumple al menos una de las dos condiciones evaluadas de forma completa."
     },
     {
-      nivel: "Módulo 7 • Descarte de Repetidos (DISTINCT)",
-      escenario: "Queremos ver la lista de todos los clientes que tienen proyectos registrados, sin que sus nombres salgan duplicados.",
-      pregunta: "¿Qué instrucción SQL descarta automáticamente valores repetidos en el resultado?",
+      dificultad: "medio",
+      nivel: "Medio • Deduplicación (DISTINCT)",
+      escenario: "Queremos la lista de todos los clientes con proyectos sin que se repita ningún nombre.",
+      pregunta: "¿Qué instrucción SQL descarta los duplicados automáticamente?",
       opciones: [
         "SELECT UNIQUE cliente FROM proyectos;",
         "SELECT DISTINCT cliente FROM proyectos;",
@@ -655,38 +713,27 @@
         "SELECT cliente FROM proyectos CLEAN DUPLICATES;"
       ],
       correcta: 1,
-      explicacion: "DISTINCT se coloca inmediatamente a la derecha de SELECT para devolver un único registro por cada valor distinto hallado en esa columna."
+      explicacion: "DISTINCT se antepone inmediatamente a la columna proyectada (SELECT DISTINCT cliente...) para omitir redundancias."
     },
     {
-      nivel: "Módulo 8 • Ordenamiento de Datos (ORDER BY)",
-      escenario: "Queremos listar todos los proyectos ordenados de mayor a menor según las horas reales registradas.",
-      pregunta: "¿Cómo se ordenan los resultados de forma descendente?",
+      dificultad: "experto",
+      nivel: "Experto • Jerarquización (ORDER BY)",
+      escenario: "Queremos ordenar todos los proyectos desde el que demandó más horas reales hasta el que menos.",
+      pregunta: "¿Cómo se formula un ordenamiento de mayor a menor?",
       opciones: [
         "SELECT * FROM proyectos SORT BY horas_reales DESC;",
         "SELECT * FROM proyectos ORDER BY horas_reales DESC;",
         "SELECT * FROM proyectos ORDER BY horas_reales DOWN;",
-        "SELECT * FROM proyectos ARRANGE BY horas_reales HIGH_TO_LOW;"
+        "SELECT * FROM proyectos ARRANGE BY horas_reales HIGH;"
       ],
       correcta: 1,
-      explicacion: "Se usa la cláusula ORDER BY seguida de la columna y el modificador DESC (descendente). Por defecto el ordenamiento siempre es ascendente (ASC)."
+      explicacion: "La cláusula es ORDER BY seguida de la columna y la palabra reservada DESC (descendente). Por defecto el orden es ASC."
     },
     {
-      nivel: "Módulo 9 • Criterio de Rendimiento (LIMIT)",
-      escenario: "En una base de datos con 500.000 tareas, queremos comprobar rápidamente la estructura trayendo solo los primeros 5 registros para no saturar el servidor.",
-      pregunta: "¿Cómo limitamos el volumen de registros retornados?",
-      opciones: [
-        "SELECT TOP 5 * FROM proyectos;",
-        "SELECT * FROM proyectos LIMIT 5;",
-        "SELECT * FROM proyectos MAX 5;",
-        "SELECT * FROM proyectos STOP AT 5;"
-      ],
-      correcta: 1,
-      explicacion: "En los motores relacionales modernos como PostgreSQL y SQLite, LIMIT 5 al final de la consulta restringe la salida a exactamente cinco filas."
-    },
-    {
-      nivel: "Módulo 10 • Conteo de Filas (COUNT)",
-      escenario: "Gerencia necesita saber la cantidad total de proyectos cuyo servicio es 'App Dev'.",
-      pregunta: "¿Qué función de agregación cuenta la cantidad de filas que coinciden con el filtro?",
+      dificultad: "experto",
+      nivel: "Experto • Conteo y Filtro (COUNT)",
+      escenario: "Gerencia necesita cuantificar cuántos proyectos registrados corresponden al servicio de 'App Dev'.",
+      pregunta: "¿Qué función calcula la cantidad total de filas que cumplen el filtro?",
       opciones: [
         "SELECT TOTAL(*) FROM proyectos WHERE servicio = 'App Dev';",
         "SELECT COUNT(*) FROM proyectos WHERE servicio = 'App Dev';",
@@ -694,12 +741,13 @@
         "SELECT ROWS(*) FROM proyectos WHERE servicio = 'App Dev';"
       ],
       correcta: 1,
-      explicacion: "COUNT(*) es la función de agregación estándar de SQL para contar el número de registros que satisfacen la condición del WHERE."
+      explicacion: "COUNT(*) evalúa y contabiliza la cantidad de registros devueltos por el filtro WHERE."
     },
     {
-      nivel: "Módulo 11 • Acumulación Total (SUM)",
-      escenario: "Queremos calcular el total acumulado de todas las horas reales trabajadas en la compañía.",
-      pregunta: "¿Cuál consulta calcula la suma matemática de los valores de esa columna?",
+      dificultad: "experto",
+      nivel: "Experto • Acumulación Total (SUM)",
+      escenario: "Queremos calcular el total de horas reales acumuladas entre todos los proyectos del sistema.",
+      pregunta: "¿Cuál consulta efectúa la suma matemática de toda la columna?",
       opciones: [
         "SELECT TOTAL(horas_reales) FROM proyectos;",
         "SELECT SUM(horas_reales) AS total_horas FROM proyectos;",
@@ -707,12 +755,13 @@
         "SELECT COUNT(horas_reales) AS total_horas FROM proyectos;"
       ],
       correcta: 1,
-      explicacion: "SUM(nombre_columna) totaliza numéricamente los valores del campo. El alias AS total_horas le da un nombre claro y profesional a la columna de salida."
+      explicacion: "SUM() totaliza numéricamente los valores del campo, y el alias AS total_horas renombra la columna resultante."
     },
     {
-      nivel: "Módulo 12 • Agrupamiento de Métricas (GROUP BY)",
-      escenario: "Queremos calcular cuántos proyectos tiene asignado cada cliente individual en el sistema.",
-      pregunta: "¿Cómo agrupamos los resultados por cliente y contamos sus proyectos?",
+      dificultad: "experto",
+      nivel: "Experto • Agrupamiento de Métricas (GROUP BY)",
+      escenario: "Queremos obtener la cantidad total de proyectos que tiene contratado cada cliente individual.",
+      pregunta: "¿Cómo agrupamos por cliente y calculamos el total correspondiente a cada uno?",
       opciones: [
         "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos GROUP BY cliente;",
         "SELECT cliente, COUNT(id) FROM proyectos ORDER BY cliente;",
@@ -720,25 +769,62 @@
         "SELECT GROUP(cliente), COUNT(*) FROM proyectos;"
       ],
       correcta: 0,
-      explicacion: "GROUP BY cliente reúne todas las filas de un mismo cliente en un único bloque y ejecuta COUNT(id) para calcular la cantidad de registros pertenecientes a cada uno."
+      explicacion: "GROUP BY cliente divide las filas en bloques por cliente para que COUNT(id) calcule el total de filas de cada uno."
     }
   ];
 
+  let modulosActivos = [];
+  let respuestasUsuario = [];
   let paso = 0;
-  const respuestasUsuario = new Array(modulos.length).fill(null);
+  let dificultadSeleccionada = 'facil';
+
+  function cambiarDificultad(modo) {
+    dificultadSeleccionada = modo;
+
+    // Actualizar estilo visual de los botones de dificultad
+    document.getElementById("diff-facil").classList.toggle("active", modo === 'facil');
+    document.getElementById("diff-medio").classList.toggle("active", modo === 'medio');
+    document.getElementById("diff-experto").classList.toggle("active", modo === 'experto');
+
+    // Filtrar módulos según la dificultad:
+    // 'facil' -> solo fáciles
+    // 'medio' -> fáciles + medios
+    // 'experto' -> todos los 12 niveles completos
+    if (modo === 'facil') {
+      modulosActivos = todosLosModulos.filter(m => m.dificultad === 'facil');
+    } else if (modo === 'medio') {
+      modulosActivos = todosLosModulos.filter(m => m.dificultad === 'facil' || m.dificultad === 'medio');
+    } else {
+      modulosActivos = [...todosLosModulos];
+    }
+
+    reiniciarBootcamp(false);
+  }
+
+  function reiniciarBootcamp(mostrarAlerta = true) {
+    paso = 0;
+    respuestasUsuario = new Array(modulosActivos.length).fill(null);
+    renderizarModulo();
+
+    if (mostrarAlerta) {
+      alert("✨ ¡Bootcamp reiniciado a cero con éxito!");
+    }
+  }
 
   function renderizarModulo() {
-    const data = modulos[paso];
+    const data = modulosActivos[paso];
     document.getElementById("level-chip").textContent = data.nivel;
     document.getElementById("scenario-text").textContent = `Caso de uso: "${data.escenario}"`;
     document.getElementById("question-title").textContent = data.pregunta;
-    document.getElementById("counter-text").textContent = `Desafío ${paso + 1} de ${modulos.length}`;
+    document.getElementById("counter-text").textContent = `Desafío ${paso + 1} de ${modulosActivos.length}`;
 
+    // Deshabilitar botón volver si es el primer paso
     const btnPrev = document.getElementById("btn-prev");
     btnPrev.disabled = (paso === 0);
 
+    // Calcular progreso
     const respondidas = respuestasUsuario.filter(r => r !== null).length;
-    const porcentaje = (respondidas / modulos.length) * 100;
+    const porcentaje = (respondidas / modulosActivos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
 
     const feedback = document.getElementById("feedback");
@@ -746,6 +832,7 @@
     const cont = document.getElementById("options-container");
     cont.innerHTML = "";
 
+    // Renderizar botones de opción
     data.opciones.forEach((opc, i) => {
       const btn = document.createElement("button");
       btn.className = "option-btn";
@@ -754,6 +841,7 @@
       cont.appendChild(btn);
     });
 
+    // Si ya fue respondido anteriormente, mostrar el estado guardado
     if (respuestasUsuario[paso] !== null) {
       mostrarResultadoGuardado(respuestasUsuario[paso]);
     } else {
@@ -764,7 +852,7 @@
   }
 
   function mostrarResultadoGuardado(indiceElegido) {
-    const data = modulos[paso];
+    const data = modulosActivos[paso];
     const botones = document.querySelectorAll(".option-btn");
     const feedback = document.getElementById("feedback");
     const nextBtn = document.getElementById("next-btn");
@@ -786,15 +874,15 @@
 
     feedback.style.display = "block";
 
-    if (paso < modulos.length - 1) {
+    if (paso < modulosActivos.length - 1) {
       nextBtn.style.display = "inline-block";
       nextBtn.textContent = "Siguiente Desafío →";
       nextBtn.onclick = proximoDesafio;
     } else {
       nextBtn.style.display = "inline-block";
-      nextBtn.textContent = "🏆 ¡Completaste el Bootcamp de SQL!";
+      nextBtn.textContent = "🏆 ¡Modo completado con éxito!";
       nextBtn.onclick = () => {
-        alert("¡Excelente! Tenés los fundamentos de lectura, filtrado, ordenamiento, funciones de agregación y agrupamientos listos para tu entrevista.");
+        alert(`¡Felicitaciones! Completaste todos los desafíos del modo seleccionado. Podés cambiar de nivel o reiniciar para seguir practicando.`);
       };
     }
   }
@@ -804,12 +892,12 @@
     mostrarResultadoGuardado(indice);
 
     const respondidas = respuestasUsuario.filter(r => r !== null).length;
-    const porcentaje = (respondidas / modulos.length) * 100;
+    const porcentaje = (respondidas / modulosActivos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
   }
 
   function proximoDesafio() {
-    if (paso < modulos.length - 1) {
+    if (paso < modulosActivos.length - 1) {
       paso++;
       renderizarModulo();
     }
@@ -822,6 +910,7 @@
     }
   }
 
+  // Control Modal About
   function abrirModal() {
     document.getElementById("modal-about").style.display = "flex";
   }
@@ -836,7 +925,8 @@
     }
   }
 
-  renderizarModulo();
+  // Inicializar en modo Fácil por defecto
+  cambiarDificultad('facil');
 </script>
 
 </body>

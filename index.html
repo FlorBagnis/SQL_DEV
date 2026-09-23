@@ -657,7 +657,7 @@
   <div class="header">
     <div class="title-group">
       <h1><span>🌸</span> SQL Dev Bootcamp</h1>
-      <p>Entrenamiento técnico con terminal en vivo, pistas, verdadero/falso y tablas dinámicas</p>
+      <p>Entrenamiento técnico integral: terminal en vivo, pistas guiadas y tablas interactivas</p>
     </div>
     <div class="header-actions">
       <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
@@ -668,9 +668,9 @@
   <div class="difficulty-bar">
     <span class="diff-label">Dificultad de Práctica:</span>
     <div class="diff-buttons">
-      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (8)</button>
-      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (8)</button>
-      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (8)</button>
+      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (12)</button>
+      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (12)</button>
+      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (12)</button>
     </div>
   </div>
 
@@ -721,7 +721,6 @@
     <div class="scenario-text" id="scenario-text"></div>
     <div class="question-title" id="question-title"></div>
 
-    <!-- Contenedores según el Formato de la Pregunta -->
     <div id="input-container"></div>
 
     <!-- Salida Dinámica -->
@@ -761,10 +760,10 @@
     </div>
     <div class="modal-body">
       <p>
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno integral con el objetivo de brindar una plataforma práctica, interactiva y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico.
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas.
       </p>
       <p>
-        El simulador cuenta con 24 retos interactivos distribuidos en 3 niveles de complejidad, integrando terminal de edición de código, pistas guiadas, tablas generadas al vuelo y preguntas de lógica.
+        El simulador cuenta con 36 retos interactivos distribuidos en 3 niveles de complejidad, integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo y preguntas de lógica relacional.
       </p>
       <div class="tag-container">
         <span class="pill-tag">SQL & Relational DB</span>
@@ -786,7 +785,7 @@
     { id: 105, cliente: 'Logística Express', servicio: 'App Dev', horas_estimadas: 220, horas_reales: 210, estado: 'entregado', rentable: 'true' }
   ];
 
-  // Banco Ampliado de 24 Desafíos Reales (8 por Nivel)
+  // Banco Ampliado de 36 Retos Reales (12 por nivel)
   const bancoCompleto = {
     facil: [
       {
@@ -822,7 +821,7 @@
         escenario: "Un compañero afirma que las comillas dobles y simples son exactamente equivalentes para textos literales en SQL estándar.",
         pregunta: "¿Es VERDADERO o FALSO que los valores de texto (strings) en SQL estándar siempre deben ir delimitados entre comillas simples (ej. 'Mercado Tech')?",
         correcta: true,
-        pista: "Las comillas simples se usan para valores ('Hola'), mientras que las comillas dobles (\" \") suelen reservarse para nombres de tablas o columnas.",
+        pista: "Las comillas simples se usan para valores ('Hola'), mientras que las comillas dobles (\" \") suelen reservarse para nombres de tablas o columnas con espacios.",
         ejecutar: () => [{ concepto: "Comillas simples (' ')", uso: "Valores literales / Strings", estandar: "SQL ANSI" }],
         explicacion: "¡Verdadero! El estándar SQL define que los literales de texto van entre comillas simples ('texto'). Las comillas dobles se reservan para nombres de identificadores con espacios."
       },
@@ -870,7 +869,7 @@
       {
         tipo: "boolean",
         nivel: "Fácil 7 • Mayúsculas y Minúsculas",
-        escenario: "Un desarrollador novato sostiene que escribir `select` en minúscula rompe la ejecución en el motor SQL.",
+        escenario: "Un desarrollador sostiene que escribir `select` en minúscula rompe la ejecución en el motor SQL.",
         pregunta: "¿Es VERDADERO o FALSO que los comandos SQL (SELECT, FROM, WHERE) son estrictamente 'case-sensitive' (distinguen entre mayúsculas y minúsculas)?",
         correcta: false,
         pista: "Las palabras reservadas de SQL se escriben en mayúsculas por convención y legibilidad, no por obligación estricta del motor.",
@@ -890,6 +889,57 @@
         },
         ejecutar: () => dbProyectos.filter(p => p.id === 103),
         explicacion: "Para números se utiliza un único signo igual (=) y el valor sin comillas para evitar conversiones innecesarias."
+      },
+      {
+        tipo: "code",
+        nivel: "Fácil 9 • Proyección de Múltiples Columnas",
+        escenario: "El área de diseño solo requiere visualizar el servicio contratado y su estado actual.",
+        pregunta: "Escribí la consulta para proyectar únicamente las columnas 'servicio' y 'estado' de la tabla.",
+        codigoInicial: "SELECT servicio AND estado FROM proyectos;",
+        pista: "En el SELECT los campos se separan con una simple coma (,).",
+        validar: (sql) => {
+          const l = normalizarSQL(sql).replace(/\s/g, '');
+          return l === "SELECTSERVICIO,ESTADOFROMPROYECTOS" || l === "SELECTSERVICIO,ESTADOFROMPROYECTOS;";
+        },
+        ejecutar: () => dbProyectos.map(p => ({ servicio: p.servicio, estado: p.estado })),
+        explicacion: "Las columnas a proyectar deben listarse separadas por comas inmediatamente después de SELECT."
+      },
+      {
+        tipo: "fill",
+        nivel: "Fácil 10 • Operador Menor Que",
+        escenario: "Buscamos proyectos pequeños cuya estimación haya sido inferior a 100 horas.",
+        pregunta: "Completá el operador de comparación matemática 'menor que':",
+        prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ",
+        sufijo: " 100;",
+        respuestaEsperada: "<",
+        pista: "Utilizá el símbolo matemático menor que (<).",
+        validar: (val) => val.trim() === "<",
+        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas < 100),
+        explicacion: "El operador < permite aislar registros estrictamente inferiores al número evaluado."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Fácil 11 • Estructura Básica",
+        escenario: "Se revisa una consulta escrita como: `FROM proyectos SELECT *;`.",
+        pregunta: "¿Es VERDADERO o FALSO que en la sintaxis SQL estándar la cláusula FROM puede colocarse antes de SELECT?",
+        correcta: false,
+        pista: "La estructura obligatoria comienza siempre indicando qué proyectar (SELECT) y luego desde dónde (FROM).",
+        ejecutar: () => [{ orden_correcto: "SELECT ... FROM ...", orden_invalido: "FROM ... SELECT ..." }],
+        explicacion: "¡Falso! La sintaxis léxica de SQL exige que SELECT encabece la sentencia para determinar las columnas antes de indicar el FROM."
+      },
+      {
+        tipo: "code",
+        nivel: "Fácil 12 • Filtrar por Servicio Específico",
+        escenario: "El lead técnico de Frontend solicita aislar los proyectos correspondientes a 'App Dev'.",
+        pregunta: "Corregí la consulta para filtrar los proyectos donde servicio sea igual a 'App Dev'.",
+        codigoInicial: "SELECT * FROM proyectos WHERE servicio = App Dev;",
+        pista: "Recordá que los textos deben ir entre comillas simples: 'App Dev'.",
+        validar: (sql) => {
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(l);
+        },
+        ejecutar: () => dbProyectos.filter(p => p.servicio === 'App Dev'),
+        explicacion: "Las cadenas con espacios o caracteres alfanuméricos deben encerrarse siempre en comillas simples para ser interpretadas correctamente."
       }
     ],
     medio: [
@@ -994,6 +1044,58 @@
         },
         ejecutar: () => dbProyectos.filter(p => p.estado !== 'entregado'),
         explicacion: "Para comparar desigualdad con un valor específico se emplea != o <>. La construcción IS NOT se reserva para evaluar IS NOT NULL."
+      },
+      {
+        tipo: "code",
+        nivel: "Medio 9 • Filtro Numérico y Estado Combinado",
+        escenario: "Operaciones necesita auditar proyectos en progreso que ya superaron las 200 horas reales.",
+        pregunta: "Escribí la consulta que combine: estado = 'en progreso' Y horas_reales > 200.",
+        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'en progreso' WITH horas_reales > 200;",
+        pista: "Reemplazá 'WITH' por la palabra clave obligatoria de unión lógica: AND.",
+        validar: (sql) => {
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] AND horas_reales > 200;?/i.test(l);
+        },
+        ejecutar: () => dbProyectos.filter(p => p.estado === 'en progreso' && p.horas_reales > 200),
+        explicacion: "La conjunción AND permite exigir simultáneamente condiciones de texto y comparaciones numéricas."
+      },
+      {
+        tipo: "fill",
+        nivel: "Medio 10 • Completar Cláusula ORDER BY",
+        escenario: "Queremos ordenar la salida alfabéticamente por el nombre del cliente.",
+        pregunta: "Completá la cláusula de ordenamiento que falta:",
+        prefijo: "SELECT * FROM proyectos ",
+        sufijo: " BY cliente;",
+        respuestaEsperada: "ORDER",
+        pista: "La cláusula completa se compone de dos palabras: ORDER BY.",
+        validar: (val) => val.trim().toUpperCase() === "ORDER",
+        ejecutar: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)),
+        explicacion: "ORDER BY especifica el criterio de ordenamiento de las filas recuperadas."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Medio 11 • Sensibilidad en el LIKE",
+        escenario: "Se analiza el comportamiento del operador LIKE frente a diferencias de caja.",
+        pregunta: "¿Es VERDADERO o FALSO que en SQL estándar el operador LIKE es sensible a mayúsculas y minúsculas (case-sensitive) a menos que se use ILIKE o funciones LOWER()?",
+        correcta: true,
+        pista: "En motores como PostgreSQL, LIKE distingue mayúsculas estrictamente, por lo que se inventó ILIKE para búsquedas insensibles.",
+        ejecutar: () => [{ operador: "LIKE", sensible: "true (según motor/collation)", variante: "ILIKE / LOWER()" }],
+        explicacion: "¡Verdadero! En el estándar SQL y motores como PostgreSQL, LIKE evalúa mayúsculas de forma estricta. Para ignorar mayúsculas se utiliza ILIKE o se normaliza con LOWER()."
+      },
+      {
+        tipo: "code",
+        nivel: "Medio 12 • Ordenar y Limitar Simultáneamente",
+        escenario: "Se requiere extraer el proyecto con mayor cantidad de horas estimadas en toda la tabla.",
+        pregunta: "Ordená por 'horas_estimadas' de forma descendente y limitá el resultado a 1 sola fila.",
+        codigoInicial: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;",
+        pista: "Agregá la palabra DESC inmediatamente después de horas_estimadas antes del LIMIT 1.",
+        validar: (sql) => {
+          const l = normalizarSQL(sql);
+          return l === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1" ||
+                 l === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1;";
+        },
+        ejecutar: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]],
+        explicacion: "Combinar ORDER BY columna DESC con LIMIT 1 es el patrón estándar de SQL para obtener el registro con el valor máximo."
       }
     ],
     experto: [
@@ -1113,6 +1215,63 @@
           return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] }));
         },
         explicacion: "HAVING es la cláusula obligatoria para filtrar grupos calculados después de aplicar la cláusula GROUP BY."
+      },
+      {
+        tipo: "code",
+        nivel: "Experto 9 • Total Acumulado con SUM",
+        escenario: "El CFO solicita calcular la suma total de horas reales ejecutadas por la empresa.",
+        pregunta: "Corregí la función para calcular la suma de 'horas_reales' con el alias 'total_horas'.",
+        codigoInicial: "SELECT ADD(horas_reales) FROM proyectos;",
+        pista: "La función estándar es SUM(horas_reales) AS total_horas.",
+        validar: (sql) => {
+          const l = normalizarSQL(sql).replace(/\s/g, '');
+          return l === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS" ||
+                 l === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS;";
+        },
+        ejecutar: () => [{ total_horas: dbProyectos.reduce((acc, curr) => acc + curr.horas_reales, 0) }],
+        explicacion: "SUM(campo) totaliza aritméticamente la columna indicada."
+      },
+      {
+        tipo: "fill",
+        nivel: "Experto 10 • Obtener Valor Máximo con MAX",
+        escenario: "Queremos conocer cuál fue el valor más alto registrado en horas reales.",
+        pregunta: "Completá la función matemática que devuelve el valor más alto (máximo):",
+        prefijo: "SELECT ",
+        sufijo: "(horas_reales) AS max_horas FROM proyectos;",
+        respuestaEsperada: "MAX",
+        pista: "La función estándar de valor máximo en SQL es MAX.",
+        validar: (val) => val.trim().toUpperCase() === "MAX",
+        ejecutar: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }],
+        explicacion: "MAX(columna) retorna el valor máximo contenido en dicho campo."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Experto 11 • Regla de Proyección en GROUP BY",
+        escenario: "Se intenta ejecutar: `SELECT cliente, servicio, COUNT(id) FROM proyectos GROUP BY cliente;`.",
+        pregunta: "¿Es VERDADERO o FALSO que en SQL estándar estricto es un error incluir columnas en el SELECT (como 'servicio') que no estén en el GROUP BY ni dentro de una función de agregación?",
+        correcta: true,
+        pista: "Si una columna no está agregada (ej. con MAX, COUNT) ni presente en GROUP BY, el motor no sabe qué valor fila por fila elegir para ese grupo.",
+        ejecutar: () => [{ regla: "GROUP BY estricto", permitido: "Columnas agrupadas o con función agregada", no_permitido: "Columnas sueltas" }],
+        explicacion: "¡Verdadero! Cada columna del SELECT debe tener un valor único por grupo: o se incluye en el GROUP BY o se consolida mediante una función de agregación (COUNT, SUM, MAX, etc.)."
+      },
+      {
+        tipo: "code",
+        nivel: "Experto 12 • Agrupar, Sumar y Ordenar",
+        escenario: "Reporte final de horas: calcular la suma de 'horas_reales' agrupada por cliente, ordenada de mayor a menor.",
+        pregunta: "Completá la consulta agrupando por cliente y ordenando por la suma descendente.",
+        codigoInicial: "SELECT cliente, SUM(horas_reales) AS total FROM proyectos GROUP BY cliente;",
+        pista: "Agregá 'ORDER BY total DESC;' al final.",
+        validar: (sql) => {
+          const l = normalizarSQL(sql);
+          return l === "SELECT CLIENTE, SUM(HORAS_REALES) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE ORDER BY TOTAL DESC" ||
+                 l === "SELECT CLIENTE, SUM(HORAS_REALES) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE ORDER BY TOTAL DESC;";
+        },
+        ejecutar: () => {
+          const c = {};
+          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + p.horas_reales; });
+          return Object.keys(c).map(k => ({ cliente: k, total: c[k] })).sort((a, b) => b.total - a.total);
+        },
+        explicacion: "Combinar agregaciones, GROUP BY y ORDER BY sobre el alias calculado es la base analítica de reportes y dashboards ejecutivos."
       }
     ]
   };
@@ -1164,7 +1323,6 @@
     document.getElementById("question-title").textContent = data.pregunta;
     document.getElementById("counter-text").textContent = `Reto ${paso + 1} de ${modulosActivos.length}`;
 
-    // Configurar pista
     const hintBox = document.getElementById("hint-box");
     hintBox.style.display = "none";
     hintBox.innerHTML = `<strong>💡 Pista:</strong> ${data.pista}`;
@@ -1181,7 +1339,6 @@
     const nextBtn = document.getElementById("next-btn");
     inputContainer.innerHTML = "";
 
-    // Generar UI según el tipo de ejercicio
     if (data.tipo === "code") {
       inputContainer.innerHTML = `
         <div class="editor-section">
@@ -1297,7 +1454,7 @@
         nextBtn.style.display = "inline-block";
         nextBtn.textContent = "🏆 ¡Nivel completado con éxito!";
         nextBtn.onclick = () => {
-          alert("¡Felicitaciones! Dominaste todos los retos de este nivel.");
+          alert("¡Felicitaciones! Dominaste todos los retos prácticos de este nivel.");
         };
       }
     } else {

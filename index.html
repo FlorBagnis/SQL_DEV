@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> SQL Dev Prep ✨ Practical Studio</title>
+  <title>SQL Dev Bootcamp ✨ Practical Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -238,6 +238,15 @@
       border-bottom: none;
     }
 
+    .challenge-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .level-chip {
       display: inline-block;
       background: var(--pink-soft);
@@ -246,9 +255,40 @@
       font-weight: 800;
       padding: 4px 12px;
       border-radius: 12px;
-      margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+    }
+
+    .btn-hint-toggle {
+      background: transparent;
+      border: 1px dashed var(--pink-primary);
+      color: var(--pink-dark);
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hint-toggle:hover {
+      background: var(--pink-light);
+    }
+
+    .hint-box {
+      display: none;
+      background: #fff8fc;
+      border: 1px solid var(--border-pink);
+      border-left: 4px solid var(--pink-primary);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      color: #703856;
+      margin-bottom: 12px;
+      line-height: 1.45;
     }
 
     .scenario-text {
@@ -266,7 +306,7 @@
       color: var(--text-main);
     }
 
-    /* Editor Práctico */
+    /* Terminal Editor */
     .editor-section {
       background: #1e1b2e;
       border-radius: 16px;
@@ -317,7 +357,7 @@
       font-size: 13px;
       line-height: 1.5;
       resize: vertical;
-      min-height: 56px;
+      min-height: 54px;
     }
 
     .editor-actions {
@@ -347,7 +387,77 @@
       box-shadow: 0 6px 16px rgba(255, 112, 166, 0.5);
     }
 
-    /* Sección de Salida Dinámica */
+    /* Fill in the blanks */
+    .fill-section {
+      background: #1e1b2e;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      color: #f8fafc;
+    }
+
+    .fill-input {
+      background: #2b2540;
+      border: 2px solid var(--pink-primary);
+      border-radius: 8px;
+      color: #ffd7e8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 10px;
+      min-width: 140px;
+      outline: none;
+      text-align: center;
+    }
+
+    .fill-input:focus {
+      box-shadow: 0 0 10px rgba(255, 112, 166, 0.5);
+    }
+
+    /* Verdadero / Falso */
+    .tf-container {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .btn-tf {
+      flex: 1;
+      padding: 16px 20px;
+      background: #ffffff;
+      border: 2px solid var(--pink-soft);
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-tf:hover:not(:disabled) {
+      border-color: var(--pink-primary);
+      background: var(--pink-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 112, 166, 0.16);
+    }
+
+    .btn-tf:disabled {
+      cursor: default;
+      transform: none;
+    }
+
+    /* Salida Dinámica */
     .dynamic-output-card {
       background: #ffffff;
       border: 1.5px solid var(--pink-soft);
@@ -547,7 +657,7 @@
   <div class="header">
     <div class="title-group">
       <h1><span>🌸</span> SQL Dev Bootcamp</h1>
-      <p>Entrenamiento técnico interactivo con simulador y tablas dinámicas en vivo</p>
+      <p>Entrenamiento técnico con terminal en vivo, pistas, verdadero/falso y tablas dinámicas</p>
     </div>
     <div class="header-actions">
       <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
@@ -556,11 +666,11 @@
   </div>
 
   <div class="difficulty-bar">
-    <span class="diff-label">Nivel de Retos Prácticos:</span>
+    <span class="diff-label">Dificultad de Práctica:</span>
     <div class="diff-buttons">
-      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil</button>
-      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio</button>
-      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto</button>
+      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (8)</button>
+      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (8)</button>
+      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (8)</button>
     </div>
   </div>
 
@@ -570,7 +680,7 @@
     </div>
   </div>
 
-  <!-- Tabla Maestra de Referencia -->
+  <!-- Base de Datos en Memoria -->
   <div class="db-card">
     <div class="db-header">
       <span>📁</span> Base de Datos en Memoria: Tabla <code>proyectos</code>
@@ -599,32 +709,29 @@
     </div>
   </div>
 
-  <!-- Sección de Práctica -->
+  <!-- Zona de Práctica -->
   <div id="quiz-area">
-    <span class="level-chip" id="level-chip">Módulo 1</span>
+    <div class="challenge-meta">
+      <span class="level-chip" id="level-chip">Módulo</span>
+      <button class="btn-hint-toggle" id="btn-hint" onclick="togglePista()"><span>💡</span> Ver Pista / Syntax Help</button>
+    </div>
+    
+    <div class="hint-box" id="hint-box"></div>
+
     <div class="scenario-text" id="scenario-text"></div>
     <div class="question-title" id="question-title"></div>
 
-    <!-- Terminal Editor -->
-    <div class="editor-section">
-      <div class="editor-header">
-        <span class="editor-label"><span>⌨️</span> Corregí la sintaxis SQL:</span>
-        <button class="btn-reset-code" onclick="restaurarCodigoInicial()">↺ Restaurar sugerencia</button>
-      </div>
-      <textarea id="sql-input" class="sql-input" spellcheck="false"></textarea>
-      <div class="editor-actions">
-        <button class="btn-execute" onclick="ejecutarQuery()"><span>▶</span> Ejecutar Query</button>
-      </div>
-    </div>
+    <!-- Contenedores según el Formato de la Pregunta -->
+    <div id="input-container"></div>
 
-    <!-- Tabla Dinámica en Vivo generada por la Query -->
-    <div class="dynamic-output-card">
+    <!-- Salida Dinámica -->
+    <div class="dynamic-output-card" id="dynamic-card">
       <div class="output-title">
-        <span>📊</span> Resultado dinámico en vivo de tu consulta:
+        <span>📊</span> Resultado dinámico en vivo:
       </div>
       <div class="table-container" id="dynamic-table-container">
         <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">
-          Hacé clic en "▶ Ejecutar Query" para compilar tu código y ver la tabla resultante.
+          Resolvé el ejercicio para compilar y visualizar los registros devueltos.
         </p>
       </div>
     </div>
@@ -654,23 +761,23 @@
     </div>
     <div class="modal-body">
       <p>
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Creé este simulador interactivo para dominar los fundamentos de bases de datos relacionales en SQL aplicadas a casos reales de operaciones, soporte técnico SaaS y métricas de rentabilidad.
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno integral con el objetivo de brindar una plataforma práctica, interactiva y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico.
       </p>
       <p>
-        Este entorno te permite corregir consultas con errores sintácticos y evaluar el resultado en tiempo real en una tabla dinámica en vivo.
+        El simulador cuenta con 24 retos interactivos distribuidos en 3 niveles de complejidad, integrando terminal de edición de código, pistas guiadas, tablas generadas al vuelo y preguntas de lógica.
       </p>
       <div class="tag-container">
-        <span class="pill-tag">SQL & Queries</span>
+        <span class="pill-tag">SQL & Relational DB</span>
         <span class="pill-tag">Customer Support & QA</span>
-        <span class="pill-tag">Process Optimization</span>
-        <span class="pill-tag">Frontend Clean Code</span>
+        <span class="pill-tag">Interactive Learning</span>
+        <span class="pill-tag">JavaScript ES6</span>
+        <span class="pill-tag">Dynamic DOM</span>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Datos crudos de la tabla proyectos
   const dbProyectos = [
     { id: 101, cliente: 'Mercado Tech', servicio: 'Branding', horas_estimadas: 120, horas_reales: 110, estado: 'entregado', rentable: 'true' },
     { id: 102, cliente: 'Banco Futuro', servicio: 'App Dev', horas_estimadas: 300, horas_reales: 345, estado: 'en progreso', rentable: 'false' },
@@ -679,176 +786,333 @@
     { id: 105, cliente: 'Logística Express', servicio: 'App Dev', horas_estimadas: 220, horas_reales: 210, estado: 'entregado', rentable: 'true' }
   ];
 
-  // Banco de Retos Prácticos 100% separados por Dificultad
-  const bancoPractico = {
+  // Banco Ampliado de 24 Desafíos Reales (8 por Nivel)
+  const bancoCompleto = {
     facil: [
       {
+        tipo: "code",
         nivel: "Fácil 1 • Arreglar Proyección Completa",
-        escenario: "Un compañero intentó traer todos los datos pero escribió una consulta inválida.",
-        pregunta: "Corregí la consulta para traer absolutamente todas las columnas y filas de 'proyectos'.",
+        escenario: "Un agente intentó consultar toda la tabla en un ticket pero usó una instrucción no válida.",
+        pregunta: "Corregí la consulta en la terminal para traer todas las columnas y filas de 'proyectos'.",
         codigoInicial: "GET ALL COLUMNS IN proyectos;",
+        pista: "En SQL relacional, el asterisco (*) representa a todas las columnas. La sintaxis base es SELECT * FROM nombre_tabla;",
         validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio === "SELECT * FROM PROYECTOS" || limpio === "SELECT * FROM PROYECTOS;";
+          const l = normalizarSQL(sql);
+          return l === "SELECT * FROM PROYECTOS" || l === "SELECT * FROM PROYECTOS;";
         },
         ejecutar: () => dbProyectos,
-        explicacion: "En SQL, el comodín asterisco (*) reemplaza a todas las columnas. La estructura correcta es SELECT * FROM proyectos;."
+        explicacion: "En SQL, el asterisco (*) es el comodín para proyectar todas las columnas registradas en la tabla especificada con FROM."
       },
       {
-        nivel: "Fácil 2 • Separar Columnas con Comas",
-        escenario: "El reporte falló porque se usó 'AND' para separar columnas en vez de comas.",
-        pregunta: "Arreglá la consulta para proyectar únicamente las columnas 'cliente', 'horas_estimadas' y 'horas_reales'.",
-        codigoInicial: "SELECT cliente AND horas_estimadas AND horas_reales FROM proyectos;",
-        validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio.replace(/\s/g, '') === "SELECTCLIENTE,HORAS_ESTIMADAS,HORAS_REALESFROMPROYECTOS" ||
-                 limpio.replace(/\s/g, '') === "SELECTCLIENTE,HORAS_ESTIMADAS,HORAS_REALESFROMPROYECTOS;";
-        },
-        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente, horas_estimadas: p.horas_estimadas, horas_reales: p.horas_reales })),
-        explicacion: "En la cláusula SELECT, los nombres de los campos se separan por comas (,). El operador AND solo se utiliza en condiciones lógicas dentro del WHERE."
+        tipo: "fill",
+        nivel: "Fácil 2 • Completar Cláusula WHERE",
+        escenario: "Queremos filtrar únicamente los proyectos finalizados con estado 'entregado'.",
+        pregunta: "Completá la palabra clave que introduce las condiciones de filtrado en SQL:",
+        prefijo: "SELECT * FROM proyectos ",
+        sufijo: " estado = 'entregado';",
+        respuestaEsperada: "WHERE",
+        pista: "La cláusula en inglés traduce literalmente 'donde' (WHERE) y precede a las condiciones de igualdad.",
+        validar: (val) => val.trim().toUpperCase() === "WHERE",
+        ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado'),
+        explicacion: "La cláusula WHERE es la encargada de evaluar predicados lógicos y filtrar filas en SQL."
       },
       {
-        nivel: "Fácil 3 • Corregir Comillas en Texto",
-        escenario: "La consulta tiró error de sintaxis porque el nombre del cliente se ingresó sin comillas y con operador doble '=='.",
-        pregunta: "Arreglá la consulta para filtrar solo al cliente 'Mercado Tech'.",
-        codigoInicial: "SELECT * FROM proyectos WHERE cliente == Mercado Tech;",
-        validar: (sql) => {
-          const limpio = sql.trim().replace(/\s+/g, ' ');
-          return /SELECT \* FROM proyectos WHERE cliente = ['"]Mercado Tech['"];?/i.test(limpio);
-        },
-        ejecutar: () => dbProyectos.filter(p => p.cliente === 'Mercado Tech'),
-        explicacion: "En SQL, las cadenas de texto siempre se encierran entre comillas simples ('Mercado Tech') y la comparación de igualdad se escribe con un solo signo igual (=)."
+        tipo: "boolean",
+        nivel: "Fácil 3 • Verdadero o Falso: Strings",
+        escenario: "Un compañero afirma que las comillas dobles y simples son exactamente equivalentes para textos literales en SQL estándar.",
+        pregunta: "¿Es VERDADERO o FALSO que los valores de texto (strings) en SQL estándar siempre deben ir delimitados entre comillas simples (ej. 'Mercado Tech')?",
+        correcta: true,
+        pista: "Las comillas simples se usan para valores ('Hola'), mientras que las comillas dobles (\" \") suelen reservarse para nombres de tablas o columnas.",
+        ejecutar: () => [{ concepto: "Comillas simples (' ')", uso: "Valores literales / Strings", estandar: "SQL ANSI" }],
+        explicacion: "¡Verdadero! El estándar SQL define que los literales de texto van entre comillas simples ('texto'). Las comillas dobles se reservan para nombres de identificadores con espacios."
       },
       {
+        tipo: "code",
         nivel: "Fácil 4 • Sintaxis de Límite",
-        escenario: "Quisieron traer solo 3 registros pero usaron una palabra clave inexistente.",
-        pregunta: "Cambiá la palabra incorrecta por la cláusula estándar para limitar la salida a 3 filas.",
+        escenario: "Para agilizar la auditoría inicial, queremos visualizar únicamente los primeros 3 registros de la tabla.",
+        pregunta: "Cambiá la palabra incorrecta por la cláusula estándar para limitar el retorno a 3 filas.",
         codigoInicial: "SELECT * FROM proyectos MAX 3;",
+        pista: "La palabra clave estándar no es MAX, sino LIMIT seguida de la cantidad numérica deseada.",
         validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio === "SELECT * FROM PROYECTOS LIMIT 3" || limpio === "SELECT * FROM PROYECTOS LIMIT 3;";
+          const l = normalizarSQL(sql);
+          return l === "SELECT * FROM PROYECTOS LIMIT 3" || l === "SELECT * FROM PROYECTOS LIMIT 3;";
         },
         ejecutar: () => dbProyectos.slice(0, 3),
-        explicacion: "La cláusula estándar para acotar el volumen de filas retornadas es LIMIT N al final de la consulta."
+        explicacion: "La cláusula LIMIT 3 al final acota el conjunto de resultados a tres filas en motores como PostgreSQL y SQLite."
+      },
+      {
+        tipo: "fill",
+        nivel: "Fácil 5 • Completar Origen FROM",
+        escenario: "El analista olvidó especificar la tabla de origen de donde provienen los registros.",
+        pregunta: "Completá la cláusula obligatoria que indica el origen de los datos:",
+        prefijo: "SELECT cliente, servicio ",
+        sufijo: " proyectos;",
+        respuestaEsperada: "FROM",
+        pista: "La palabra en inglés significa 'desde' o 'de' (FROM).",
+        validar: (val) => val.trim().toUpperCase() === "FROM",
+        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente, servicio: p.servicio })),
+        explicacion: "FROM especifica la tabla relacional desde la cual el SELECT extraerá las columnas."
+      },
+      {
+        tipo: "code",
+        nivel: "Fácil 6 • Renombrar con Alias (AS)",
+        escenario: "Se necesita exportar la columna 'cliente' pero con el encabezado 'empresa' para un reporte gerencial.",
+        pregunta: "Corregí la consulta para asignar el alias 'empresa' a la columna 'cliente'.",
+        codigoInicial: "SELECT cliente RENAME empresa FROM proyectos;",
+        pista: "Los alias de columnas en SQL se declaran usando la palabra reservada AS.",
+        validar: (sql) => {
+          const l = normalizarSQL(sql);
+          return l === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS" || l === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS;";
+        },
+        ejecutar: () => dbProyectos.map(p => ({ empresa: p.cliente })),
+        explicacion: "La cláusula AS se utiliza para asignar un alias o nombre temporal a una columna o tabla en la consulta."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Fácil 7 • Mayúsculas y Minúsculas",
+        escenario: "Un desarrollador novato sostiene que escribir `select` en minúscula rompe la ejecución en el motor SQL.",
+        pregunta: "¿Es VERDADERO o FALSO que los comandos SQL (SELECT, FROM, WHERE) son estrictamente 'case-sensitive' (distinguen entre mayúsculas y minúsculas)?",
+        correcta: false,
+        pista: "Las palabras reservadas de SQL se escriben en mayúsculas por convención y legibilidad, no por obligación estricta del motor.",
+        ejecutar: () => [{ sintaxis: "select vs SELECT", case_sensitive: "false", convencion: "Mayúsculas por prolijidad" }],
+        explicacion: "¡Falso! Las palabras clave de SQL no distinguen entre mayúsculas y minúsculas. Sin embargo, escribir las cláusulas en mayúsculas es una buena práctica universal."
+      },
+      {
+        tipo: "code",
+        nivel: "Fácil 8 • Filtrar por ID Numérico",
+        escenario: "Se necesita investigar el ticket asociado específicamente al ID de proyecto 103.",
+        pregunta: "Escribí la consulta que filtre la fila donde el campo 'id' sea igual a 103.",
+        codigoInicial: "SELECT * FROM proyectos WHERE id == '103';",
+        pista: "En SQL la igualdad se expresa con un solo signo (=) y los valores numéricos no llevan comillas.",
+        validar: (sql) => {
+          const l = normalizarSQL(sql).replace(/\s/g, '');
+          return l === "SELECT*FROMPROYECTOSWHEREID=103" || l === "SELECT*FROMPROYECTOSWHEREID=103;";
+        },
+        ejecutar: () => dbProyectos.filter(p => p.id === 103),
+        explicacion: "Para números se utiliza un único signo igual (=) y el valor sin comillas para evitar conversiones innecesarias."
       }
     ],
     medio: [
       {
-        nivel: "Medio 1 • Corregir Comparación Numérica",
-        escenario: "Se intentó comparar un número como texto y con operador inválido.",
-        pregunta: "Arreglá la fórmula para obtener los proyectos donde las 'horas_reales' sean estrictamente mayores a 100.",
-        codigoInicial: "SELECT * FROM proyectos WHERE horas_reales es mayor '100';",
-        validar: (sql) => {
-          const limpio = normalizarSQL(sql).replace(/\s/g, '');
-          return limpio === "SELECT*FROMPROYECTOSWHEREHORAS_REALES>100" ||
-                 limpio === "SELECT*FROMPROYECTOSWHEREHORAS_REALES>100;";
-        },
-        ejecutar: () => dbProyectos.filter(p => p.horas_reales > 100),
-        explicacion: "Los números en SQL se comparan con operadores estándar (> para mayor estricto) y no llevan comillas."
-      },
-      {
-        nivel: "Medio 2 • Corregir Operador Lógico 'AND'",
-        escenario: "Quisieron exigir dos condiciones al mismo tiempo usando '&&' como en JavaScript.",
-        pregunta: "Arreglá el operador para que use la palabra clave obligatoria de SQL para exigir estado 'entregado' y rentable = true.",
+        tipo: "code",
+        nivel: "Medio 1 • Corregir Operador AND",
+        escenario: "Se intentó exigir dos condiciones simultáneas usando la sintaxis de JavaScript (&&).",
+        pregunta: "Arreglá el operador para usar la palabra clave correcta de SQL exigiendo estado = 'entregado' y rentable = true.",
         codigoInicial: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
+        pista: "En SQL no existe el operador '&&'. Para conjunción obligatoria se escribe la palabra AND.",
         validar: (sql) => {
-          const limpio = sql.trim().replace(/\s+/g, ' ');
-          return /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(limpio);
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(l);
         },
         ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'),
-        explicacion: "SQL relacional no utiliza '&&'. Para concatenar condiciones obligatorias se escribe explícitamente la palabra clave AND."
+        explicacion: "En SQL relacional, el operador de conjunción obligatoria es la palabra clave AND."
       },
       {
-        nivel: "Medio 3 • Corregir Alternativa 'OR'",
-        escenario: "La consulta intentó filtrar por dos estados pero la condición derecha está incompleta.",
-        pregunta: "Arreglá la sintaxis para que evalúe correctamente estado = 'en progreso' O estado = 'pausado'.",
+        tipo: "fill",
+        nivel: "Medio 2 • Completar Deduplicador",
+        escenario: "Queremos listar todos los nombres de clientes sin que se repita ningún registro.",
+        pregunta: "Escribí la instrucción que elimina duplicados directamente en el SELECT:",
+        prefijo: "SELECT ",
+        sufijo: " cliente FROM proyectos;",
+        respuestaEsperada: "DISTINCT",
+        pista: "La palabra clave se ubica justo antes del nombre de la columna y significa 'distinto' en inglés (DISTINCT).",
+        validar: (val) => val.trim().toUpperCase() === "DISTINCT",
+        ejecutar: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })),
+        explicacion: "DISTINCT se coloca inmediatamente después de SELECT para consolidar únicamente los valores únicos del resultado."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Medio 3 • Comparaciones Numéricas",
+        escenario: "Revisando reportes de tiempos con desvíos en horas reales.",
+        pregunta: "¿Es VERDADERO o FALSO que la consulta `SELECT * FROM proyectos WHERE horas_reales > '100';` es la forma técnicamente recomendada para comparar números en SQL?",
+        correcta: false,
+        pista: "Poner números entre comillas los transforma en cadenas de caracteres, lo que puede causar errores en motores estrictos.",
+        ejecutar: () => [{ comparacion: "horas_reales > 100", recomendacion: "Sin comillas", tipo: "Numérico" }],
+        explicacion: "¡Falso! Al encerrar el 100 entre comillas ('100'), se fuerza al motor a tratarlo como texto o a realizar conversiones implícitas. Los números deben compararse limpios."
+      },
+      {
+        tipo: "code",
+        nivel: "Medio 4 • Corregir Condición OR",
+        escenario: "La consulta intentó filtrar dos estados alternativos pero formuló la condición derecha de forma incompleta.",
+        pregunta: "Corregí la sintaxis para que evalúe correctamente estado = 'en progreso' O estado = 'pausado'.",
         codigoInicial: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';",
+        pista: "Cada miembro del OR debe ser una expresión completa: campo = valor OR campo = valor.",
         validar: (sql) => {
-          const limpio = sql.trim().replace(/\s+/g, ' ');
-          return /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(limpio);
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(l);
         },
         ejecutar: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'),
-        explicacion: "Cada lado del operador OR debe formular una condición booleana completa: campo = valor OR campo = valor."
+        explicacion: "El operador OR requiere una expresión condicional booleana completa en cada miembro: campo = valor OR campo = valor."
       },
       {
-        nivel: "Medio 4 • Eliminar Duplicados",
-        escenario: "El listado de clientes tiene nombres repetidos. Se intentó usar 'UNIQUE' en el SELECT.",
-        pregunta: "Reemplazá la palabra errónea por la instrucción estándar para deduplicar clientes.",
-        codigoInicial: "SELECT UNIQUE cliente FROM proyectos;",
+        tipo: "fill",
+        nivel: "Medio 5 • Coincidencia Parcial con LIKE",
+        escenario: "Queremos encontrar todos los clientes cuyo nombre comience con la palabra 'Mercado'.",
+        pregunta: "Completá el operador de búsqueda por coincidencia de patrones en texto:",
+        prefijo: "SELECT * FROM proyectos WHERE cliente ",
+        sufijo: " 'Mercado%';",
+        respuestaEsperada: "LIKE",
+        pista: "Para buscar patrones con comodines (%) no se usa el signo =, sino el operador LIKE.",
+        validar: (val) => val.trim().toUpperCase() === "LIKE",
+        ejecutar: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')),
+        explicacion: "El operador LIKE combinado con el comodín porcentaje (%) permite buscar cadenas con coincidencias parciales."
+      },
+      {
+        tipo: "code",
+        nivel: "Medio 6 • Operador de Pertenencia IN",
+        escenario: "Se necesita filtrar proyectos que correspondan al servicio de 'Branding' o 'UX Audit' de forma limpia y compacta.",
+        pregunta: "Arreglá la consulta para usar el operador IN con la lista de valores entre paréntesis.",
+        codigoInicial: "SELECT * FROM proyectos WHERE servicio EQUALS ['Branding', 'UX Audit'];",
+        pista: "En SQL relacional se utiliza la cláusula IN ('Valor1', 'Valor2') con paréntesis circulares.",
         validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio === "SELECT DISTINCT CLIENTE FROM PROYECTOS" || limpio === "SELECT DISTINCT CLIENTE FROM PROYECTOS;";
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(l);
         },
-        ejecutar: () => {
-          const unicos = [...new Set(dbProyectos.map(p => p.cliente))];
-          return unicos.map(c => ({ cliente: c }));
+        ejecutar: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'),
+        explicacion: "La cláusula IN evalúa si el valor de la columna coincide con cualquiera de los elementos presentes dentro de la lista delimitada por paréntesis."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Medio 7 • Orden Predeterminado",
+        escenario: "Se debate en el equipo cuál es el comportamiento por omisión de ORDER BY si no se especifica ASC o DESC.",
+        pregunta: "¿Es VERDADERO o FALSO que si ejecutamos `SELECT * FROM proyectos ORDER BY horas_reales;` el ordenamiento resultante por defecto es descendente (de mayor a menor)?",
+        correcta: false,
+        pista: "El orden predeterminado en todos los motores relacionales siempre va de menor a mayor (A-Z, 0-9).",
+        ejecutar: () => [{ clausula: "ORDER BY col", orden_por_defecto: "ASC (Ascendente)", inverso: "DESC" }],
+        explicacion: "¡Falso! El orden por omisión en SQL siempre es ascendente (ASC). Para ordenar de mayor a menor es obligatorio declarar explícitamente DESC."
+      },
+      {
+        tipo: "code",
+        nivel: "Medio 8 • Negación Lógica (NOT)",
+        escenario: "Auditoría requiere traer todos los proyectos que NO tengan el estado 'entregado'.",
+        pregunta: "Corregí la consulta utilizando el operador de desigualdad estándar != (o <>) para excluir 'entregado'.",
+        codigoInicial: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';",
+        pista: "Para comparar valores concretos de texto se usa != o <>. La expresión 'IS NOT' se reserva para NULL.",
+        validar: (sql) => {
+          const l = sql.trim().replace(/\s+/g, ' ');
+          return /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(l);
         },
-        explicacion: "La palabra reservada para eliminar filas duplicadas en consultas SQL estándar es DISTINCT."
+        ejecutar: () => dbProyectos.filter(p => p.estado !== 'entregado'),
+        explicacion: "Para comparar desigualdad con un valor específico se emplea != o <>. La construcción IS NOT se reserva para evaluar IS NOT NULL."
       }
     ],
     experto: [
       {
+        tipo: "code",
         nivel: "Experto 1 • Ordenamiento Descendente",
-        escenario: "La consulta intenta ordenar de mayor a menor pero usó palabras de hoja de cálculo.",
-        pregunta: "Corregí la cláusula para ordenar por 'horas_reales' de forma descendente (de mayor a menor).",
+        escenario: "El lead técnico pide ordenar los proyectos desde el que más horas reales consumió hasta el que menos.",
+        pregunta: "Arreglá la cláusula para ordenar por 'horas_reales' de mayor a menor.",
         codigoInicial: "SELECT * FROM proyectos SORT BY horas_reales DOWN;",
+        pista: "La cláusula es ORDER BY seguida de la columna y la palabra DESC.",
         validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC" ||
-                 limpio === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC;";
+          const l = normalizarSQL(sql);
+          return l === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC" ||
+                 l === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC;";
         },
         ejecutar: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales),
-        explicacion: "Para ordenar se utiliza la cláusula ORDER BY y la palabra clave DESC para fijar el orden descendente."
+        explicacion: "Se utiliza la cláusula estándar ORDER BY seguida del modificador DESC (descendente). Por omisión el orden es ascendente (ASC)."
       },
       {
-        nivel: "Experto 2 • Conteo de Filas",
-        escenario: "Se intentó contar la cantidad de proyectos con una función inexistente.",
-        pregunta: "Arreglá la fórmula usando la función de agregación estándar para contar proyectos del servicio 'App Dev'.",
-        codigoInicial: "SELECT TOTAL(*) FROM proyectos WHERE servicio = 'App Dev';",
-        validar: (sql) => {
-          const limpio = sql.trim().replace(/\s+/g, ' ');
-          return /SELECT COUNT\(\*\) FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(limpio);
-        },
-        ejecutar: () => {
-          const total = dbProyectos.filter(p => p.servicio === 'App Dev').length;
-          return [{ "COUNT(*)": total }];
-        },
-        explicacion: "La función de agregación en SQL para contar registros que cumplen el filtro es COUNT(*)."
+        tipo: "fill",
+        nivel: "Experto 2 • Conteo Agregado (COUNT)",
+        escenario: "Soporte necesita cuantificar la cantidad exacta de proyectos que corresponden al servicio 'App Dev'.",
+        pregunta: "Escribí la función de agregación estándar de conteo que falta:",
+        prefijo: "SELECT ",
+        sufijo: "(*) FROM proyectos WHERE servicio = 'App Dev';",
+        respuestaEsperada: "COUNT",
+        pista: "La función de agregación en inglés para contar registros es COUNT.",
+        validar: (val) => val.trim().toUpperCase() === "COUNT",
+        ejecutar: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }],
+        explicacion: "COUNT(*) evalúa y devuelve el número total de registros que satisfacen la condición establecida en el WHERE."
       },
       {
-        nivel: "Experto 3 • Suma y Alias",
-        escenario: "Quisieron calcular el acumulado de horas reales pero usaron ADD y olvidaron el alias.",
-        pregunta: "Corregí la función para calcular la suma de 'horas_reales' asignándole el alias 'total_horas'.",
-        codigoInicial: "SELECT ADD(horas_reales) FROM proyectos;",
-        validar: (sql) => {
-          const limpio = normalizarSQL(sql).replace(/\s/g, '');
-          return limpio === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS" ||
-                 limpio === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS;";
-        },
-        ejecutar: () => {
-          const total = dbProyectos.reduce((acc, curr) => acc + curr.horas_reales, 0);
-          return [{ total_horas: total }];
-        },
-        explicacion: "Se usa SUM(columna) para la suma matemática y AS nombre_alias para darle un nombre profesional a la métrica."
+        tipo: "boolean",
+        nivel: "Experto 3 • WHERE vs HAVING",
+        escenario: "Un desarrollador sugiere usar `HAVING horas_reales > 100` en lugar de `WHERE horas_reales > 100` en una consulta simple sin agrupamientos.",
+        pregunta: "¿Es VERDADERO o FALSO que HAVING se puede usar de manera indistinta como sustituto directo de WHERE en cualquier consulta elemental?",
+        correcta: false,
+        pista: "WHERE actúa fila por fila antes de agrupar; HAVING actúa sobre los resultados agregados después del GROUP BY.",
+        ejecutar: () => [{ clausula: "WHERE", filtra: "Filas individuales" }, { clausula: "HAVING", filtra: "Grupos agregados (post GROUP BY)" }],
+        explicacion: "¡Falso! WHERE filtra registros individuales antes de que se realice cualquier operación de agregación; HAVING está estrictamente destinado a filtrar grupos calculados generados tras un GROUP BY."
       },
       {
-        nivel: "Experto 4 • Agrupamiento de Métricas (GROUP BY)",
-        escenario: "Se intentó contar proyectos por cliente pero falta agrupar los resultados.",
-        pregunta: "Completá la consulta agregando la cláusula GROUP BY cliente para obtener el conteo por cada empresa.",
+        tipo: "code",
+        nivel: "Experto 4 • Agrupamiento GROUP BY",
+        escenario: "Se requiere calcular el total de proyectos que tiene contratado cada cliente individual en la plataforma.",
+        pregunta: "Completá la consulta añadiendo la cláusula GROUP BY cliente para obtener el conteo agrupado por empresa.",
         codigoInicial: "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos;",
+        pista: "Agregá 'GROUP BY cliente;' al final de la consulta.",
         validar: (sql) => {
-          const limpio = normalizarSQL(sql);
-          return limpio === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE" ||
-                 limpio === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE;";
+          const l = normalizarSQL(sql);
+          return l === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE" ||
+                 l === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE;";
         },
         ejecutar: () => {
-          const conteo = {};
-          dbProyectos.forEach(p => {
-            conteo[p.cliente] = (conteo[p.cliente] || 0) + 1;
-          });
-          return Object.keys(conteo).map(k => ({ cliente: k, total_proyectos: conteo[k] }));
+          const c = {};
+          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; });
+          return Object.keys(c).map(k => ({ cliente: k, total_proyectos: c[k] }));
         },
-        explicacion: "Cuando seleccionás una columna normal junto a una función de agregación como COUNT(), es obligatorio agrupar con GROUP BY esa misma columna."
+        explicacion: "Al proyectar un campo regular junto con una función de agregación (como COUNT), es mandatorio agrupar por esa misma columna con GROUP BY."
+      },
+      {
+        tipo: "fill",
+        nivel: "Experto 5 • Promedio Numérico (AVG)",
+        escenario: "Finanzas solicita calcular el promedio exacto de horas estimadas en toda la cartera de proyectos.",
+        pregunta: "Completá la función de agregación matemática que calcula el promedio (average):",
+        prefijo: "SELECT ",
+        sufijo: "(horas_estimadas) AS promedio_estimado FROM proyectos;",
+        respuestaEsperada: "AVG",
+        pista: "La abreviatura estándar en SQL para average/promedio son tres letras: AVG.",
+        validar: (val) => val.trim().toUpperCase() === "AVG",
+        ejecutar: () => {
+          const avg = dbProyectos.reduce((acc, curr) => acc + curr.horas_estimadas, 0) / dbProyectos.length;
+          return [{ promedio_estimado: avg }];
+        },
+        explicacion: "La función AVG(columna) totaliza y divide los valores numéricos para retornar el promedio aritmético."
+      },
+      {
+        tipo: "code",
+        nivel: "Experto 6 • Filtro de Rango (BETWEEN)",
+        escenario: "Se busca auditar los proyectos cuyas horas estimadas se ubiquen en el rango de 100 a 250 horas inclusive.",
+        pregunta: "Corregí la consulta utilizando la cláusula BETWEEN para evaluar el rango numérico.",
+        codigoInicial: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;",
+        pista: "La sintaxis es: WHERE columna BETWEEN 100 AND 250;",
+        validar: (sql) => {
+          const l = normalizarSQL(sql).replace(/\s/g, '');
+          return l === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250" ||
+                 l === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250;";
+        },
+        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250),
+        explicacion: "BETWEEN valor1 AND valor2 evalúa la inclusión inclusiva dentro de un intervalo numérico o de fechas."
+      },
+      {
+        tipo: "boolean",
+        nivel: "Experto 7 • Verificación de Valores Nulos",
+        escenario: "Un analista escribe `SELECT * FROM proyectos WHERE estado = NULL;` para buscar registros vacíos.",
+        pregunta: "¿Es VERDADERO o FALSO que el operador `= NULL` es la forma válida en SQL para verificar si una columna no tiene valor?",
+        correcta: false,
+        pista: "NULL representa la ausencia de valor o desconocido; no se puede comparar con =. Se debe usar IS NULL.",
+        ejecutar: () => [{ sintaxis_erronea: "= NULL (Siempre devuelve falso/desconocido)", sintaxis_correcta: "IS NULL / IS NOT NULL" }],
+        explicacion: "¡Falso! En SQL relacional el valor NULL representa un estado desconocido, por lo que nunca es igual a nada (ni a sí mismo). Se debe emplear la construcción IS NULL o IS NOT NULL."
+      },
+      {
+        tipo: "code",
+        nivel: "Experto 8 • Filtro de Grupos con HAVING",
+        escenario: "Gerencia necesita listar únicamente a los clientes que tengan más de 1 proyecto registrado en el sistema.",
+        pregunta: "Completá la consulta agregando la cláusula HAVING COUNT(id) > 1 al final del agrupamiento.",
+        codigoInicial: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;",
+        pista: "El filtro sobre métricas agrupadas no va con WHERE, sino con HAVING al final: GROUP BY cliente HAVING COUNT(id) > 1;",
+        validar: (sql) => {
+          const l = normalizarSQL(sql);
+          return l === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1" ||
+                 l === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1;";
+        },
+        ejecutar: () => {
+          const c = {};
+          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; });
+          return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] }));
+        },
+        explicacion: "HAVING es la cláusula obligatoria para filtrar grupos calculados después de aplicar la cláusula GROUP BY."
       }
     ]
   };
@@ -868,7 +1132,7 @@
     document.getElementById("diff-medio").classList.toggle("active", modo === 'medio');
     document.getElementById("diff-experto").classList.toggle("active", modo === 'experto');
 
-    modulosActivos = bancoPractico[modo];
+    modulosActivos = bancoCompleto[modo];
     paso = 0;
     respuestasGuardadas = new Array(modulosActivos.length).fill(null);
     renderizarDesafio();
@@ -881,9 +1145,16 @@
     alert("✨ ¡Bootcamp reiniciado a cero con éxito!");
   }
 
+  function togglePista() {
+    const box = document.getElementById("hint-box");
+    box.style.display = (box.style.display === "block") ? "none" : "block";
+  }
+
   function restaurarCodigoInicial() {
     const data = modulosActivos[paso];
-    document.getElementById("sql-input").value = data.codigoInicial;
+    if (data.tipo === "code") {
+      document.getElementById("sql-input").value = data.codigoInicial;
+    }
   }
 
   function renderizarDesafio() {
@@ -893,6 +1164,11 @@
     document.getElementById("question-title").textContent = data.pregunta;
     document.getElementById("counter-text").textContent = `Reto ${paso + 1} de ${modulosActivos.length}`;
 
+    // Configurar pista
+    const hintBox = document.getElementById("hint-box");
+    hintBox.style.display = "none";
+    hintBox.innerHTML = `<strong>💡 Pista:</strong> ${data.pista}`;
+
     const btnPrev = document.getElementById("btn-prev");
     btnPrev.disabled = (paso === 0);
 
@@ -900,49 +1176,118 @@
     const porcentaje = (respondidas / modulosActivos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
 
-    const input = document.getElementById("sql-input");
+    const inputContainer = document.getElementById("input-container");
     const feedback = document.getElementById("feedback");
     const nextBtn = document.getElementById("next-btn");
+    inputContainer.innerHTML = "";
+
+    // Generar UI según el tipo de ejercicio
+    if (data.tipo === "code") {
+      inputContainer.innerHTML = `
+        <div class="editor-section">
+          <div class="editor-header">
+            <span class="editor-label"><span>⌨️</span> Terminal de Edición SQL:</span>
+            <button class="btn-reset-code" onclick="restaurarCodigoInicial()">↺ Restaurar sugerencia</button>
+          </div>
+          <textarea id="sql-input" class="sql-input" spellcheck="false"></textarea>
+          <div class="editor-actions">
+            <button class="btn-execute" onclick="evaluarCode()"><span>▶</span> Ejecutar Query</button>
+          </div>
+        </div>
+      `;
+      const txt = document.getElementById("sql-input");
+      txt.value = respuestasGuardadas[paso] ? respuestasGuardadas[paso].valor : data.codigoInicial;
+
+    } else if (data.tipo === "fill") {
+      inputContainer.innerHTML = `
+        <div class="fill-section">
+          <span>${data.prefijo}</span>
+          <input type="text" id="fill-input" class="fill-input" placeholder="PALABRA" autocomplete="off" spellcheck="false" />
+          <span>${data.sufijo}</span>
+          <button class="btn-execute" style="margin-left:auto;" onclick="evaluarFill()"><span>✓</span> Validar</button>
+        </div>
+      `;
+      const inp = document.getElementById("fill-input");
+      if (respuestasGuardadas[paso]) {
+        inp.value = respuestasGuardadas[paso].valor;
+      }
+
+    } else if (data.tipo === "boolean") {
+      inputContainer.innerHTML = `
+        <div class="tf-container">
+          <button class="btn-tf" id="btn-true" onclick="evaluarTF(true)"><span>🌸</span> VERDADERO</button>
+          <button class="btn-tf" id="btn-false" onclick="evaluarTF(false)"><span>💡</span> FALSO</button>
+        </div>
+      `;
+    }
 
     if (respuestasGuardadas[paso]) {
-      input.value = respuestasGuardadas[paso].codigo;
-      mostrarResultadoDinamico(respuestasGuardadas[paso].valido);
+      mostrarResultado(respuestasGuardadas[paso].valido);
     } else {
-      input.value = data.codigoInicial;
       feedback.style.display = "none";
       feedback.className = "feedback-box";
       nextBtn.style.display = "none";
-      renderizarTablaDinamica(null, "Escribí tu consulta corregida y hacé clic en '▶ Ejecutar Query'.");
+      renderizarTablaDinamica(null, "Completá y validá el desafío para ver los datos en la tabla dinámica.");
     }
   }
 
-  function ejecutarQuery() {
+  function evaluarCode() {
     const data = modulosActivos[paso];
-    const codigoIngresado = document.getElementById("sql-input").value;
-    const esValido = data.validar(codigoIngresado);
+    const val = document.getElementById("sql-input").value;
+    const esValido = data.validar(val);
+    guardarRespuesta(val, esValido);
+  }
 
-    respuestasGuardadas[paso] = {
-      codigo: codigoIngresado,
-      valido: esValido
-    };
+  function evaluarFill() {
+    const data = modulosActivos[paso];
+    const val = document.getElementById("fill-input").value;
+    const esValido = data.validar(val);
+    guardarRespuesta(val, esValido);
+  }
 
-    mostrarResultadoDinamico(esValido);
+  function evaluarTF(eleccion) {
+    const data = modulosActivos[paso];
+    const esValido = (eleccion === data.correcta);
+    guardarRespuesta(eleccion, esValido);
+  }
+
+  function guardarRespuesta(valor, esValido) {
+    respuestasGuardadas[paso] = { valor, valido: esValido };
+    mostrarResultado(esValido);
 
     const respondidas = respuestasGuardadas.filter(r => r && r.valido).length;
     const porcentaje = (respondidas / modulosActivos.length) * 100;
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
   }
 
-  function mostrarResultadoDinamico(esValido) {
+  function mostrarResultado(esValido) {
     const data = modulosActivos[paso];
     const feedback = document.getElementById("feedback");
     const nextBtn = document.getElementById("next-btn");
 
+    if (data.tipo === "boolean" && respuestasGuardadas[paso]) {
+      const btnT = document.getElementById("btn-true");
+      const btnF = document.getElementById("btn-false");
+      if (btnT && btnF) {
+        btnT.disabled = true;
+        btnF.disabled = true;
+        const btnElegido = respuestasGuardadas[paso].valor ? btnT : btnF;
+        if (esValido) {
+          btnElegido.style.borderColor = "#10b981";
+          btnElegido.style.background = "#ecfdf5";
+        } else {
+          btnElegido.style.borderColor = "#f43f5e";
+          btnElegido.style.background = "#fff1f2";
+          (data.correcta ? btnT : btnF).style.borderColor = "#10b981";
+        }
+      }
+    }
+
     if (esValido) {
       feedback.className = "feedback-box correct";
-      feedback.innerHTML = `<strong>✨ ¡Excelente corrección sintáctica!</strong><br>${data.explicacion}`;
-      const resultadoRows = data.ejecutar();
-      renderizarTablaDinamica(resultadoRows);
+      feedback.innerHTML = `<strong>✨ ¡Respuesta y Lógica Correctas!</strong><br>${data.explicacion}`;
+      const filas = data.ejecutar();
+      renderizarTablaDinamica(filas);
 
       if (paso < modulosActivos.length - 1) {
         nextBtn.style.display = "inline-block";
@@ -950,25 +1295,23 @@
         nextBtn.onclick = proximoDesafio;
       } else {
         nextBtn.style.display = "inline-block";
-        nextBtn.textContent = "🏆 ¡Modo completado con éxito!";
+        nextBtn.textContent = "🏆 ¡Nivel completado con éxito!";
         nextBtn.onclick = () => {
-          alert("¡Felicitaciones! Dominaste todas las consultas prácticas de este nivel.");
+          alert("¡Felicitaciones! Dominaste todos los retos de este nivel.");
         };
       }
     } else {
       feedback.className = "feedback-box incorrect";
-      feedback.innerHTML = `<strong>💔 Consulta incorrecta o error de sintaxis:</strong><br>Revisá la fórmula. Pista: ${data.explicacion}`;
-      renderizarTablaDinamica(null, "⚠️ Error al ejecutar: Sintaxis inválida. Corregí la consulta para ver los registros.");
+      feedback.innerHTML = `<strong>💔 Sintaxis o concepto incorrecto:</strong><br>Revisá la solución o consultá la pista arriba. Pista: ${data.explicacion}`;
+      renderizarTablaDinamica(null, "⚠️ No se generaron filas debido a un error en la consulta o validación.");
       nextBtn.style.display = "none";
     }
 
     feedback.style.display = "block";
   }
 
-  // Generador dinámico de tabla HTML basado en el resultado de la consulta
   function renderizarTablaDinamica(filas, mensajeAlternativo = null) {
     const container = document.getElementById("dynamic-table-container");
-
     if (!filas || filas.length === 0) {
       container.innerHTML = `<p style="font-size: 12px; color: #e0528b; font-weight: 600;">${mensajeAlternativo || '0 filas devueltas.'}</p>`;
       return;
@@ -976,16 +1319,12 @@
 
     const headers = Object.keys(filas[0]);
     let html = `<table><thead><tr>`;
-    headers.forEach(h => {
-      html += `<th>${h}</th>`;
-    });
+    headers.forEach(h => { html += `<th>${h}</th>`; });
     html += `</tr></thead><tbody>`;
 
     filas.forEach(row => {
       html += `<tr>`;
-      headers.forEach(h => {
-        html += `<td>${row[h]}</td>`;
-      });
+      headers.forEach(h => { html += `<td>${row[h]}</td>`; });
       html += `</tr>`;
     });
 
@@ -1021,7 +1360,7 @@
     }
   }
 
-  // Iniciar en fácil
+  // Inicializar en Fácil al cargar
   cambiarDificultad('facil');
 </script>
 

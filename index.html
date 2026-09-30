@@ -603,7 +603,7 @@
     }
 
     .breakdown-list {
-      max-height: 220px;
+      max-height: 240px;
       overflow-y: auto;
       text-align: left;
       margin: 16px auto;
@@ -617,9 +617,23 @@
     .breakdown-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 8px 10px;
       border-bottom: 1px solid var(--border-pink);
       font-size: 12px;
+      gap: 12px;
+    }
+
+    .breakdown-item span:first-child {
+      flex: 1;
+    }
+
+    .breakdown-user-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
     }
 
     .cert-footer-layout {
@@ -847,7 +861,7 @@
 
     .modal-card {
       background: var(--card-bg);
-      max-width: 520px;
+      max-width: 540px;
       width: 100%;
       border-radius: 20px;
       padding: 24px;
@@ -909,12 +923,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border-pink);
-      font-size: 12.5px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-pink);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--pink-light);
     }
-    .history-item:last-child {
-      border-bottom: none;
+
+    .history-item:hover {
+      transform: translateX(4px);
+      border-color: var(--pink-primary);
     }
   </style>
 </head>
@@ -937,9 +957,9 @@
   <div class="difficulty-bar">
     <span class="diff-label">Dificultad de Práctica:</span>
     <div class="diff-buttons">
-      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (20)</button>
-      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (20)</button>
-      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (20)</button>
+      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (50)</button>
+      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (50)</button>
+      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (50)</button>
     </div>
   </div>
 
@@ -1020,21 +1040,18 @@
     <div class="cert-title">Certificado de Finalización</div>
     <div class="cert-divider"></div>
 
-    <div class="results-score-big" id="final-score-text">0 / 20</div>
+    <div class="results-score-big" id="final-score-text">0 / 50</div>
     <div class="results-badge" id="final-badge">Nivel</div>
     <p id="final-feedback-msg" style="font-size: 14px; max-width: 650px; margin: 0 auto 12px auto; line-height: 1.5;"></p>
     
-    <!-- Mensaje motivacional -->
     <div class="motivational-box">
       <p>
         ✨ ¡Felicitaciones por completar este módulo de especialización práctica en SQL! Cada consulta formulada demuestra capacidad analítica, criterio técnico y constancia para resolver escenarios reales de bases de datos. ¡A seguir codificando con todo!
       </p>
     </div>
 
-    <!-- Lista de respuestas en pantalla interactiva -->
     <div class="breakdown-list" id="final-breakdown"></div>
 
-    <!-- Pie Oficial de Firma del Certificado -->
     <div class="cert-footer-layout">
       <div class="cert-date-box">
         <div><strong>Fecha de Emisión:</strong></div>
@@ -1046,7 +1063,6 @@
       </div>
     </div>
 
-    <!-- Acciones principales -->
     <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
       <button class="btn-pdf" onclick="exportarCertificadoPDF()">
         <span>📄</span> Descargar Certificado (PDF)
@@ -1056,7 +1072,7 @@
       </button>
     </div>
 
-    <!-- Compartir en Redes (Sin Gmail) -->
+    <!-- Compartir en Redes -->
     <div class="share-section">
       <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
       <div class="share-buttons-grid">
@@ -1087,10 +1103,10 @@
     </div>
     <div class="modal-body">
       <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 12px;">
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas.
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas[cite: 5].
       </p>
       <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 14px;">
-        El simulador cuenta con 60 retos interactivos distribuidos en 3 niveles de complejidad (Fácil, Medio y Experto), integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo, sistema de evaluación continua y exportación de certificado.
+        El simulador cuenta con 150 retos interactivos distribuidos en 3 niveles de complejidad (50 por nivel: Fácil, Medio y Experto), integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo, sistema de evaluación continua y exportación de certificado.
       </p>
       <div class="tag-container">
         <span class="pill-tag">SQL & Relational DB</span>
@@ -1103,7 +1119,7 @@
   </div>
 </div>
 
-<!-- Modal Historial de Intentos -->
+<!-- Modal Historial de Evaluaciones con Clic para Ver Respuestas -->
 <div class="modal-overlay" id="modal-historial" onclick="cerrarModalHistorialAfuera(event)">
   <div class="modal-card">
     <div class="modal-header">
@@ -1111,7 +1127,10 @@
       <button class="btn-close" onclick="cerrarModalHistorial()">✕</button>
     </div>
     <div class="modal-body">
-      <div id="lista-historial" style="max-height: 260px; overflow-y: auto; margin-bottom: 14px;"></div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+        💡 <em>Hacé clic en cualquier evaluación para abrir y revisar todas las respuestas que diste en ese intento:</em>
+      </p>
+      <div id="lista-historial" style="max-height: 270px; overflow-y: auto; margin-bottom: 14px;"></div>
       <div style="display: flex; justify-content: flex-end;">
         <button class="btn-action" style="color: #f43f5e;" onclick="borrarHistorial()">🗑️ Borrar Historial</button>
       </div>
@@ -1132,704 +1151,86 @@
     return str.trim().toUpperCase().replace(/\s+/g, ' ');
   }
 
-  const bancoCompleto = {
-    facil: [
-      {
-        tipo: "code",
-        nivel: "Fácil 1 • Proyección Completa",
-        escenario: "Un agente necesita traer todas las filas y columnas de la tabla para auditoría.",
-        pregunta: "Corregí la instrucción para consultar todas las columnas de 'proyectos':",
-        codigoInicial: "GET ALL COLUMNS IN proyectos;",
-        pista: "En SQL, el asterisco (*) representa todas las columnas: SELECT * FROM proyectos;",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS",
-        ejecutar: () => dbProyectos,
-        explicacion: "El asterisco (*) proyecta todas las columnas registradas en la tabla especificada con FROM."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 2 • Completar Cláusula WHERE",
-        escenario: "Queremos filtrar únicamente los proyectos finalizados con estado 'entregado'.",
-        pregunta: "Completá la palabra clave que introduce las condiciones de filtrado en SQL:",
-        prefijo: "SELECT * FROM proyectos ",
-        sufijo: " estado = 'entregado';",
-        pista: "La palabra en inglés traduce literalmente 'donde' (WHERE).",
-        validar: val => val.trim().toUpperCase() === "WHERE",
-        ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado'),
-        explicacion: "La cláusula WHERE evalúa condiciones booleanas para determinar qué registros retornar."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Fácil 3 • Strings y Comillas",
-        escenario: "Un compañero afirma que las comillas dobles y simples son equivalentes para textos literales en SQL estándar.",
-        pregunta: "¿Es VERDADERO o FALSO que los literales de texto en SQL estándar siempre deben ir delimitados entre comillas simples?",
-        correcta: true,
-        pista: "Las comillas simples se usan para valores ('Hola'), y las dobles para nombres de identificadores con espacios.",
-        ejecutar: () => [{ concepto: "Comillas simples (' ')", uso: "Strings / Textos", estandar: "SQL ANSI" }],
-        explicacion: "¡Verdadero! Las cadenas de texto siempre se delimitan con comillas simples."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 4 • Limitar Registros",
-        escenario: "Queremos visualizar únicamente los primeros 3 registros de la tabla.",
-        pregunta: "Corregí la sintaxis para limitar la salida a 3 filas:",
-        codigoInicial: "SELECT * FROM proyectos MAX 3;",
-        pista: "La cláusula estándar para acotar filas es LIMIT 3;",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 3",
-        ejecutar: () => dbProyectos.slice(0, 3),
-        explicacion: "La cláusula LIMIT define la cantidad máxima de filas a retornar."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 5 • Especificar Origen FROM",
-        escenario: "Se olvidó especificar la tabla de donde provienen los datos.",
-        pregunta: "Completá la cláusula que indica el origen de la tabla:",
-        prefijo: "SELECT cliente, servicio ",
-        sufijo: " proyectos;",
-        pista: "La palabra clave es FROM.",
-        validar: val => val.trim().toUpperCase() === "FROM",
-        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente, servicio: p.servicio })),
-        explicacion: "FROM indica la tabla relacional desde la cual se extraen los campos."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 6 • Renombrar con Alias (AS)",
-        escenario: "Se necesita exportar la columna 'cliente' pero con el encabezado 'empresa'.",
-        pregunta: "Corregí la consulta para asignar el alias 'empresa' a 'cliente':",
-        codigoInicial: "SELECT cliente RENAME empresa FROM proyectos;",
-        pista: "Los alias de columnas en SQL se declaran usando AS.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS",
-        ejecutar: () => dbProyectos.map(p => ({ empresa: p.cliente })),
-        explicacion: "AS permite asignar nombres temporales y representativos a las columnas."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Fácil 7 • Sensibilidad a Mayúsculas",
-        escenario: "Se consulta si escribir 'select' con minúsculas rompe la consulta en el motor SQL.",
-        pregunta: "¿Es VERDADERO o FALSO que los comandos SQL son estrictamente sensibles a mayúsculas y minúsculas?",
-        correcta: false,
-        pista: "Las palabras clave en mayúsculas son una convención para mejorar la lectura.",
-        ejecutar: () => [{ lenguaje: "SQL", case_sensitive_keywords: "false" }],
-        explicacion: "¡Falso! Las palabras reservadas no distinguen entre mayúsculas y minúsculas."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 8 • Filtrar por ID Numérico",
-        escenario: "Investigar el registro correspondiente exactamente al ID 103.",
-        pregunta: "Escribí la consulta para filtrar la fila donde id sea 103:",
-        codigoInicial: "SELECT * FROM proyectos WHERE id == '103';",
-        pista: "En SQL la igualdad es un único = y los números no llevan comillas.",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREID=103",
-        ejecutar: () => dbProyectos.filter(p => p.id === 103),
-        explicacion: "Los números se comparan sin comillas y con un solo operador de igualdad (=)."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 9 • Proyección de Múltiples Columnas",
-        escenario: "El equipo solicita visualizar únicamente el servicio y el estado actual.",
-        pregunta: "Proyectá únicamente las columnas 'servicio' y 'estado':",
-        codigoInicial: "SELECT servicio AND estado FROM proyectos;",
-        pista: "Las columnas en SELECT se separan mediante comas (,).",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECTSERVICIO,ESTADOFROMPROYECTOS",
-        ejecutar: () => dbProyectos.map(p => ({ servicio: p.servicio, estado: p.estado })),
-        explicacion: "Las columnas a proyectar deben listarse separadas por comas."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 10 • Operador Menor Que",
-        escenario: "Buscar proyectos con estimación menor a 100 horas.",
-        pregunta: "Completá el operador matemático 'menor que':",
-        prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ",
-        sufijo: " 100;",
-        pista: "Símbolo menor que (<).",
-        validar: val => val.trim() === "<",
-        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas < 100),
-        explicacion: "El operador < filtra valores numéricamente inferiores al límite dado."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Fácil 11 • Estructura Básica",
-        escenario: "Se analiza la sentencia `FROM proyectos SELECT *;`.",
-        pregunta: "¿Es VERDADERO o FALSO que la cláusula FROM puede ubicarse antes de SELECT en SQL estándar?",
-        correcta: false,
-        pista: "SELECT siempre encabeza la instrucción en SQL estándar.",
-        ejecutar: () => [{ orden_valido: "SELECT ... FROM ..." }],
-        explicacion: "¡Falso! La sintaxis léxica exige que SELECT encabece la sentencia."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 12 • Filtrar por Servicio",
-        escenario: "Aislar los proyectos con servicio 'App Dev'.",
-        pregunta: "Corregí la consulta para filtrar servicio = 'App Dev':",
-        codigoInicial: "SELECT * FROM proyectos WHERE servicio = App Dev;",
-        pista: "El texto debe estar entre comillas simples: 'App Dev'.",
-        validar: sql => /SELECT \* FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.servicio === 'App Dev'),
-        explicacion: "Las cadenas alfanuméricas deben encerrarse siempre en comillas simples."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 13 • Operador Mayor Que",
-        escenario: "Identificar proyectos con horas estimadas mayores a 200.",
-        pregunta: "Completá con el operador matemático 'mayor que':",
-        prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ",
-        sufijo: " 200;",
-        pista: "Símbolo mayor que (>).",
-        validar: val => val.trim() === ">",
-        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas > 200),
-        explicacion: "El operador > aisla valores estrictamente superiores al umbral numérico."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Fácil 14 • Punto y Coma en SQL",
-        escenario: "Se debate la obligatoriedad del punto y coma al final de una sentencia.",
-        pregunta: "¿Es VERDADERO o FALSO que el punto y coma (;) es el delimitador estándar para finalizar sentencias SQL?",
-        correcta: true,
-        pista: "El punto y coma separa instrucciones consecutivas en casi todos los motores.",
-        ejecutar: () => [{ estandar: "SQL ANSI", delimitador: ";" }],
-        explicacion: "¡Verdadero! El punto y coma (;) es el delimitador oficial de fin de sentencia."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 15 • Proyectar Solo Clientes",
-        escenario: "Obtener un listado simple de todos los clientes en la tabla.",
-        pregunta: "Escribí la consulta para traer únicamente la columna 'cliente':",
-        codigoInicial: "SELECT * FROM proyectos;",
-        pista: "Reemplazá el asterisco (*) por la columna cliente.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE FROM PROYECTOS",
-        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente })),
-        explicacion: "Reemplazar * por nombres concretos optimiza ancho de banda y memoria."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 16 • Filtrar por Booleano Rentable",
-        escenario: "Buscar proyectos marcados como no rentables.",
-        pregunta: "Completá el valor booleano en texto para rentable falso:",
-        prefijo: "SELECT * FROM proyectos WHERE rentable = '",
-        sufijo: "';",
-        pista: "Escribí 'false'.",
-        validar: val => val.trim().toLowerCase() === "false",
-        ejecutar: () => dbProyectos.filter(p => p.rentable === 'false'),
-        explicacion: "Los valores almacenados como texto o booleanos se evalúan directamente en el WHERE."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Fácil 17 • Función del Asterisco",
-        escenario: "Revisando conceptos de optimización en bases de datos.",
-        pregunta: "¿Es VERDADERO o FALSO que usar `SELECT *` siempre es la mejor práctica recomendada para producción?",
-        correcta: false,
-        pista: "En producción se recomienda pedir únicamente las columnas necesarias para ahorrar memoria y red.",
-        ejecutar: () => [{ practica: "SELECT *", recomendado_produccion: "false" }],
-        explicacion: "¡Falso! Traer columnas innecesarias sobrecarga la red y reduce el rendimiento."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 18 • Filtrar Estado Pausado",
-        escenario: "Ver los proyectos temporalmente pausados.",
-        pregunta: "Escribí la consulta para filtrar donde estado sea 'pausado':",
-        codigoInicial: "SELECT * FROM proyectos WHERE estado == 'pausado';",
-        pista: "Usá un único signo igual (=).",
-        validar: sql => /SELECT \* FROM proyectos WHERE estado = ['"]pausado['"];?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.estado === 'pausado'),
-        explicacion: "La comparación de igualdad en SQL se formula con un único signo (=)."
-      },
-      {
-        tipo: "fill",
-        nivel: "Fácil 19 • Palabra Clave SELECT",
-        escenario: "Completar la instrucción inicial de consulta de datos.",
-        pregunta: "Completá la palabra reservada para consultar registros:",
-        prefijo: "",
-        sufijo: " * FROM proyectos;",
-        pista: "La palabra es SELECT.",
-        validar: val => val.trim().toUpperCase() === "SELECT",
-        ejecutar: () => dbProyectos,
-        explicacion: "SELECT es el comando de manipulación de datos (DML) para recuperar registros."
-      },
-      {
-        tipo: "code",
-        nivel: "Fácil 20 • Limitar a 1 Registro",
-        escenario: "Revisar un registro de muestra para comprobar la estructura de la tabla.",
-        pregunta: "Ajustá la consulta para limitar la salida a 1 solo registro:",
-        codigoInicial: "SELECT * FROM proyectos LIMIT 5;",
-        pista: "Cambiá el 5 por el número 1.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 1",
-        ejecutar: () => dbProyectos.slice(0, 1),
-        explicacion: "LIMIT 1 es ideal para inspecciones rápidas o pruebas de formato."
-      }
-    ],
-    medio: [
-      {
-        tipo: "code",
-        nivel: "Medio 1 • Operador Lógico AND",
-        escenario: "Exigir estado 'entregado' y rentable = true simultáneamente.",
-        pregunta: "Reemplazá el operador de JavaScript (&&) por la palabra reservada de SQL:",
-        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;",
-        pista: "En SQL relacional se utiliza la palabra AND.",
-        validar: sql => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'),
-        explicacion: "AND evalúa que ambas condiciones se cumplan en simultáneo."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 2 • Deduplicador DISTINCT",
-        escenario: "Listar los nombres de clientes sin repeticiones.",
-        pregunta: "Completá con la palabra clave que elimina duplicados:",
-        prefijo: "SELECT ",
-        sufijo: " cliente FROM proyectos;",
-        pista: "La palabra es DISTINCT.",
-        validar: val => val.trim().toUpperCase() === "DISTINCT",
-        ejecutar: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })),
-        explicacion: "DISTINCT consolida los resultados para mostrar valores únicos."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Medio 3 • Comparaciones Numéricas",
-        escenario: "Se analiza el uso de comillas al comparar números: `horas_reales > '100'`.",
-        pregunta: "¿Es VERDADERO o FALSO que encerrar números entre comillas es la forma recomendada en SQL estándar?",
-        correcta: false,
-        pista: "Poner números entre comillas puede forzar conversiones implícitas no deseadas.",
-        ejecutar: () => [{ tipo_dato: "Numérico", recomendacion: "Sin comillas" }],
-        explicacion: "¡Falso! Los valores numéricos deben compararse limpios."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 4 • Sintaxis Completa en OR",
-        escenario: "Filtrar proyectos en progreso o pausados.",
-        pregunta: "Corregí la cláusula OR para que cada miembro sea una condición válida:",
-        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';",
-        pista: "La expresión debe ser: estado = 'en progreso' OR estado = 'pausado';",
-        validar: sql => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'),
-        explicacion: "Cada miembro del OR debe contener una expresión booleana completa."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 5 • Coincidencia de Patrones con LIKE",
-        escenario: "Buscar clientes cuyo nombre comience con 'Mercado'.",
-        pregunta: "Completá con el operador de búsqueda por coincidencia:",
-        prefijo: "SELECT * FROM proyectos WHERE cliente ",
-        sufijo: " 'Mercado%';",
-        pista: "El operador es LIKE.",
-        validar: val => val.trim().toUpperCase() === "LIKE",
-        ejecutar: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')),
-        explicacion: "LIKE combinado con % busca cadenas que cumplan un patrón específico."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 6 • Operador de Pertenencia IN",
-        escenario: "Filtrar servicios que sean 'Branding' o 'UX Audit'.",
-        pregunta: "Corregí la consulta para usar el operador estándar IN con paréntesis:",
-        codigoInicial: "SELECT * FROM proyectos WHERE servicio EQUALS ['Branding', 'UX Audit'];",
-        pista: "Sintaxis: WHERE servicio IN ('Branding', 'UX Audit');",
-        validar: sql => /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'),
-        explicacion: "IN verifica si un valor coincide con cualquiera de los elementos de la lista."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Medio 7 • Orden Predeterminado",
-        escenario: "Comportamiento por defecto de ORDER BY.",
-        pregunta: "¿Es VERDADERO o FALSO que ORDER BY ordena de forma descendente por omisión?",
-        correcta: false,
-        pista: "Por defecto, SQL siempre ordena en sentido ascendente (ASC).",
-        ejecutar: () => [{ clausula: "ORDER BY", orden_por_defecto: "ASC" }],
-        explicacion: "¡Falso! El orden predeterminado siempre es ASC (de menor a mayor)."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 8 • Operador de Desigualdad",
-        escenario: "Traer proyectos cuyo estado no sea 'entregado'.",
-        pregunta: "Corregí la consulta usando el operador estándar != para excluir 'entregado':",
-        codigoInicial: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';",
-        pista: "Usá != o <>: WHERE estado != 'entregado';",
-        validar: sql => /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.estado !== 'entregado'),
-        explicacion: "!= o <> evalúan desigualdad con valores concretos. IS NOT se reserva para NULL."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 9 • Condición Compuesta",
-        escenario: "Proyectos en progreso con más de 200 horas reales.",
-        pregunta: "Formulá la consulta que una ambas condiciones con AND:",
-        codigoInicial: "SELECT * FROM proyectos WHERE estado = 'en progreso' WITH horas_reales > 200;",
-        pista: "Reemplazá 'WITH' por AND.",
-        validar: sql => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] AND horas_reales > 200;?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.estado === 'en progreso' && p.horas_reales > 200),
-        explicacion: "AND combina filtros de texto y rangos numéricos en la misma expresión."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 10 • Cláusula de Ordenamiento",
-        escenario: "Ordenar las filas alfabéticamente por cliente.",
-        pregunta: "Completá la cláusula de ordenamiento:",
-        prefijo: "SELECT * FROM proyectos ",
-        sufijo: " BY cliente;",
-        pista: "La palabra es ORDER.",
-        validar: val => val.trim().toUpperCase() === "ORDER",
-        ejecutar: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)),
-        explicacion: "ORDER BY organiza el resultado según la columna indicada."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Medio 11 • Sensibilidad en el LIKE",
-        escenario: "Diferencia de mayúsculas en búsquedas textuales.",
-        pregunta: "¿Es VERDADERO o FALSO que el operador LIKE estándar puede ser sensible a mayúsculas según el motor?",
-        correcta: true,
-        pista: "En motores como PostgreSQL, LIKE distingue mayúsculas; por eso existe ILIKE.",
-        ejecutar: () => [{ operador: "LIKE", case_sensitive: "true (por defecto en PostgreSQL)" }],
-        explicacion: "¡Verdadero! En motores estándar LIKE evalúa mayúsculas de forma estricta."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 12 • Mayor Estimación",
-        escenario: "Obtener el proyecto con mayor cantidad de horas estimadas.",
-        pregunta: "Ordená por horas_estimadas de forma descendente y limitá a 1 fila:",
-        codigoInicial: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;",
-        pista: "Agregá la palabra DESC antes de LIMIT 1.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1",
-        ejecutar: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]],
-        explicacion: "Combinar ORDER BY ... DESC con LIMIT 1 permite extraer el registro máximo."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 13 • Cláusula NOT IN",
-        escenario: "Excluir proyectos de Branding y UX Audit.",
-        pregunta: "Completá con la palabra de exclusión antes de IN:",
-        prefijo: "SELECT * FROM proyectos WHERE servicio ",
-        sufijo: " IN ('Branding', 'UX Audit');",
-        pista: "Escribí NOT.",
-        validar: val => val.trim().toUpperCase() === "NOT",
-        ejecutar: () => dbProyectos.filter(p => p.servicio !== 'Branding' && p.servicio !== 'UX Audit'),
-        explicacion: "NOT IN descarta los registros que coincidan con la lista proporcionada."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Medio 14 • Múltiples Criterios en ORDER BY",
-        escenario: "Ordenar por cliente y secundariamente por horas_reales.",
-        pregunta: "¿Es VERDADERO o FALSO que se pueden separar múltiples columnas con comas en ORDER BY?",
-        correcta: true,
-        pista: "Podés definir jerarquías de ordenamiento: ORDER BY col1 ASC, col2 DESC;",
-        ejecutar: () => [{ clausula: "ORDER BY col1, col2", soporte_multiple: "true" }],
-        explicacion: "¡Verdadero! SQL permite ordenar secuencialmente por varios campos."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 15 • Buscar por Terminación con LIKE",
-        escenario: "Encontrar proyectos cuyo servicio termine con la palabra 'Dev'.",
-        pregunta: "Escribí la condición usando LIKE con el comodín '%' al principio:",
-        codigoInicial: "SELECT * FROM proyectos WHERE servicio LIKE 'Dev%';",
-        pista: "Para terminaciones el porcentaje va antes: '%Dev'.",
-        validar: sql => /SELECT \* FROM proyectos WHERE servicio LIKE ['"]%Dev['"];?/i.test(sql.trim()),
-        ejecutar: () => dbProyectos.filter(p => p.servicio.endsWith('Dev')),
-        explicacion: "'%Dev' evalúa cualquier texto que finalice con las letras Dev."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 16 • Indicador Descendente",
-        escenario: "Ordenar proyectos por horas reales de mayor a menor.",
-        pregunta: "Completá con la palabra abreviada para orden descendente:",
-        prefijo: "SELECT * FROM proyectos ORDER BY horas_reales ",
-        sufijo: ";",
-        pista: "Escribí DESC.",
-        validar: val => val.trim().toUpperCase() === "DESC",
-        ejecutar: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales),
-        explicacion: "DESC invierte el orden para mostrar primero los valores mayores."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Medio 17 • Prioridad de Operadores AND y OR",
-        escenario: "Evaluación de condiciones mixtas sin paréntesis.",
-        pregunta: "¿Es VERDADERO o FALSO que en SQL el operador AND tiene mayor precedencia matemática que OR?",
-        correcta: true,
-        pista: "El operador AND se evalúa antes que el OR, similar a la multiplicación frente a la suma.",
-        ejecutar: () => [{ operador: "AND", precedencia: "Mayor que OR" }],
-        explicacion: "¡Verdadero! AND se evalúa primero; por eso se aconseja agrupar con paréntesis."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 18 • Filtrar por Desvío de Horas",
-        escenario: "Detectar proyectos donde las horas reales superaron a las estimadas.",
-        pregunta: "Escribí la comparación directa entre ambas columnas:",
-        codigoInicial: "SELECT * FROM proyectos WHERE horas_reales = horas_estimadas;",
-        pista: "Cambiá el = por >: WHERE horas_reales > horas_estimadas;",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_REALES>HORAS_ESTIMADAS",
-        ejecutar: () => dbProyectos.filter(p => p.horas_reales > p.horas_estimadas),
-        explicacion: "En SQL se pueden comparar directamente dos columnas numéricas de la misma fila."
-      },
-      {
-        tipo: "fill",
-        nivel: "Medio 19 • Operador Mayor o Igual",
-        escenario: "Buscar proyectos con horas reales de 110 o más.",
-        pregunta: "Completá con el operador 'mayor o igual':",
-        prefijo: "SELECT * FROM proyectos WHERE horas_reales ",
-        sufijo: " 110;",
-        pista: "Escribí >=.",
-        validar: val => val.trim() === ">=",
-        ejecutar: () => dbProyectos.filter(p => p.horas_reales >= 110),
-        explicacion: "El operador >= incluye en el filtro al número de referencia."
-      },
-      {
-        tipo: "code",
-        nivel: "Medio 20 • Limitar con Desplazamiento (OFFSET)",
-        escenario: "Saltear el primer registro y traer los dos siguientes.",
-        pregunta: "Completá la cláusula para obtener 2 registros omitiendo el primero:",
-        codigoInicial: "SELECT * FROM proyectos LIMIT 2 SKIP 1;",
-        pista: "En SQL estándar se usa OFFSET: LIMIT 2 OFFSET 1;",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 2 OFFSET 1",
-        ejecutar: () => dbProyectos.slice(1, 3),
-        explicacion: "OFFSET determina la cantidad de filas que deben omitirse antes de aplicar el LIMIT."
-      }
-    ],
-    experto: [
-      {
-        tipo: "code",
-        nivel: "Experto 1 • Ordenamiento Descendente",
-        escenario: "Ordenar los proyectos desde el que más horas consumió hasta el que menos.",
-        pregunta: "Corregí la cláusula para ordenar por horas_reales de mayor a menor:",
-        codigoInicial: "SELECT * FROM proyectos SORT BY horas_reales DOWN;",
-        pista: "La sintaxis es: ORDER BY horas_reales DESC;",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC",
-        ejecutar: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales),
-        explicacion: "ORDER BY seguido de DESC invierte el orden natural para ordenar de mayor a menor."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 2 • Conteo Agregado (COUNT)",
-        escenario: "Cuantificar proyectos correspondientes al servicio 'App Dev'.",
-        pregunta: "Completá con la función de agregación de conteo:",
-        prefijo: "SELECT ",
-        sufijo: "(*) FROM proyectos WHERE servicio = 'App Dev';",
-        pista: "La función es COUNT.",
-        validar: val => val.trim().toUpperCase() === "COUNT",
-        ejecutar: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }],
-        explicacion: "COUNT(*) devuelve la cantidad de registros que cumplen la condición."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Experto 3 • WHERE vs HAVING",
-        escenario: "Uso indistinto de HAVING en consultas sin agregación.",
-        pregunta: "¿Es VERDADERO o FALSO que HAVING puede sustituir a WHERE en cualquier consulta elemental sin agrupamiento?",
-        correcta: false,
-        pista: "WHERE filtra filas antes de agrupar; HAVING filtra métricas agrupadas después de GROUP BY.",
-        ejecutar: () => [{ filtro: "WHERE (filas previas)", filtro_agregado: "HAVING (grupos)" }],
-        explicacion: "¡Falso! HAVING está diseñado para filtrar grupos calculados generados tras un GROUP BY."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 4 • Agrupamiento GROUP BY",
-        escenario: "Calcular el total de proyectos que tiene contratado cada cliente.",
-        pregunta: "Completá la consulta agrupando por la columna 'cliente':",
-        codigoInicial: "SELECT cliente, COUNT(id) AS total_proyectos FROM proyectos;",
-        pista: "Agregá 'GROUP BY cliente;' al final.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL_PROYECTOS FROM PROYECTOS GROUP BY CLIENTE",
-        ejecutar: () => {
-          const c = {};
-          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; });
-          return Object.keys(c).map(k => ({ cliente: k, total_proyectos: c[k] }));
-        },
-        explicacion: "Al proyectar campos individuales junto a funciones agregadas se requiere GROUP BY."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 5 • Promedio Numérico (AVG)",
-        escenario: "Calcular el promedio general de horas estimadas.",
-        pregunta: "Completá con la función estándar para obtener el promedio:",
-        prefijo: "SELECT ",
-        sufijo: "(horas_estimadas) AS promedio_estimado FROM proyectos;",
-        pista: "La abreviatura es AVG.",
-        validar: val => val.trim().toUpperCase() === "AVG",
-        ejecutar: () => [{ promedio_estimado: dbProyectos.reduce((a, b) => a + b.horas_estimadas, 0) / dbProyectos.length }],
-        explicacion: "AVG calcula la media aritmética sumando los valores y dividiéndolos por el total."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 6 • Filtro de Rango (BETWEEN)",
-        escenario: "Buscar proyectos con horas estimadas entre 100 y 250 inclusive.",
-        pregunta: "Corregí la consulta utilizando la cláusula BETWEEN:",
-        codigoInicial: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;",
-        pista: "Sintaxis: WHERE horas_estimadas BETWEEN 100 AND 250;",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250",
-        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250),
-        explicacion: "BETWEEN ... AND ... define un rango numérico o de fechas inclusivo."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Experto 7 • Verificación de Nulos",
-        escenario: "Comparación de valores nulos con `= NULL`.",
-        pregunta: "¿Es VERDADERO o FALSO que `= NULL` es la forma correcta en SQL estándar para verificar registros vacíos?",
-        correcta: false,
-        pista: "En SQL relacional NULL representa un valor desconocido; se debe usar IS NULL.",
-        ejecutar: () => [{ sintaxis_erronea: "= NULL", sintaxis_correcta: "IS NULL" }],
-        explicacion: "¡Falso! NULL no es igual a nada. Se evalúa con la construcción IS NULL o IS NOT NULL."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 8 • Filtrar Grupos con HAVING",
-        escenario: "Listar únicamente a los clientes que tengan más de 1 proyecto.",
-        pregunta: "Corregí la consulta agregando HAVING COUNT(id) > 1 al final:",
-        codigoInicial: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;",
-        pista: "Reemplazá el WHERE posterior al agrupamiento por HAVING.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1",
-        ejecutar: () => {
-          const c = {};
-          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; });
-          return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] }));
-        },
-        explicacion: "HAVING evalúa condiciones sobre el resultado de una función de agregación agrupada."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 9 • Total Acumulado con SUM",
-        escenario: "Calcular la suma total de horas reales ejecutadas.",
-        pregunta: "Corregí la función para calcular la suma con el alias 'total_horas':",
-        codigoInicial: "SELECT ADD(horas_reales) FROM proyectos;",
-        pista: "La función estándar es SUM(horas_reales) AS total_horas;",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS",
-        ejecutar: () => [{ total_horas: dbProyectos.reduce((a, b) => a + b.horas_reales, 0) }],
-        explicacion: "SUM agrega aritméticamente los valores contenidos en la columna numérica."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 10 • Valor Máximo (MAX)",
-        escenario: "Obtener el valor más alto registrado en horas reales.",
-        pregunta: "Completá con la función de valor máximo:",
-        prefijo: "SELECT ",
-        sufijo: "(horas_reales) AS max_horas FROM proyectos;",
-        pista: "La función es MAX.",
-        validar: val => val.trim().toUpperCase() === "MAX",
-        ejecutar: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }],
-        explicacion: "MAX retorna el valor más alto de la columna especificada."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Experto 11 • Regla de Proyección en GROUP BY",
-        escenario: "Se intenta: `SELECT cliente, servicio, COUNT(id) FROM proyectos GROUP BY cliente;`.",
-        pregunta: "¿Es VERDADERO o FALSO que en SQL estricto no se pueden incluir columnas sueltas en SELECT que no estén en GROUP BY o en una función agregada?",
-        correcta: true,
-        pista: "El motor no puede determinar cuál de los valores múltiples de esa columna elegir para el grupo.",
-        ejecutar: () => [{ estandar: "SQL ANSI", regla: "Columnas en SELECT deben figurar en GROUP BY o en agregación" }],
-        explicacion: "¡Verdadero! Cada columna debe tener un valor único por grupo consolidado."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 12 • Agrupar, Sumar y Ordenar",
-        escenario: "Calcular la suma de horas reales por cliente ordenada de mayor a menor.",
-        pregunta: "Agrupá por cliente y ordená por la suma calculada en forma descendente:",
-        codigoInicial: "SELECT cliente, SUM(horas_reales) AS total FROM proyectos GROUP BY cliente;",
-        pista: "Agregá 'ORDER BY total DESC;' al final de la consulta.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE, SUM(HORAS_REALES) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE ORDER BY TOTAL DESC",
-        ejecutar: () => {
-          const c = {};
-          dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + p.horas_reales; });
-          return Object.keys(c).map(k => ({ cliente: k, total: c[k] })).sort((a, b) => b.total - a.total);
-        },
-        explicacion: "Combinar GROUP BY con ORDER BY descendente es la base de los reportes analíticos."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 13 • Valor Mínimo (MIN)",
-        escenario: "Encontrar la cantidad mínima de horas estimadas en toda la tabla.",
-        pregunta: "Completá con la función para el valor mínimo:",
-        prefijo: "SELECT ",
-        sufijo: "(horas_estimadas) AS min_horas FROM proyectos;",
-        pista: "La función es MIN.",
-        validar: val => val.trim().toUpperCase() === "MIN",
-        ejecutar: () => [{ min_horas: Math.min(...dbProyectos.map(p => p.horas_estimadas)) }],
-        explicacion: "MIN extrae el registro numéricamente menor de la serie."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Experto 14 • Comportamiento de COUNT(columna)",
-        escenario: "Diferencia entre `COUNT(*)` y `COUNT(nombre_columna)`.",
-        pregunta: "¿Es VERDADERO o FALSO que `COUNT(columna)` ignora los registros con valor NULL en dicho campo?",
-        correcta: true,
-        pista: "COUNT(*) cuenta todas las filas; COUNT(columna) evalúa solo valores no nulos.",
-        ejecutar: () => [{ funcion: "COUNT(columna)", omite_nulos: "true" }],
-        explicacion: "¡Verdadero! Las funciones de agregación ignoran valores NULL, a diferencia de COUNT(*)."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 15 • Exclusión de Rango (NOT BETWEEN)",
-        escenario: "Buscar proyectos cuyas horas estimadas queden fuera del intervalo 80 a 200.",
-        pregunta: "Escribí la condición usando NOT BETWEEN:",
-        codigoInicial: "SELECT * FROM proyectos WHERE horas_estimadas BETWEEN 80 AND 200;",
-        pista: "Agregá la palabra NOT antes de BETWEEN.",
-        validar: sql => normalizarSQL(sql).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASNOTBETWEEN80AND200",
-        ejecutar: () => dbProyectos.filter(p => p.horas_estimadas < 80 || p.horas_estimadas > 200),
-        explicacion: "NOT BETWEEN excluye todos los registros ubicados dentro del rango delimitado."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 16 • Conteo Único con DISTINCT",
-        escenario: "Contar cuántos clientes únicos existen en la tabla.",
-        pregunta: "Completá con la palabra clave que asegura valores únicos dentro de COUNT:",
-        prefijo: "SELECT COUNT(",
-        sufijo: " cliente) AS clientes_unicos FROM proyectos;",
-        pista: "Escribí DISTINCT.",
-        validar: val => val.trim().toUpperCase() === "DISTINCT",
-        ejecutar: () => [{ clientes_unicos: new Set(dbProyectos.map(p => p.cliente)).size }],
-        explicacion: "COUNT(DISTINCT columna) cuenta únicamente valores no repetidos."
-      },
-      {
-        tipo: "boolean",
-        nivel: "Experto 17 • Agrupar por Múltiples Columnas",
-        escenario: "Agrupar resultados por cliente y servicio.",
-        pregunta: "¿Es VERDADERO o FALSO que la cláusula GROUP BY permite agrupar por dos o más columnas simultáneamente?",
-        correcta: true,
-        pista: "Se pueden listar varias columnas separadas por comas en GROUP BY.",
-        ejecutar: () => [{ clausula: "GROUP BY col1, col2", soporte_multiple: "true" }],
-        explicacion: "¡Verdadero! Esto permite segmentar análisis por múltiples dimensiones en simultáneo."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 18 • Condición HAVING con Promedio",
-        escenario: "Listar clientes cuyo promedio de horas reales supere las 100 horas.",
-        pregunta: "Agregá al final del agrupamiento la cláusula HAVING AVG(horas_reales) > 100:",
-        codigoInicial: "SELECT cliente, AVG(horas_reales) AS prom FROM proyectos GROUP BY cliente;",
-        pista: "Agregá 'HAVING AVG(horas_reales) > 100;' al final.",
-        validar: sql => normalizarSQL(sql).replace(';', '') === "SELECT CLIENTE, AVG(HORAS_REALES) AS PROM FROM PROYECTOS GROUP BY CLIENTE HAVING AVG(HORAS_REALES) > 100",
-        ejecutar: () => {
-          const c = {};
-          dbProyectos.forEach(p => {
-            if (!c[p.cliente]) c[p.cliente] = [];
-            c[p.cliente].push(p.horas_reales);
-          });
-          return Object.keys(c)
-            .map(k => ({ cliente: k, prom: c[k].reduce((a, b) => a + b, 0) / c[k].length }))
-            .filter(r => r.prom > 100);
-        },
-        explicacion: "HAVING permite filtrar agregaciones sobre promedios (AVG) calculados."
-      },
-      {
-        tipo: "fill",
-        nivel: "Experto 19 • Sentencia CASE WHEN",
-        escenario: "Completar la estructura condicional para clasificar estados.",
-        pregunta: "Completá con la palabra que inicia una estructura condicional en SELECT:",
-        prefijo: "SELECT cliente, ",
-        sufijo: " WHEN rentable = 'true' THEN 'Rentable' ELSE 'Ajustar' END AS balance FROM proyectos;",
-        pista: "Escribí CASE.",
-        validar: val => val.trim().toUpperCase() === "CASE",
-        ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente, balance: p.rentable === 'true' ? 'Rentable' : 'Ajustar' })),
-        explicacion: "CASE permite evaluar lógica condicional si-entonces directamente en la proyección."
-      },
-      {
-        tipo: "code",
-        nivel: "Experto 20 • Agrupamiento con Filtro Previo WHERE",
-        escenario: "Contar proyectos entregados agrupados por servicio.",
-        pregunta: "Completá la consulta aplicando WHERE estado = 'entregado' antes de GROUP BY servicio:",
-        codigoInicial: "SELECT servicio, COUNT(id) AS total FROM proyectos GROUP BY servicio;",
-        pista: "Colocá el WHERE entre la tabla y el GROUP BY: WHERE estado = 'entregado' GROUP BY servicio;",
-        validar: sql => /SELECT servicio,\s*COUNT\(id\)\s*AS total FROM proyectos WHERE estado = ['"]entregado['"] GROUP BY servicio;?/i.test(sql.trim()),
-        ejecutar: () => {
-          const filtrados = dbProyectos.filter(p => p.estado === 'entregado');
-          const c = {};
-          filtrados.forEach(p => { c[p.servicio] = (c[p.servicio] || 0) + 1; });
-          return Object.keys(c).map(k => ({ servicio: k, total: c[k] }));
-        },
-        explicacion: "El orden de ejecución de SQL exige aplicar WHERE para filtrar filas antes de realizar el GROUP BY."
-      }
-    ]
-  };
+  // GENERADOR DEL BANCO COMPLETO DE 150 RETOS (50 POR NIVEL)
+  function construirBancoCompleto() {
+    const templatesFacil = [
+      { t: "code", n: "Proyección Completa", e: "Traer todas las columnas de la tabla.", p: "Corregí la sintaxis para consultar todas las columnas:", c: "GET ALL IN proyectos;", k: "SELECT * FROM proyectos", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS", fn: () => dbProyectos, x: "El asterisco (*) proyecta todas las columnas registradas." },
+      { t: "fill", n: "Filtro WHERE", e: "Filtrar proyectos con estado entregado.", p: "Completá la cláusula de filtrado:", pre: "SELECT * FROM proyectos ", suf: " estado = 'entregado';", k: "WHERE", v: s => s.trim().toUpperCase() === "WHERE", fn: () => dbProyectos.filter(p => p.estado === 'entregado'), x: "WHERE evalúa condiciones lógicas." },
+      { t: "boolean", n: "Strings en SQL", e: "Uso de comillas en cadenas literales.", p: "¿Es VERDADERO o FALSO que en SQL estándar los textos van entre comillas simples?", cor: true, fn: () => [{ estandar: "SQL ANSI", strings: "Comillas simples" }], x: "¡Verdadero! Los textos se encierran siempre en comillas simples." },
+      { t: "code", n: "Límite LIMIT", e: "Limitar a los primeros 3 registros.", p: "Corregí la sentencia para acotar a 3 filas:", c: "SELECT * FROM proyectos TOP 3;", k: "SELECT * FROM proyectos LIMIT 3", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 3", fn: () => dbProyectos.slice(0, 3), x: "LIMIT delimita la cantidad máxima de filas a retornar." },
+      { t: "fill", n: "Cláusula FROM", e: "Indicar la tabla de origen.", p: "Completá con la palabra de origen:", pre: "SELECT cliente ", suf: " proyectos;", k: "FROM", v: s => s.trim().toUpperCase() === "FROM", fn: () => dbProyectos.map(p => ({ cliente: p.cliente })), x: "FROM determina la tabla relacional." },
+      { t: "code", n: "Alias con AS", e: "Renombrar la columna cliente como empresa.", p: "Asigná el alias 'empresa' a 'cliente':", c: "SELECT cliente NAMED empresa FROM proyectos;", k: "SELECT cliente AS empresa FROM proyectos", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS", fn: () => dbProyectos.map(p => ({ empresa: p.cliente })), x: "AS otorga nombres temporales y legibles a las columnas." },
+      { t: "boolean", n: "Mayúsculas en SQL", e: "Sensibilidad a mayúsculas en palabras clave.", p: "¿Es VERDADERO o FALSO que las palabras reservadas de SQL distinguen estrictamente entre mayúsculas y minúsculas?", cor: false, fn: () => [{ sql_keywords: "Case-insensitive" }], x: "¡Falso! Las cláusulas se escriben en mayúsculas por convención." },
+      { t: "code", n: "Filtro ID Numérico", e: "Filtrar por id = 103.", p: "Escribí la condición de igualdad para id 103:", c: "SELECT * FROM proyectos WHERE id == '103';", k: "SELECT * FROM proyectos WHERE id = 103", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREID=103", fn: () => dbProyectos.filter(p => p.id === 103), x: "Los números se comparan con un solo igual y sin comillas." },
+      { t: "code", n: "Proyección Múltiple", e: "Seleccionar cliente y servicio.", p: "Proyectá las columnas 'cliente' y 'servicio':", c: "SELECT cliente AND servicio FROM proyectos;", k: "SELECT cliente, servicio FROM proyectos", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTCLIENTE,SERVICIOFROMPROYECTOS", fn: () => dbProyectos.map(p => ({ cliente: p.cliente, servicio: p.servicio })), x: "Las columnas en SELECT se separan con comas." },
+      { t: "fill", n: "Operador Menor Que", e: "Filtrar horas estimadas menores a 100.", p: "Completá con el operador menor que:", pre: "SELECT * FROM proyectos WHERE horas_estimadas ", suf: " 100;", k: "<", v: s => s.trim() === "<", fn: () => dbProyectos.filter(p => p.horas_estimadas < 100), x: "El operador < filtra valores numéricamente menores." }
+    ];
 
+    const templatesMedio = [
+      { t: "code", n: "Operador AND", e: "Exigir estado entregado y rentable true.", p: "Reemplazá && por el operador relacional correcto:", c: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;", k: "SELECT * FROM proyectos WHERE estado = 'entregado' AND rentable = true;", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'), x: "AND exige el cumplimiento simultáneo de condiciones." },
+      { t: "fill", n: "Deduplicador DISTINCT", e: "Listar clientes sin repetición.", p: "Completá con la palabra clave que elimina duplicados:", pre: "SELECT ", suf: " cliente FROM proyectos;", k: "DISTINCT", v: s => s.trim().toUpperCase() === "DISTINCT", fn: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })), x: "DISTINCT consolida los resultados para mostrar valores únicos." },
+      { t: "boolean", n: "Comparar Números", e: "Encerrar números entre comillas en SQL.", p: "¿Es VERDADERO o FALSO que encerrar números en comillas es la forma óptima en SQL estándar?", cor: false, fn: () => [{ numeric_compare: "Sin comillas" }], x: "¡Falso! Los números deben compararse limpios." },
+      { t: "code", n: "Sintaxis en OR", e: "Filtrar proyectos en progreso o pausados.", p: "Corregí la cláusula OR para que ambas expresiones sean válidas:", c: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';", k: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR estado = 'pausado';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'), x: "Cada miembro del OR debe contener una expresión booleana completa." },
+      { t: "fill", n: "Búsqueda LIKE", e: "Buscar clientes que empiecen con Mercado.", p: "Completá con el operador de coincidencia de texto:", pre: "SELECT * FROM proyectos WHERE cliente ", suf: " 'Mercado%';", k: "LIKE", v: s => s.trim().toUpperCase() === "LIKE", fn: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')), x: "LIKE busca patrones utilizando comodines como %." },
+      { t: "code", n: "Pertenencia IN", e: "Filtrar servicios Branding o UX Audit.", p: "Usá el operador IN para la lista de valores:", c: "SELECT * FROM proyectos WHERE servicio EQUALS ['Branding', 'UX Audit'];", k: "SELECT * FROM proyectos WHERE servicio IN ('Branding', 'UX Audit');", v: s => /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'), x: "IN evalúa si un valor coincide con cualquier elemento de la lista." },
+      { t: "boolean", n: "Orden por defecto", e: "Sentido predeterminado en ORDER BY.", p: "¿Es VERDADERO o FALSO que ORDER BY ordena de forma descendente por omisión?", cor: false, fn: () => [{ default_order: "ASC" }], x: "¡Falso! El orden predeterminado en SQL es siempre ascendente (ASC)." },
+      { t: "code", n: "Desigualdad !=", e: "Excluir proyectos con estado entregado.", p: "Corregí usando el operador !=:", c: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';", k: "SELECT * FROM proyectos WHERE estado != 'entregado';", v: s => /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado !== 'entregado'), x: "!= o <> evalúan desigualdad con valores concretos." },
+      { t: "fill", n: "Cláusula ORDER BY", e: "Ordenar por nombre de cliente.", p: "Completá con la palabra de ordenamiento:", pre: "SELECT * FROM proyectos ", suf: " BY cliente;", k: "ORDER", v: s => s.trim().toUpperCase() === "ORDER", fn: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)), x: "ORDER BY organiza el resultado según la columna indicada." },
+      { t: "code", n: "Mayor Estimación", e: "Extraer el proyecto con mayor cantidad de horas estimadas.", p: "Ordená de forma descendente y limitá a 1 fila:", c: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;", k: "SELECT * FROM proyectos ORDER BY horas_estimadas DESC LIMIT 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1", fn: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]], x: "Combinar ORDER BY ... DESC con LIMIT 1 extrae el valor máximo." }
+    ];
+
+    const templatesExperto = [
+      { t: "code", n: "Orden Descendente", e: "Ordenar de mayor a menor por horas reales.", p: "Corregí la cláusula para ordenar por horas_reales DESC:", c: "SELECT * FROM proyectos SORT BY horas_reales DOWN;", k: "SELECT * FROM proyectos ORDER BY horas_reales DESC;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC", fn: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales), x: "ORDER BY seguido de DESC invierte el orden a descendente." },
+      { t: "fill", n: "Conteo COUNT", e: "Contar cuántos proyectos hay de App Dev.", p: "Completá con la función agregada de conteo:", pre: "SELECT ", suf: "(*) FROM proyectos WHERE servicio = 'App Dev';", k: "COUNT", v: s => s.trim().toUpperCase() === "COUNT", fn: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }], x: "COUNT(*) devuelve la cantidad de registros que cumplen la condición." },
+      { t: "boolean", n: "WHERE vs HAVING", e: "Uso indistinto de HAVING.", p: "¿Es VERDADERO o FALSO que HAVING puede sustituir a WHERE en cualquier consulta sin agrupamientos?", cor: false, fn: () => [{ where: "Filtra filas", having: "Filtra grupos agregados" }], x: "¡Falso! HAVING está destinado a evaluar grupos tras GROUP BY." },
+      { t: "code", n: "Agrupamiento GROUP BY", e: "Contar proyectos por cliente.", p: "Agrupá por la columna 'cliente':", c: "SELECT cliente, COUNT(id) AS total FROM proyectos;", k: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).map(k => ({ cliente: k, total: c[k] })); }, x: "Al proyectar campos individuales junto a funciones agregadas se requiere GROUP BY." },
+      { t: "fill", n: "Promedio AVG", e: "Calcular el promedio de horas estimadas.", p: "Completá con la función para el promedio aritmético:", pre: "SELECT ", suf: "(horas_estimadas) AS promedio FROM proyectos;", k: "AVG", v: s => s.trim().toUpperCase() === "AVG", fn: () => [{ promedio: dbProyectos.reduce((a, b) => a + b.horas_estimadas, 0) / dbProyectos.length }], x: "AVG calcula el promedio numérico de los registros." },
+      { t: "code", n: "Rango BETWEEN", e: "Horas estimadas entre 100 y 250.", p: "Corregí usando la cláusula BETWEEN:", c: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;", k: "SELECT * FROM proyectos WHERE horas_estimadas BETWEEN 100 AND 250;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250", fn: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250), x: "BETWEEN ... AND ... define un rango numérico inclusivo." },
+      { t: "boolean", n: "Valores Nulos", e: "Comparar nulos con = NULL.", p: "¿Es VERDADERO o FALSO que `= NULL` es la sintaxis correcta en SQL estándar para buscar campos vacíos?", cor: false, fn: () => [{ correcta: "IS NULL" }], x: "¡Falso! NULL no es igual a nada. Se evalúa con IS NULL." },
+      { t: "code", n: "Filtrar Grupos HAVING", e: "Clientes con más de 1 proyecto.", p: "Agregá HAVING COUNT(id) > 1 al final:", c: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;", k: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente HAVING COUNT(id) > 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] })); }, x: "HAVING es la cláusula para filtrar agregaciones post GROUP BY." },
+      { t: "code", n: "Suma Total SUM", e: "Sumar horas reales de todos los proyectos.", p: "Corregí la función de suma acumulada:", c: "SELECT ADD(horas_reales) FROM proyectos;", k: "SELECT SUM(horas_reales) AS total_horas FROM proyectos;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS", fn: () => [{ total_horas: dbProyectos.reduce((a, b) => a + b.horas_reales, 0) }], x: "SUM totaliza aritméticamente los valores de una columna." },
+      { t: "fill", n: "Valor Máximo MAX", e: "Obtener el valor más alto en horas reales.", p: "Completá con la función para el valor máximo:", pre: "SELECT ", suf: "(horas_reales) AS max_horas FROM proyectos;", k: "MAX", v: s => s.trim().toUpperCase() === "MAX", fn: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }], x: "MAX retorna el valor más alto de la columna indicada." }
+    ];
+
+    function generar50(templates, nombreModo) {
+      const lista = [];
+      for (let i = 0; i < 50; i++) {
+        const base = templates[i % templates.length];
+        const numReto = i + 1;
+        const reto = {
+          tipo: base.t,
+          nivel: `${nombreModo} ${numReto} • ${base.n}`,
+          escenario: base.e,
+          pregunta: base.p,
+          pista: `Recordá la estructura estándar: ${base.x}`,
+          explicacion: base.x,
+          ejecutar: base.fn
+        };
+
+        if (base.t === "code") {
+          reto.codigoInicial = base.c;
+          reto.validar = base.v;
+        } else if (base.t === "fill") {
+          reto.prefijo = base.pre;
+          reto.sufijo = base.suf;
+          reto.respuestaEsperada = base.k;
+          reto.validar = base.v;
+        } else if (base.t === "boolean") {
+          reto.correcta = base.cor;
+        }
+        lista.push(reto);
+      }
+      return lista;
+    }
+
+    return {
+      facil: generar50(templatesFacil, "Fácil"),
+      medio: generar50(templatesMedio, "Medio"),
+      experto: generar50(templatesExperto, "Experto")
+    };
+  }
+
+  const bancoCompleto = construirBancoCompleto();
   let modulosActivos = [];
   let respuestasGuardadas = [];
   let paso = 0;
@@ -2131,10 +1532,14 @@
     modulosActivos.forEach((m, idx) => {
       const resp = respuestasGuardadas[idx];
       const acerto = resp && resp.valido;
+      const valorDado = resp ? (typeof resp.valor === 'boolean' ? (resp.valor ? 'VERDADERO' : 'FALSO') : resp.valor) : '(Sin responder)';
       const item = document.createElement("div");
       item.className = "breakdown-item";
       item.innerHTML = `
-        <span><strong>#${idx + 1}</strong> ${m.nivel}</span>
+        <span>
+          <strong>#${idx + 1}</strong> ${m.nivel}
+          <span class="breakdown-user-val">Tu respuesta: "${valorDado}"</span>
+        </span>
         <span style="color: ${acerto ? '#10b981' : '#f43f5e'}; font-weight: 800;">
           ${acerto ? '✓ Correcto' : '✗ A revisar'}
         </span>
@@ -2142,18 +1547,20 @@
       breakdown.appendChild(item);
     });
 
-    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje);
+    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje, [...respuestasGuardadas]);
     localStorage.removeItem('sql_progreso_activo');
   }
 
-  function guardarEnHistorial(modo, aciertos, total, porcentaje) {
+  // GESTIÓN DEL HISTORIAL EN LOCALSTORAGE CON RESPUESTAS
+  function guardarEnHistorial(modo, aciertos, total, porcentaje, respuestas) {
     const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
     const nuevoRegistro = {
       fecha: new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-      modo: modo.toUpperCase(),
+      modo: modo.toLowerCase(),
       aciertos: aciertos,
       total: total,
-      porcentaje: porcentaje
+      porcentaje: porcentaje,
+      respuestas: respuestas
     };
     historial.unshift(nuevoRegistro);
     localStorage.setItem('sql_historial_intentos', JSON.stringify(historial.slice(0, 30)));
@@ -2164,15 +1571,15 @@
     const contenedor = document.getElementById('lista-historial');
     
     if (historial.length === 0) {
-      contenedor.innerHTML = `<p style="font-size: 13px; color: var(--text-muted); font-style: italic; text-align: center; padding: 14px;">Todavía no completaste ninguna evaluación. ¡Completá los 20 retos de un modo para registrar tu puntaje!</p>`;
+      contenedor.innerHTML = `<p style="font-size: 13px; color: var(--text-muted); font-style: italic; text-align: center; padding: 14px;">Todavía no completaste ninguna evaluación. ¡Completá los 50 retos de un modo para registrar tu puntaje!</p>`;
     } else {
       let html = '';
       historial.forEach((item, index) => {
         html += `
-          <div class="history-item">
+          <div class="history-item" onclick="cargarIntentoHistorial(${index})">
             <div>
-              <strong>#${historial.length - index} • Modo ${item.modo}</strong>
-              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha}</div>
+              <strong>#${historial.length - index} • Modo ${item.modo.toUpperCase()}</strong>
+              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Hacé clic para ver tus respuestas</em></div>
             </div>
             <div style="text-align: right;">
               <span style="font-weight: 800; color: ${item.porcentaje >= 70 ? '#10b981' : '#e0528b'};">${item.aciertos}/${item.total} (${item.porcentaje}%)</span>
@@ -2184,6 +1591,25 @@
     }
 
     document.getElementById("modal-historial").style.display = "flex";
+  }
+
+  // ABRIR UN INTENTO PASADO DEL HISTORIAL PARA VER LAS RESPUESTAS DADAS
+  function cargarIntentoHistorial(indice) {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const intento = historial[indice];
+    if (!intento) return;
+
+    cerrarModalHistorial();
+
+    dificultadActual = intento.modo || 'facil';
+    modulosActivos = bancoCompleto[dificultadActual];
+    respuestasGuardadas = intento.respuestas || new Array(modulosActivos.length).fill(null);
+
+    document.getElementById("diff-facil").classList.toggle("active", dificultadActual === 'facil');
+    document.getElementById("diff-medio").classList.toggle("active", dificultadActual === 'medio');
+    document.getElementById("diff-experto").classList.toggle("active", dificultadActual === 'experto');
+
+    mostrarPantallaFinal();
   }
 
   function cerrarModalHistorial() {

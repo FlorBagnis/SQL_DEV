@@ -742,174 +742,189 @@
     .btn-native { background: var(--pink-primary); color: #ffffff; }
 
 
-/* CONFIGURACIÓN DIRECTA DE PÁGINA VERTICAL */
-  @page {
-    size: portrait;
+/* ESTILOS DE IMPRESIÓN Y PDF */
+
+    @media print {
+
+      @page {
+
+        size: portrait;
     margin: 8mm;
   }
-    
- /* ESTILOS DE IMPRESIÓN Y PDF - ANCHO COMPLETO EN VERTICAL */
-  @media print {
-    html, body {
-      background: #ffffff !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      color: #2b1222 !important;
-      width: 100% !important;
-      height: 100% !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
 
-    .container > *:not(#results-card),
-    .header,
-    .difficulty-bar,
-    .progress-wrapper,
-    .db-card,
-    #quiz-area,
-    .credits,
-    .btn-pdf,
-    .btn-execute,
-    .share-section,
-    .modal-overlay,
-    .breakdown-list {
-      display: none !important;
-    }
 
-    .container {
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      max-width: 100% !important;
-      width: 100% !important;
-      background: transparent !important;
-    }
 
-    #results-card {
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-evenly !important;
-      align-items: center !important;
-      box-sizing: border-box !important;
-      width: 100% !important;
-      min-height: 94vh !important;
-      border: 8px double #e0528b !important;
-      outline: 2px solid #ff70a6 !important;
-      outline-offset: -12px !important;
-      border-radius: 20px !important;
-      padding: 30px 24px !important;
-      margin: 0 auto !important;
-      page-break-inside: avoid !important;
-      background: #fffbfe !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
+      body {
 
-    .cert-subhead {
-      font-size: 13px !important;
-      letter-spacing: 0.25em !important;
-      color: #85617a !important;
-      margin-bottom: 6px !important;
-    }
+        background: #ffffff !important;
 
-    .cert-title {
-      font-size: 32px !important;
-      color: #be185d !important;
-      line-height: 1.25 !important;
-      margin-top: 4px !important;
-      margin-bottom: 8px !important;
-    }
+        padding: 0 !important;
 
-    .cert-divider {
-      width: 180px !important;
-      height: 3px !important;
-      margin: 8px auto 14px auto !important;
-    }
+        color: #2b1222 !important;
 
-    .results-score-big {
-      font-size: 58px !important;
-      color: #e0528b !important;
-      margin: 6px 0 !important;
-    }
+      }
 
-    .results-badge {
-      font-size: 12.5px !important;
-      padding: 6px 22px !important;
-      margin-bottom: 12px !important;
-    }
 
-    #final-feedback-msg {
-      font-size: 14px !important;
-      line-height: 1.55 !important;
-      max-width: 90% !important;
-      margin: 0 auto 12px auto !important;
-    }
 
-    .motivational-box {
-      background: #fff0f6 !important;
-      border: 1.5px dashed #f472b6 !important;
-      width: 94% !important;
-      box-sizing: border-box !important;
-      padding: 18px 22px !important;
-      margin: 12px auto !important;
-      border-radius: 14px !important;
-    }
+      .container > *:not(#results-card),
 
-    .motivational-box p {
-      font-size: 13px !important;
-      line-height: 1.6 !important;
-    }
+      .header,
 
-    .cert-footer-layout {
-      width: 94% !important;
-      box-sizing: border-box !important;
-      margin-top: 20px !important;
-      padding-top: 15px !important;
-      border-top: 1.5px dashed var(--pink-soft) !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: flex-end !important;
-    }
+      .difficulty-bar,
 
-    .cert-date-box {
-      font-size: 11.5px !important;
-      color: var(--text-muted) !important;
-    }
+      .progress-wrapper,
 
-    .cert-signature-box {
-      text-align: right !important;
-    }
+      .db-card,
 
-    .cert-sign-line {
-      font-size: 14px !important;
-      color: var(--pink-dark) !important;
-      border-bottom: 1.5px solid var(--pink-primary) !important;
-      padding-bottom: 3px !important;
-    }
+      #quiz-area,
 
-    .cert-sign-sub {
-      font-size: 10.5px !important;
-      color: var(--text-muted) !important;
-      margin-top: 4px !important;
-    }
+      .credits,
 
-    [data-theme="dark"] body {
-      background: #140b12 !important;
-    }
+      .btn-pdf,
 
-    [data-theme="dark"] #results-card {
-      background: #1f111c !important;
-      color: #fdf2f8 !important;
-      border-color: #f472b6 !important;
-      outline-color: #4a243d !important;
-    }
+      .btn-execute,
 
-    [data-theme="dark"] .motivational-box {
-      background: #2b1625 !important;
-      border-color: #f472b6 !important;
+      .share-section,
+
+      .modal-overlay,
+
+      .breakdown-list {
+
+        display: none !important;
+
+      }
+
+
+
+      .container {
+
+        border: none !important;
+
+        box-shadow: none !important;
+
+        padding: 0 !important;
+
+        max-width: 100% !important;
+
+        width: 100% !important;
+
+        background: transparent !important;
+
+      }
+
+
+
+      #results-card {
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        justify-content: center !important;
+
+        align-items: center !important;
+
+        min-height: 80vh !important;
+
+        border: 8px double #e0528b !important;
+
+        outline: 2px solid #ff70a6 !important;
+
+        outline-offset: -12px !important;
+
+        border-radius: 24px !important;
+
+        padding: 40px 60px !important;
+
+        margin: 0 auto !important;
+
+        page-break-inside: avoid;
+
+        background: #fffbfe !important;
+
+        -webkit-print-color-adjust: exact;
+
+        print-color-adjust: exact;
+
+      }
+
+
+
+      .cert-title {
+
+        font-size: 34px !important;
+
+        color: #be185d !important;
+
+      }
+
+
+
+      .results-score-big {
+
+        font-size: 58px !important;
+
+        color: #e0528b !important;
+
+      }
+
+
+
+      .motivational-box {
+
+        background: #fff0f6 !important;
+
+        border: 1.5px dashed #f472b6 !important;
+
+        max-width: 720px !important;
+
+      }
+
+
+
+      .cert-footer-layout {
+
+        width: 100% !important;
+
+        max-width: 720px !important;
+
+        margin-top: 30px !important;
+
+      }
+
+
+
+      [data-theme="dark"] body {
+
+        background: #140b12 !important;
+
+      }
+
+
+
+      [data-theme="dark"] #results-card {
+
+        background: #1f111c !important;
+
+        color: #fdf2f8 !important;
+
+        border-color: #f472b6 !important;
+
+        outline-color: #4a243d !important;
+
+      }
+
+
+
+      [data-theme="dark"] .motivational-box {
+
+        background: #2b1625 !important;
+
+        border-color: #f472b6 !important;
+
+      }
+
     }
-  }
 
     .credits {
       margin-top: 26px;

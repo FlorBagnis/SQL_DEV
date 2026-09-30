@@ -741,99 +741,106 @@
     .btn-whatsapp { background: #25d366; color: #ffffff; }
     .btn-native { background: var(--pink-primary); color: #ffffff; }
 
-    /* ESTILOS DE IMPRESIÓN Y PDF */
-    @media print {
-      @page {
-        size: A4 landscape;
-        margin: 1.2cm;
-      }
-
-      body {
-        background: #ffffff !important;
-        padding: 0 !important;
-        color: #2b1222 !important;
-      }
-
-      .container > *:not(#results-card),
-      .header,
-      .difficulty-bar,
-      .progress-wrapper,
-      .db-card,
-      #quiz-area,
-      .credits,
-      .btn-pdf,
-      .btn-execute,
-      .share-section,
-      .modal-overlay,
-      .breakdown-list {
-        display: none !important;
-      }
-
-      .container {
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        background: transparent !important;
-      }
-
-      #results-card {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        min-height: 80vh !important;
-        border: 8px double #e0528b !important;
-        outline: 2px solid #ff70a6 !important;
-        outline-offset: -12px !important;
-        border-radius: 24px !important;
-        padding: 40px 60px !important;
-        margin: 0 auto !important;
-        page-break-inside: avoid;
-        background: #fffbfe !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      .cert-title {
-        font-size: 34px !important;
-        color: #be185d !important;
-      }
-
-      .results-score-big {
-        font-size: 58px !important;
-        color: #e0528b !important;
-      }
-
-      .motivational-box {
-        background: #fff0f6 !important;
-        border: 1.5px dashed #f472b6 !important;
-        max-width: 720px !important;
-      }
-
-      .cert-footer-layout {
-        width: 100% !important;
-        max-width: 720px !important;
-        margin-top: 30px !important;
-      }
-
-      [data-theme="dark"] body {
-        background: #140b12 !important;
-      }
-
-      [data-theme="dark"] #results-card {
-        background: #1f111c !important;
-        color: #fdf2f8 !important;
-        border-color: #f472b6 !important;
-        outline-color: #4a243d !important;
-      }
-
-      [data-theme="dark"] .motivational-box {
-        background: #2b1625 !important;
-        border-color: #f472b6 !important;
-      }
+  /* ESTILOS DE IMPRESIÓN Y PDF - DIPLOMA VERTICAL */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 1.2cm;
     }
+
+    body {
+      background: #ffffff !important;
+      padding: 0 !important;
+      color: #2b1222 !important;
+    }
+
+    .container > *:not(#results-card),
+    .header,
+    .difficulty-bar,
+    .progress-wrapper,
+    .db-card,
+    #quiz-area,
+    .credits,
+    .btn-pdf,
+    .btn-execute,
+    .share-section,
+    .modal-overlay,
+    .breakdown-list {
+      display: none !important;
+    }
+
+    .container {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      background: transparent !important;
+    }
+
+    #results-card {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+      min-height: 88vh !important;
+      border: 8px double #e0528b !important;
+      outline: 2px solid #ff70a6 !important;
+      outline-offset: -12px !important;
+      border-radius: 24px !important;
+      padding: 40px 30px !important;
+      margin: 0 auto !important;
+      page-break-inside: avoid;
+      background: #fffbfe !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cert-title {
+      font-size: 26px !important;
+      color: #be185d !important;
+      line-height: 1.3 !important;
+    }
+
+    .results-score-big {
+      font-size: 52px !important;
+      color: #e0528b !important;
+    }
+
+    .motivational-box {
+      background: #fff0f6 !important;
+      border: 1.5px dashed #f472b6 !important;
+      max-width: 90% !important;
+      margin: 16px auto !important;
+    }
+
+    .cert-footer-layout {
+      width: 100% !important;
+      max-width: 90% !important;
+      margin-top: 35px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-end !important;
+    }
+
+    [data-theme="dark"] body {
+      background: #140b12 !important;
+    }
+
+    [data-theme="dark"] #results-card {
+      background: #1f111c !important;
+      color: #fdf2f8 !important;
+      border-color: #f472b6 !important;
+      outline-color: #4a243d !important;
+    }
+
+    [data-theme="dark"] .motivational-box {
+      background: #2b1625 !important;
+      border-color: #f472b6 !important;
+    }
+  }
 
     .credits {
       margin-top: 26px;

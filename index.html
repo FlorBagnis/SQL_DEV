@@ -793,6 +793,9 @@
       font-size: 17px;
       font-weight: 800;
       color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-close {
@@ -801,6 +804,31 @@
       font-size: 18px;
       color: var(--text-muted);
       cursor: pointer;
+    }
+
+    /* ESTILOS DE PILLS DEL MODAL */
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill-tag {
+      background: var(--pink-light);
+      border: 1.5px solid var(--border-pink);
+      color: var(--pink-dark);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    [data-theme="dark"] .pill-tag {
+      background: #2b1625;
+      border-color: #4a243d;
+      color: #f472b6;
     }
   </style>
 </head>
@@ -958,13 +986,23 @@
 <div class="modal-overlay" id="modal-about" onclick="cerrarModalAfuera(event)">
   <div class="modal-card">
     <div class="modal-header">
-      <div class="modal-title"><span>💗</span> About the Dev & Project</div>
+      <div class="modal-title"><span>💖</span> About the Dev & Project</div>
       <button class="btn-close" onclick="cerrarModal()">✕</button>
     </div>
     <div class="modal-body">
-      <p>
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con 60 retos prácticos (20 por dificultad) para entrenar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas.
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 12px;">
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas[cite: 5].
       </p>
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 14px;">
+        El simulador cuenta con 60 retos interactivos distribuidos en 3 niveles de complejidad (Fácil, Medio y Experto), integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo, sistema de evaluación continua y exportación de certificado.
+      </p>
+      <div class="tag-container">
+        <span class="pill-tag">SQL & Relational DB</span>
+        <span class="pill-tag">Customer Support & QA</span>
+        <span class="pill-tag">Interactive Learning</span>
+        <span class="pill-tag">JavaScript ES6</span>
+        <span class="pill-tag">Dynamic DOM</span>
+      </div>
     </div>
   </div>
 </div>

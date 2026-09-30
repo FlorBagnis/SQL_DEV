@@ -381,6 +381,11 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 12px rgba(255, 112, 166, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-execute:hover {
+      transform: translateY(-1px);
     }
 
     .fill-section {
@@ -521,37 +526,53 @@
       display: none;
     }
 
-    /* PANTALLA FINAL DE EVALUACIÓN */
+    /* PANTALLA FINAL Y CERTIFICADO */
     .results-card {
       display: none;
       background: var(--pink-light);
       border: 2px solid var(--border-pink);
-      border-radius: 20px;
-      padding: 26px;
+      border-radius: 24px;
+      padding: 28px;
       text-align: center;
       margin-top: 15px;
+      box-shadow: 0 10px 30px rgba(244, 114, 182, 0.12);
     }
 
     .results-score-big {
-      font-size: 44px;
+      font-size: 46px;
       font-weight: 800;
       color: var(--pink-dark);
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .results-badge {
       display: inline-block;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 16px;
       font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .motivational-box {
+      background: var(--card-bg);
+      border: 1.5px dashed var(--pink-primary);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+    }
+
+    .motivational-box p {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      line-height: 1.5;
     }
 
     .breakdown-list {
-      max-height: 250px;
+      max-height: 220px;
       overflow-y: auto;
       text-align: left;
       margin: 18px 0;
@@ -567,6 +588,162 @@
       padding: 8px 10px;
       border-bottom: 1px solid var(--border-pink);
       font-size: 12px;
+    }
+
+    /* BOTONES DE ACCIÓN FINAL Y REDES */
+    .btn-pdf {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-pdf:hover {
+      transform: translateY(-2px);
+    }
+
+    .share-section {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--pink-soft);
+    }
+
+    .share-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .share-buttons-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-share {
+      padding: 8px 15px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-share:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-linkedin {
+      background: #0077b5;
+      color: #ffffff;
+    }
+
+    .btn-whatsapp {
+      background: #25d366;
+      color: #ffffff;
+    }
+
+    .btn-gmail {
+      background: #ea4335;
+      color: #ffffff;
+    }
+
+    .btn-native {
+      background: var(--pink-primary);
+      color: #ffffff;
+    }
+
+    .certificate-signature {
+      margin-top: 22px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      letter-spacing: 0.03em;
+    }
+
+    /* ESTILOS DE IMPRESIÓN Y PDF NATIVO */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        color: #000000 !important;
+      }
+
+      .container > *:not(#results-card),
+      .header,
+      .difficulty-bar,
+      .progress-wrapper,
+      .db-card,
+      #quiz-area,
+      .credits,
+      .btn-pdf,
+      .btn-execute,
+      .share-section,
+      .modal-overlay {
+        display: none !important;
+      }
+
+      .container {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      #results-card {
+        display: block !important;
+        border: 4px double #ff70a6 !important;
+        border-radius: 20px !important;
+        padding: 40px !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      [data-theme="dark"] body {
+        background: #140b12 !important;
+      }
+
+      [data-theme="dark"] #results-card {
+        background: #1f111c !important;
+        color: #fdf2f8 !important;
+        border-color: #f472b6 !important;
+      }
+
+      [data-theme="dark"] .breakdown-list,
+      [data-theme="dark"] .motivational-box {
+        background: #110913 !important;
+        border-color: #3b2234 !important;
+      }
+
+      [data-theme="dark"] .breakdown-item {
+        border-color: #3b2234 !important;
+        color: #fdf2f8 !important;
+      }
+
+      [data-theme="dark"] .results-score-big {
+        color: #f472b6 !important;
+      }
     }
 
     .credits {
@@ -722,18 +899,54 @@
     </div>
   </div>
 
-  <!-- Tarjeta de Evaluación Final -->
+  <!-- Tarjeta de Evaluación Final, Certificado y Compartir -->
   <div id="results-card" class="results-card">
-    <h2>🏆 Evaluación Final de Desempeño</h2>
+    <h2>🏆 Certificado de Logro & Evaluación Técnica</h2>
     <div class="results-score-big" id="final-score-text">0 / 20</div>
     <div class="results-badge" id="final-badge">Nivel</div>
     <p id="final-feedback-msg" style="font-size: 14px; margin-bottom: 14px;"></p>
     
+    <!-- Mensaje motivacional y felicitaciones -->
+    <div class="motivational-box">
+      <p>
+        ✨ ¡Felicitaciones por completar este desafío intensivo de SQL! Cada consulta formulada demuestra tu compromiso, capacidad analítica y constancia para resolver problemas reales en bases de datos. ¡A seguir aprendiendo y codificando con todo!
+      </p>
+    </div>
+
     <div class="breakdown-list" id="final-breakdown"></div>
 
-    <button class="btn-execute" style="margin: 10px auto;" onclick="reiniciarBootcamp()">
-      <span>🔄</span> Reiniciar Dificultad
-    </button>
+    <!-- Acciones principales -->
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
+      <button class="btn-pdf" onclick="exportarCertificadoPDF()">
+        <span>📄</span> Descargar Certificado (PDF)
+      </button>
+      <button class="btn-execute" onclick="reiniciarBootcamp()">
+        <span>🔄</span> Reintentar Dificultad
+      </button>
+    </div>
+
+    <!-- Sección de Compartir en Redes -->
+    <div class="share-section">
+      <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
+      <div class="share-buttons-grid">
+        <button class="btn-share btn-linkedin" onclick="compartirLinkedIn()">
+          <span>💼</span> LinkedIn
+        </button>
+        <button class="btn-share btn-whatsapp" onclick="compartirWhatsApp()">
+          <span>💬</span> WhatsApp
+        </button>
+        <button class="btn-share btn-gmail" onclick="compartirGmail()">
+          <span>✉️</span> Gmail
+        </button>
+        <button class="btn-share btn-native" onclick="compartirNativo()">
+          <span>✨</span> Más opciones
+        </button>
+      </div>
+    </div>
+
+    <div class="certificate-signature">
+      Creado By Flor Bagnis 💗
+    </div>
   </div>
 
   <div class="credits">
@@ -1755,6 +1968,49 @@
       `;
       breakdown.appendChild(item);
     });
+  }
+
+  // EXPORTACIÓN A PDF NATIVO
+  function exportarCertificadoPDF() {
+    window.print();
+  }
+
+  // COMPARTIR EN REDES SOCIALES
+  function obtenerTextoCompartir() {
+    const aciertos = respuestasGuardadas.filter(r => r && r.valido).length;
+    const total = modulosActivos.length;
+    const nombreDificultad = dificultadActual.toUpperCase();
+    const url = window.location.href;
+    return `¡Completé el desafío de SQL Dev Bootcamp (${nombreDificultad}) con ${aciertos}/${total} aciertos! 🚀 Practicá consultas relacionales interactivas acá: ${url}`;
+  }
+
+  function compartirLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+  }
+
+  function compartirWhatsApp() {
+    const texto = encodeURIComponent(obtenerTextoCompartir());
+    window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
+  }
+
+  function compartirGmail() {
+    const asunto = encodeURIComponent("¡Certificado SQL Dev Bootcamp completado! 🌸");
+    const cuerpo = encodeURIComponent(obtenerTextoCompartir());
+    window.open(`mailto:?subject=${asunto}&body=${cuerpo}`, '_blank');
+  }
+
+  function compartirNativo() {
+    if (navigator.share) {
+      navigator.share({
+        title: "SQL Dev Bootcamp ✨ Practical Studio",
+        text: obtenerTextoCompartir(),
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(obtenerTextoCompartir());
+      alert("📋 ¡Enlace y resumen copiados al portapapeles para compartir!");
+    }
   }
 
   function abrirModal() {

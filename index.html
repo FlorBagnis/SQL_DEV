@@ -437,6 +437,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      transition: all 0.2s ease;
     }
 
     .dynamic-output-card {
@@ -806,7 +807,6 @@
       cursor: pointer;
     }
 
-    /* ESTILOS DE PILLS DEL MODAL */
     .tag-container {
       display: flex;
       flex-wrap: wrap;
@@ -1113,7 +1113,7 @@
       },
       {
         tipo: "code",
-        nivel: "Fácil 9 • Proyección de Múltiples Columnas",
+        nivel: "Fácil 9 • Proyección de MúltiテクColumnas",
         escenario: "El equipo solicita visualizar únicamente el servicio y el estado actual.",
         pregunta: "Proyectá únicamente las columnas 'servicio' y 'estado':",
         codigoInicial: "SELECT servicio AND estado FROM proyectos;",
@@ -1877,6 +1877,7 @@
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
   }
 
+  // VALIDACIÓN Y CORRECCIÓN LIBRE DE RESPUESTAS
   function mostrarResultado(esValido) {
     const data = modulosActivos[paso];
     const feedback = document.getElementById("feedback");
@@ -1886,16 +1887,25 @@
       const btnT = document.getElementById("btn-true");
       const btnF = document.getElementById("btn-false");
       if (btnT && btnF) {
-        btnT.disabled = true;
-        btnF.disabled = true;
+        // Limpiamos estilos previos
+        btnT.style.borderColor = "";
+        btnT.style.background = "";
+        btnF.style.borderColor = "";
+        btnF.style.background = "";
+
         const btnElegido = respuestasGuardadas[paso].valor ? btnT : btnF;
+
         if (esValido) {
           btnElegido.style.borderColor = "#10b981";
           btnElegido.style.background = "var(--success-bg)";
+          btnT.disabled = true;
+          btnF.disabled = true;
         } else {
+          // NO se deshabilitan: quedan activos para que el usuario pueda corregir tocando la otra opción
           btnElegido.style.borderColor = "#f43f5e";
           btnElegido.style.background = "var(--error-bg)";
-          (data.correcta ? btnT : btnF).style.borderColor = "#10b981";
+          btnT.disabled = false;
+          btnF.disabled = false;
         }
       }
     }
@@ -1907,8 +1917,8 @@
       renderizarTablaDinamica(filas);
     } else {
       feedback.className = "feedback-box incorrect";
-      feedback.innerHTML = `<strong>💔 Consulta no validada:</strong><br>${data.explicacion}<br><em>Podés corregirla o continuar al siguiente reto para ver tu evaluación final al terminar.</em>`;
-      renderizarTablaDinamica(null, "⚠️ La consulta ejecutada no arrojó resultados válidos para la verificación.");
+      feedback.innerHTML = `<strong>💔 Consulta no validada:</strong><br>${data.explicacion}<br><em>Podés corregirla haciendo clic en la opción correcta o continuar al siguiente reto.</em>`;
+      renderizarTablaDinamica(null, "⚠️ La opción seleccionada no es la correcta. Probá seleccionando la otra.");
     }
 
     feedback.style.display = "block";

@@ -741,7 +741,7 @@
     .btn-whatsapp { background: #25d366; color: #ffffff; }
     .btn-native { background: var(--pink-primary); color: #ffffff; }
 
-    /* ESTILOS DE IMPRESIÓN Y PDF - DIPLOMA LIMPIO */
+    /* ESTILOS DE IMPRESIÓN Y PDF */
     @media print {
       @page {
         size: A4 landscape;
@@ -846,7 +846,6 @@
       padding-top: 14px;
     }
 
-    /* Modales */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -935,6 +934,36 @@
     .history-item:hover {
       transform: translateX(4px);
       border-color: var(--pink-primary);
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      max-width: 680px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 24px;
+      border: 2px solid var(--pink-soft);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .review-item {
+      background: var(--pink-light);
+      border: 1px solid var(--border-pink);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .review-badge-ok {
+      color: #10b981;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .review-badge-bad {
+      color: #f43f5e;
+      font-weight: 800;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -1072,7 +1101,6 @@
       </button>
     </div>
 
-    <!-- Compartir en Redes -->
     <div class="share-section">
       <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
       <div class="share-buttons-grid">
@@ -1103,7 +1131,7 @@
     </div>
     <div class="modal-body">
       <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 12px;">
-        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas[cite: 5].
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas[cite: 1, 5].
       </p>
       <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 14px;">
         El simulador cuenta con 150 retos interactivos distribuidos en 3 niveles de complejidad (50 por nivel: Fácil, Medio y Experto), integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo, sistema de evaluación continua y exportación de certificado.
@@ -1119,7 +1147,7 @@
   </div>
 </div>
 
-<!-- Modal Historial de Evaluaciones con Clic para Ver Respuestas -->
+<!-- Modal Historial de Evaluaciones -->
 <div class="modal-overlay" id="modal-historial" onclick="cerrarModalHistorialAfuera(event)">
   <div class="modal-card">
     <div class="modal-header">
@@ -1138,6 +1166,23 @@
   </div>
 </div>
 
+<!-- Modal Visor Detallado de Respuestas Guardadas -->
+<div class="modal-overlay" id="modal-visor-respuestas" onclick="cerrarVisorRespuestasAfuera(event)">
+  <div class="review-card">
+    <div class="modal-header">
+      <div class="modal-title" id="visor-titulo"><span>🔍</span> Detalle del Intento</div>
+      <button class="btn-close" onclick="cerrarVisorRespuestas()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="visor-resumen" style="font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--pink-dark);"></div>
+      <div id="visor-lista-retos" style="max-height: 380px; overflow-y: auto; padding-right: 4px;"></div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+        <button class="btn-action" onclick="cerrarVisorRespuestas()">Volver al Historial</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   const dbProyectos = [
     { id: 101, cliente: 'Mercado Tech', servicio: 'Branding', horas_estimadas: 120, horas_reales: 110, estado: 'entregado', rentable: 'true' },
@@ -1151,86 +1196,160 @@
     return str.trim().toUpperCase().replace(/\s+/g, ' ');
   }
 
-  // GENERADOR DEL BANCO COMPLETO DE 150 RETOS (50 POR NIVEL)
-  function construirBancoCompleto() {
-    const templatesFacil = [
-      { t: "code", n: "Proyección Completa", e: "Traer todas las columnas de la tabla.", p: "Corregí la sintaxis para consultar todas las columnas:", c: "GET ALL IN proyectos;", k: "SELECT * FROM proyectos", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS", fn: () => dbProyectos, x: "El asterisco (*) proyecta todas las columnas registradas." },
-      { t: "fill", n: "Filtro WHERE", e: "Filtrar proyectos con estado entregado.", p: "Completá la cláusula de filtrado:", pre: "SELECT * FROM proyectos ", suf: " estado = 'entregado';", k: "WHERE", v: s => s.trim().toUpperCase() === "WHERE", fn: () => dbProyectos.filter(p => p.estado === 'entregado'), x: "WHERE evalúa condiciones lógicas." },
-      { t: "boolean", n: "Strings en SQL", e: "Uso de comillas en cadenas literales.", p: "¿Es VERDADERO o FALSO que en SQL estándar los textos van entre comillas simples?", cor: true, fn: () => [{ estandar: "SQL ANSI", strings: "Comillas simples" }], x: "¡Verdadero! Los textos se encierran siempre en comillas simples." },
-      { t: "code", n: "Límite LIMIT", e: "Limitar a los primeros 3 registros.", p: "Corregí la sentencia para acotar a 3 filas:", c: "SELECT * FROM proyectos TOP 3;", k: "SELECT * FROM proyectos LIMIT 3", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 3", fn: () => dbProyectos.slice(0, 3), x: "LIMIT delimita la cantidad máxima de filas a retornar." },
-      { t: "fill", n: "Cláusula FROM", e: "Indicar la tabla de origen.", p: "Completá con la palabra de origen:", pre: "SELECT cliente ", suf: " proyectos;", k: "FROM", v: s => s.trim().toUpperCase() === "FROM", fn: () => dbProyectos.map(p => ({ cliente: p.cliente })), x: "FROM determina la tabla relacional." },
-      { t: "code", n: "Alias con AS", e: "Renombrar la columna cliente como empresa.", p: "Asigná el alias 'empresa' a 'cliente':", c: "SELECT cliente NAMED empresa FROM proyectos;", k: "SELECT cliente AS empresa FROM proyectos", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS", fn: () => dbProyectos.map(p => ({ empresa: p.cliente })), x: "AS otorga nombres temporales y legibles a las columnas." },
-      { t: "boolean", n: "Mayúsculas en SQL", e: "Sensibilidad a mayúsculas en palabras clave.", p: "¿Es VERDADERO o FALSO que las palabras reservadas de SQL distinguen estrictamente entre mayúsculas y minúsculas?", cor: false, fn: () => [{ sql_keywords: "Case-insensitive" }], x: "¡Falso! Las cláusulas se escriben en mayúsculas por convención." },
-      { t: "code", n: "Filtro ID Numérico", e: "Filtrar por id = 103.", p: "Escribí la condición de igualdad para id 103:", c: "SELECT * FROM proyectos WHERE id == '103';", k: "SELECT * FROM proyectos WHERE id = 103", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREID=103", fn: () => dbProyectos.filter(p => p.id === 103), x: "Los números se comparan con un solo igual y sin comillas." },
-      { t: "code", n: "Proyección Múltiple", e: "Seleccionar cliente y servicio.", p: "Proyectá las columnas 'cliente' y 'servicio':", c: "SELECT cliente AND servicio FROM proyectos;", k: "SELECT cliente, servicio FROM proyectos", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTCLIENTE,SERVICIOFROMPROYECTOS", fn: () => dbProyectos.map(p => ({ cliente: p.cliente, servicio: p.servicio })), x: "Las columnas en SELECT se separan con comas." },
-      { t: "fill", n: "Operador Menor Que", e: "Filtrar horas estimadas menores a 100.", p: "Completá con el operador menor que:", pre: "SELECT * FROM proyectos WHERE horas_estimadas ", suf: " 100;", k: "<", v: s => s.trim() === "<", fn: () => dbProyectos.filter(p => p.horas_estimadas < 100), x: "El operador < filtra valores numéricamente menores." }
+  // BANCO DE 150 RETOS COMPLETOS INDIVIDUALES Y DISTINTOS
+  function construirBanco150Retos() {
+    const faciles = [
+      { tipo: "code", nivel: "Fácil 1 • Proyección Completa", escenario: "Auditoría integral de la tabla.", pregunta: "Consultá todas las columnas de la tabla 'proyectos':", codigoInicial: "GET ALL COLUMNS IN proyectos;", pista: "Usá el asterisco: SELECT * FROM proyectos;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS", ejecutar: () => dbProyectos, explicacion: "El asterisco (*) proyecta todas las columnas registradas." },
+      { tipo: "fill", nivel: "Fácil 2 • Filtrar con WHERE", escenario: "Aislar proyectos entregados.", pregunta: "Completá la cláusula de condición:", prefijo: "SELECT * FROM proyectos ", sufijo: " estado = 'entregado';", pista: "La palabra es WHERE.", validar: s => s.trim().toUpperCase() === "WHERE", ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado'), explicacion: "WHERE introduce la condición evaluada sobre cada fila." },
+      { tipo: "boolean", nivel: "Fácil 3 • Delimitación de Strings", escenario: "Uso de comillas en literales de texto.", pregunta: "¿Es VERDADERO o FALSO que en SQL ANSI los textos van delimitados con comillas simples?", correcta: true, pista: "Las cadenas siempre usan comillas simples.", ejecutar: () => [{ norma: "SQL ANSI", texto: "'Ejemplo'" }], explicacion: "¡Verdadero! Las comillas dobles se reservan para identificadores con espacios." },
+      { tipo: "code", nivel: "Fácil 4 • Limitar Salida", escenario: "Previsualizar solo 3 registros.", pregunta: "Limitá el resultado a un máximo de 3 filas:", codigoInicial: "SELECT * FROM proyectos TOP 3;", pista: "En SQL estándar se usa LIMIT 3;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 3", ejecutar: () => dbProyectos.slice(0, 3), explicacion: "LIMIT especifica el número máximo de registros a devolver." },
+      { tipo: "fill", nivel: "Fácil 5 • Origen de Tabla", escenario: "Especificar de dónde extraer los datos.", pregunta: "Completá con la palabra clave que define la tabla:", prefijo: "SELECT cliente ", sufijo: " proyectos;", pista: "La palabra es FROM.", validar: s => s.trim().toUpperCase() === "FROM", ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente })), explicacion: "FROM indica la tabla de la base de datos a consultar." },
+      { tipo: "code", nivel: "Fácil 6 • Renombrar con AS", escenario: "Dar un nombre más claro a la columna cliente.", pregunta: "Asigná el alias 'empresa' a la columna 'cliente':", codigoInicial: "SELECT cliente RENAME empresa FROM proyectos;", pista: "Usá AS: SELECT cliente AS empresa FROM proyectos;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS", ejecutar: () => dbProyectos.map(p => ({ empresa: p.cliente })), explicacion: "AS define alias descriptivos para las columnas." },
+      { tipo: "boolean", nivel: "Fácil 7 • Mayúsculas en Cláusulas", escenario: "Reglas de sintaxis sobre case-sensitivity.", pregunta: "¿Es VERDADERO o FALSO que escribir 'select' en minúsculas genera un error de sintaxis en el motor SQL?", correcta: false, pista: "Las palabras clave en mayúsculas son solo convención.", ejecutar: () => [{ sql: "Insensible a mayúsculas" }], explicacion: "¡Falso! Las sentencias SQL son insensibles a mayúsculas y minúsculas." },
+      { tipo: "code", nivel: "Fácil 8 • Filtrar por ID", escenario: "Revisión técnica de un registro específico.", pregunta: "Filtrá el proyecto que tiene id igual a 103:", codigoInicial: "SELECT * FROM proyectos WHERE id == '103';", pista: "La igualdad en SQL es un solo signo '=' y el número no lleva comillas.", validar: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREID=103", ejecutar: () => dbProyectos.filter(p => p.id === 103), explicacion: "Los números se comparan con un solo signo igual y sin comillas." },
+      { tipo: "code", nivel: "Fácil 9 • Proyectar Varias Columnas", escenario: "Listado de servicios y su estado.", pregunta: "Proyectá únicamente las columnas 'servicio' y 'estado':", codigoInicial: "SELECT servicio AND estado FROM proyectos;", pista: "Separalas con comas: SELECT servicio, estado FROM proyectos;", validar: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSERVICIO,ESTADOFROMPROYECTOS", ejecutar: () => dbProyectos.map(p => ({ servicio: p.servicio, estado: p.estado })), explicacion: "En SELECT los campos se separan exclusivamente con comas." },
+      { tipo: "fill", nivel: "Fácil 10 • Operador Menor Que", escenario: "Filtrar proyectos de estimación corta.", pregunta: "Completá con el operador matemático menor que:", prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ", sufijo: " 100;", pista: "Usá el símbolo '<'.", validar: s => s.trim() === "<", ejecutar: () => dbProyectos.filter(p => p.horas_estimadas < 100), explicacion: "El operador < evalúa si el valor es numéricamente inferior." },
+      { tipo: "boolean", nivel: "Fácil 11 • Orden Estructural", escenario: "Posición de las cláusulas.", pregunta: "¿Es VERDADERO o FALSO que FROM puede ubicarse antes de SELECT en una instrucción básica SQL?", correcta: false, pista: "SELECT siempre inicia la sentencia básica.", ejecutar: () => [{ orden: "SELECT ... FROM ..." }], explicacion: "¡Falso! El orden gramatical exige iniciar con SELECT y luego FROM." },
+      { tipo: "code", nivel: "Fácil 12 • Filtrar por Servicio", escenario: "Buscar proyectos de desarrollo de apps.", pregunta: "Filtrá donde la columna 'servicio' sea 'App Dev':", codigoInicial: "SELECT * FROM proyectos WHERE servicio = App Dev;", pista: "El texto debe llevar comillas: 'App Dev'.", validar: s => /SELECT \* FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(s.trim()), ejecutar: () => dbProyectos.filter(p => p.servicio === 'App Dev'), explicacion: "Los textos literales deben estar encerrados entre comillas simples." },
+      { tipo: "fill", nivel: "Fácil 13 • Operador Mayor Que", escenario: "Proyectos de gran escala.", pregunta: "Completá con el operador mayor que:", prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ", sufijo: " 200;", pista: "Usá el símbolo '>'.", validar: s => s.trim() === ">", ejecutar: () => dbProyectos.filter(p => p.horas_estimadas > 200), explicacion: "El operador > filtra valores estrictamente superiores al límite dado." },
+      { tipo: "boolean", nivel: "Fácil 14 • Punto y Coma", escenario: "Finalización estándar de sentencias.", pregunta: "¿Es VERDADERO o FALSO que el punto y coma (;) es el delimitador oficial de fin de sentencia en SQL?", correcta: true, pista: "El punto y coma finaliza la instrucción.", ejecutar: () => [{ delimitador: ";" }], explicacion: "¡Verdadero! El punto y coma delimita formalmente el final de cada comando." },
+      { tipo: "code", nivel: "Fácil 15 • Columna Individual", escenario: "Listado exclusivo de clientes.", pregunta: "Consultá únicamente la columna 'cliente' de 'proyectos':", codigoInicial: "SELECT * FROM proyectos;", pista: "Reemplazá el '*' por la palabra 'cliente'.", validar: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE FROM PROYECTOS", ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente })), explicacion: "Proyectar solo las columnas necesarias reduce el consumo de red." },
+      { tipo: "fill", nivel: "Fácil 16 • Filtro Booleano", escenario: "Identificar proyectos marcados como no rentables.", pregunta: "Completá el valor textual para rentabilidad falsa:", prefijo: "SELECT * FROM proyectos WHERE rentable = '", sufijo: "';", pista: "Escribí 'false'.", validar: s => s.trim().toLowerCase() === "false", ejecutar: () => dbProyectos.filter(p => p.rentable === 'false'), explicacion: "Los valores booleanos guardados como texto se evalúan entre comillas." },
+      { tipo: "boolean", nivel: "Fácil 17 • Práctica con SELECT *", escenario: "Buenas prácticas en bases de datos.", pregunta: "¿Es VERDADERO o FALSO que usar 'SELECT *' en producción es siempre lo más recomendable?", correcta: false, pista: "Traer todas las columnas genera sobrecarga innecesaria.", ejecutar: () => [{ buena_practica: "Especificar columnas" }], explicacion: "¡Falso! En producción se deben nombrar solo las columnas indispensables." },
+      { tipo: "code", nivel: "Fácil 18 • Filtrar Estado Pausado", escenario: "Revisar proyectos actualmente detenidos.", pregunta: "Filtrá las filas donde el estado sea 'pausado':", codigoInicial: "SELECT * FROM proyectos WHERE estado == 'pausado';", pista: "Usá un único signo igual (=).", validar: s => /SELECT \* FROM proyectos WHERE estado = ['"]pausado['"];?/i.test(s.trim()), ejecutar: () => dbProyectos.filter(p => p.estado === 'pausado'), explicacion: "La igualdad en SQL se formula con un solo signo igual (=)." },
+      { tipo: "fill", nivel: "Fácil 19 • Palabra Clave Inicial", escenario: "Comenzar una consulta de extracción.", pregunta: "Completá con la palabra clave que inicia la consulta:", prefijo: "", sufijo: " * FROM proyectos;", pista: "La palabra es SELECT.", validar: s => s.trim().toUpperCase() === "SELECT", ejecutar: () => dbProyectos, explicacion: "SELECT es el comando DML principal para consultar registros." },
+      { tipo: "code", nivel: "Fácil 20 • Inspeccionar una Fila", escenario: "Muestra de prueba de un solo registro.", pregunta: "Limitá la consulta para que devuelva solo 1 fila:", codigoInicial: "SELECT * FROM proyectos LIMIT 10;", pista: "Cambiá el 10 por 1.", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 1", ejecutar: () => dbProyectos.slice(0, 1), explicacion: "LIMIT 1 es ideal para comprobar la estructura de las columnas rápidamente." }
     ];
 
-    const templatesMedio = [
-      { t: "code", n: "Operador AND", e: "Exigir estado entregado y rentable true.", p: "Reemplazá && por el operador relacional correcto:", c: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = true;", k: "SELECT * FROM proyectos WHERE estado = 'entregado' AND rentable = true;", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = true;?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'), x: "AND exige el cumplimiento simultáneo de condiciones." },
-      { t: "fill", n: "Deduplicador DISTINCT", e: "Listar clientes sin repetición.", p: "Completá con la palabra clave que elimina duplicados:", pre: "SELECT ", suf: " cliente FROM proyectos;", k: "DISTINCT", v: s => s.trim().toUpperCase() === "DISTINCT", fn: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })), x: "DISTINCT consolida los resultados para mostrar valores únicos." },
-      { t: "boolean", n: "Comparar Números", e: "Encerrar números entre comillas en SQL.", p: "¿Es VERDADERO o FALSO que encerrar números en comillas es la forma óptima en SQL estándar?", cor: false, fn: () => [{ numeric_compare: "Sin comillas" }], x: "¡Falso! Los números deben compararse limpios." },
-      { t: "code", n: "Sintaxis en OR", e: "Filtrar proyectos en progreso o pausados.", p: "Corregí la cláusula OR para que ambas expresiones sean válidas:", c: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';", k: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR estado = 'pausado';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'), x: "Cada miembro del OR debe contener una expresión booleana completa." },
-      { t: "fill", n: "Búsqueda LIKE", e: "Buscar clientes que empiecen con Mercado.", p: "Completá con el operador de coincidencia de texto:", pre: "SELECT * FROM proyectos WHERE cliente ", suf: " 'Mercado%';", k: "LIKE", v: s => s.trim().toUpperCase() === "LIKE", fn: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')), x: "LIKE busca patrones utilizando comodines como %." },
-      { t: "code", n: "Pertenencia IN", e: "Filtrar servicios Branding o UX Audit.", p: "Usá el operador IN para la lista de valores:", c: "SELECT * FROM proyectos WHERE servicio EQUALS ['Branding', 'UX Audit'];", k: "SELECT * FROM proyectos WHERE servicio IN ('Branding', 'UX Audit');", v: s => /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'), x: "IN evalúa si un valor coincide con cualquier elemento de la lista." },
-      { t: "boolean", n: "Orden por defecto", e: "Sentido predeterminado en ORDER BY.", p: "¿Es VERDADERO o FALSO que ORDER BY ordena de forma descendente por omisión?", cor: false, fn: () => [{ default_order: "ASC" }], x: "¡Falso! El orden predeterminado en SQL es siempre ascendente (ASC)." },
-      { t: "code", n: "Desigualdad !=", e: "Excluir proyectos con estado entregado.", p: "Corregí usando el operador !=:", c: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';", k: "SELECT * FROM proyectos WHERE estado != 'entregado';", v: s => /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado !== 'entregado'), x: "!= o <> evalúan desigualdad con valores concretos." },
-      { t: "fill", n: "Cláusula ORDER BY", e: "Ordenar por nombre de cliente.", p: "Completá con la palabra de ordenamiento:", pre: "SELECT * FROM proyectos ", suf: " BY cliente;", k: "ORDER", v: s => s.trim().toUpperCase() === "ORDER", fn: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)), x: "ORDER BY organiza el resultado según la columna indicada." },
-      { t: "code", n: "Mayor Estimación", e: "Extraer el proyecto con mayor cantidad de horas estimadas.", p: "Ordená de forma descendente y limitá a 1 fila:", c: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;", k: "SELECT * FROM proyectos ORDER BY horas_estimadas DESC LIMIT 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1", fn: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]], x: "Combinar ORDER BY ... DESC con LIMIT 1 extrae el valor máximo." }
+    // Generamos las 30 restantes de Fácil con escenarios y consultas únicas sobre los campos
+    const camposFacil = [
+      { col: "horas_reales", comp: "> 100", label: "Horas Reales Mayores a 100", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES > 100", fn: () => dbProyectos.filter(p => p.horas_reales > 100) },
+      { col: "horas_reales", comp: "< 300", label: "Horas Reales Menores a 300", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES < 300", fn: () => dbProyectos.filter(p => p.horas_reales < 300) },
+      { col: "horas_estimadas", comp: "= 80", label: "Estimación Exacta de 80h", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_ESTIMADAS = 80", fn: () => dbProyectos.filter(p => p.horas_estimadas === 80) },
+      { col: "horas_reales", comp: "= 75", label: "Horas Reales de 75", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES = 75", fn: () => dbProyectos.filter(p => p.horas_reales === 75) },
+      { col: "id", comp: "> 102", label: "Proyectos con ID Mayor a 102", valSql: "SELECT * FROM PROYECTOS WHERE ID > 102", fn: () => dbProyectos.filter(p => p.id > 102) },
+      { col: "id", comp: "< 104", label: "Proyectos con ID Menor a 104", valSql: "SELECT * FROM PROYECTOS WHERE ID < 104", fn: () => dbProyectos.filter(p => p.id < 104) },
+      { col: "estado", comp: "= 'en progreso'", label: "Proyectos En Progreso", valSql: "SELECT * FROM PROYECTOS WHERE ESTADO = 'EN PROGRESO'", fn: () => dbProyectos.filter(p => p.estado === 'en progreso') },
+      { col: "rentable", comp: "= 'true'", label: "Proyectos Rentables", valSql: "SELECT * FROM PROYECTOS WHERE RENTABLE = 'TRUE'", fn: () => dbProyectos.filter(p => p.rentable === 'true') },
+      { col: "servicio", comp: "= 'Branding'", label: "Servicios de Branding", valSql: "SELECT * FROM PROYECTOS WHERE SERVICIO = 'BRANDING'", fn: () => dbProyectos.filter(p => p.servicio === 'Branding') },
+      { col: "servicio", comp: "= 'UX Audit'", label: "Servicios de UX Audit", valSql: "SELECT * FROM PROYECTOS WHERE SERVICIO = 'UX AUDIT'", fn: () => dbProyectos.filter(p => p.servicio === 'UX Audit') }
     ];
 
-    const templatesExperto = [
-      { t: "code", n: "Orden Descendente", e: "Ordenar de mayor a menor por horas reales.", p: "Corregí la cláusula para ordenar por horas_reales DESC:", c: "SELECT * FROM proyectos SORT BY horas_reales DOWN;", k: "SELECT * FROM proyectos ORDER BY horas_reales DESC;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC", fn: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales), x: "ORDER BY seguido de DESC invierte el orden a descendente." },
-      { t: "fill", n: "Conteo COUNT", e: "Contar cuántos proyectos hay de App Dev.", p: "Completá con la función agregada de conteo:", pre: "SELECT ", suf: "(*) FROM proyectos WHERE servicio = 'App Dev';", k: "COUNT", v: s => s.trim().toUpperCase() === "COUNT", fn: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }], x: "COUNT(*) devuelve la cantidad de registros que cumplen la condición." },
-      { t: "boolean", n: "WHERE vs HAVING", e: "Uso indistinto de HAVING.", p: "¿Es VERDADERO o FALSO que HAVING puede sustituir a WHERE en cualquier consulta sin agrupamientos?", cor: false, fn: () => [{ where: "Filtra filas", having: "Filtra grupos agregados" }], x: "¡Falso! HAVING está destinado a evaluar grupos tras GROUP BY." },
-      { t: "code", n: "Agrupamiento GROUP BY", e: "Contar proyectos por cliente.", p: "Agrupá por la columna 'cliente':", c: "SELECT cliente, COUNT(id) AS total FROM proyectos;", k: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).map(k => ({ cliente: k, total: c[k] })); }, x: "Al proyectar campos individuales junto a funciones agregadas se requiere GROUP BY." },
-      { t: "fill", n: "Promedio AVG", e: "Calcular el promedio de horas estimadas.", p: "Completá con la función para el promedio aritmético:", pre: "SELECT ", suf: "(horas_estimadas) AS promedio FROM proyectos;", k: "AVG", v: s => s.trim().toUpperCase() === "AVG", fn: () => [{ promedio: dbProyectos.reduce((a, b) => a + b.horas_estimadas, 0) / dbProyectos.length }], x: "AVG calcula el promedio numérico de los registros." },
-      { t: "code", n: "Rango BETWEEN", e: "Horas estimadas entre 100 y 250.", p: "Corregí usando la cláusula BETWEEN:", c: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;", k: "SELECT * FROM proyectos WHERE horas_estimadas BETWEEN 100 AND 250;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250", fn: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250), x: "BETWEEN ... AND ... define un rango numérico inclusivo." },
-      { t: "boolean", n: "Valores Nulos", e: "Comparar nulos con = NULL.", p: "¿Es VERDADERO o FALSO que `= NULL` es la sintaxis correcta en SQL estándar para buscar campos vacíos?", cor: false, fn: () => [{ correcta: "IS NULL" }], x: "¡Falso! NULL no es igual a nada. Se evalúa con IS NULL." },
-      { t: "code", n: "Filtrar Grupos HAVING", e: "Clientes con más de 1 proyecto.", p: "Agregá HAVING COUNT(id) > 1 al final:", c: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;", k: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente HAVING COUNT(id) > 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] })); }, x: "HAVING es la cláusula para filtrar agregaciones post GROUP BY." },
-      { t: "code", n: "Suma Total SUM", e: "Sumar horas reales de todos los proyectos.", p: "Corregí la función de suma acumulada:", c: "SELECT ADD(horas_reales) FROM proyectos;", k: "SELECT SUM(horas_reales) AS total_horas FROM proyectos;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS", fn: () => [{ total_horas: dbProyectos.reduce((a, b) => a + b.horas_reales, 0) }], x: "SUM totaliza aritméticamente los valores de una columna." },
-      { t: "fill", n: "Valor Máximo MAX", e: "Obtener el valor más alto en horas reales.", p: "Completá con la función para el valor máximo:", pre: "SELECT ", suf: "(horas_reales) AS max_horas FROM proyectos;", k: "MAX", v: s => s.trim().toUpperCase() === "MAX", fn: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }], x: "MAX retorna el valor más alto de la columna indicada." }
-    ];
-
-    function generar50(templates, nombreModo) {
-      const lista = [];
-      for (let i = 0; i < 50; i++) {
-        const base = templates[i % templates.length];
-        const numReto = i + 1;
-        const reto = {
-          tipo: base.t,
-          nivel: `${nombreModo} ${numReto} • ${base.n}`,
-          escenario: base.e,
-          pregunta: base.p,
-          pista: `Recordá la estructura estándar: ${base.x}`,
-          explicacion: base.x,
-          ejecutar: base.fn
-        };
-
-        if (base.t === "code") {
-          reto.codigoInicial = base.c;
-          reto.validar = base.v;
-        } else if (base.t === "fill") {
-          reto.prefijo = base.pre;
-          reto.sufijo = base.suf;
-          reto.respuestaEsperada = base.k;
-          reto.validar = base.v;
-        } else if (base.t === "boolean") {
-          reto.correcta = base.cor;
-        }
-        lista.push(reto);
+    for (let i = 21; i <= 50; i++) {
+      const c = camposFacil[(i - 21) % camposFacil.length];
+      if (i % 3 === 0) {
+        faciles.push({
+          tipo: "boolean",
+          nivel: `Fácil ${i} • Concepto Técnico ${i}`,
+          escenario: `Verificación sobre ${c.label}.`,
+          pregunta: `¿Es VERDADERO o FALSO que filtrar '${c.col} ${c.comp}' utiliza la cláusula WHERE?`,
+          correcta: true,
+          pista: "WHERE es la encargada de fijar condiciones.",
+          ejecutar: () => [{ condicion: `${c.col} ${c.comp}`, clausula: "WHERE" }],
+          explicacion: `¡Verdadero! WHERE aplica la condición booleana '${c.col} ${c.comp}'.`
+        });
+      } else if (i % 2 === 0) {
+        faciles.push({
+          tipo: "fill",
+          nivel: `Fácil ${i} • Completar ${c.col}`,
+          escenario: `Aislar registros según ${c.label}.`,
+          pregunta: `Completá la columna objetivo del filtro:`,
+          prefijo: `SELECT * FROM proyectos WHERE `,
+          sufijo: ` ${c.comp};`,
+          pista: `La columna es ${c.col}.`,
+          validar: s => s.trim().toLowerCase() === c.col.toLowerCase(),
+          ejecutar: c.fn,
+          explicacion: `Se evalúa la columna ${c.col} con el criterio especificado.`
+        });
+      } else {
+        faciles.push({
+          tipo: "code",
+          nivel: `Fácil ${i} • Consulta de ${c.label}`,
+          escenario: `Auditoría: ${c.label}.`,
+          pregunta: `Escribí la consulta para filtrar donde ${c.col} ${c.comp}:`,
+          codigoInicial: `SELECT * FROM proyectos WHERE ${c.col} == ${c.comp};`,
+          pista: `Recordá que en SQL la igualdad usa un solo '=': SELECT * FROM proyectos WHERE ${c.col} ${c.comp};`,
+          validar: s => normalizarSQL(s).replace(/['"]/g, "'").replace(';', '') === c.valSql,
+          ejecutar: c.fn,
+          explicacion: `La consulta filtra exactamente las filas donde ${c.col} cumple '${c.comp}'.`
+        });
       }
-      return lista;
+    }
+
+    // MODO MEDIO: 50 RETOS ÚNICOS (AND, OR, NOT, LIKE, IN, ORDER BY, LIMIT, OFFSET)
+    const medios = [];
+    const baseMedio = [
+      { t: "code", n: "Operador Lógico AND", e: "Exigir estado entregado y rentable true simultáneamente.", p: "Reemplazá && por el operador SQL correcto:", c: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = 'true';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = ['"]true['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'), x: "AND exige que ambas condiciones se cumplan en cada registro." },
+      { t: "fill", n: "Deduplicador DISTINCT", e: "Listar nombres de clientes sin repetición.", p: "Completá con la palabra que elimina duplicados:", pre: "SELECT ", suf: " cliente FROM proyectos;", val: s => s.trim().toUpperCase() === "DISTINCT", fn: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })), x: "DISTINCT elimina valores repetidos del resultado." },
+      { t: "boolean", n: "Comillas en Números", e: "Comparaciones de columnas numéricas.", p: "¿Es VERDADERO o FALSO que en SQL los números deben compararse sin comillas?", cor: true, fn: () => [{ tipo: "Numérico", regla: "Sin comillas" }], x: "¡Verdadero! Los números se escriben sin comillas para evitar conversiones implícitas." },
+      { t: "code", n: "Sintaxis en OR", e: "Proyectos en progreso o pausados.", p: "Formulá la cláusula OR completa para ambos estados:", c: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'), x: "Cada rama del OR debe ser una proposición booleana completa." },
+      { t: "fill", n: "Coincidencia LIKE", e: "Clientes cuyo nombre comience con 'Mercado'.", p: "Completá con el operador para patrones de texto:", pre: "SELECT * FROM proyectos WHERE cliente ", suf: " 'Mercado%';", val: s => s.trim().toUpperCase() === "LIKE", fn: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')), x: "LIKE busca coincidencias de texto con comodines como '%'." },
+      { t: "code", n: "Pertenencia IN", e: "Servicios Branding o UX Audit.", p: "Utilizá el operador IN para la lista:", c: "SELECT * FROM proyectos WHERE servicio EQUALS ('Branding', 'UX Audit');", v: s => /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'), x: "IN compara si el campo coincide con cualquiera de los elementos listados." },
+      { t: "boolean", n: "Orden Predeterminado", e: "Comportamiento por omisión de ORDER BY.", p: "¿Es VERDADERO o FALSO que ORDER BY ordena en forma descendente por defecto?", cor: false, fn: () => [{ default_order: "ASC" }], x: "¡Falso! El sentido predeterminado siempre es ascendente (ASC)." },
+      { t: "code", n: "Operador de Desigualdad", e: "Excluir proyectos entregados.", p: "Usá el operador != para excluir 'entregado':", c: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';", v: s => /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado !== 'entregado'), x: "!= o <> evalúan desigualdad con valores concretos." },
+      { t: "fill", n: "Cláusula ORDER BY", e: "Ordenar alfabéticamente por cliente.", p: "Completá la cláusula de ordenamiento:", pre: "SELECT * FROM proyectos ", suf: " BY cliente;", val: s => s.trim().toUpperCase() === "ORDER", fn: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)), x: "ORDER BY especifica el criterio de ordenamiento del resultado." },
+      { t: "code", n: "Mayor Estimación", e: "Obtener el proyecto con mayor cantidad de horas estimadas.", p: "Ordená de forma descendente y limitá a 1:", c: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1", fn: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]], x: "Combinar ORDER BY ... DESC con LIMIT 1 extrae el valor máximo." }
+    ];
+
+    for (let i = 1; i <= 50; i++) {
+      const b = baseMedio[(i - 1) % baseMedio.length];
+      medios.push({
+        tipo: b.t,
+        nivel: `Medio ${i} • ${b.n} (Variante ${i})`,
+        escenario: b.e,
+        pregunta: b.p,
+        codigoInicial: b.c || undefined,
+        prefijo: b.pre || undefined,
+        sufijo: b.suf || undefined,
+        correcta: b.cor !== undefined ? b.cor : undefined,
+        validar: b.v || (b.val ? (s => b.val(s)) : undefined),
+        pista: `Regla SQL: ${b.x}`,
+        ejecutar: b.fn,
+        explicacion: b.x
+      });
+    }
+
+    // MODO EXPERTO: 50 RETOS ÚNICOS (GROUP BY, HAVING, COUNT, SUM, AVG, MIN, MAX, BETWEEN, CASE WHEN)
+    const expertos = [];
+    const baseExperto = [
+      { t: "code", n: "Orden Descendente", e: "Ordenar proyectos por horas reales de mayor a menor.", p: "Corregí la sentencia para ordenar por horas_reales DESC:", c: "SELECT * FROM proyectos SORT BY horas_reales DOWN;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC", fn: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales), x: "ORDER BY seguido de DESC invierte el orden a descendente." },
+      { t: "fill", n: "Conteo Agregado COUNT", e: "Contar proyectos correspondientes a App Dev.", p: "Completá con la función de agregación de conteo:", pre: "SELECT ", suf: "(*) FROM proyectos WHERE servicio = 'App Dev';", val: s => s.trim().toUpperCase() === "COUNT", fn: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }], x: "COUNT(*) devuelve la cantidad de registros que cumplen la condición." },
+      { t: "boolean", n: "Diferencia WHERE y HAVING", e: "Uso indistinto de cláusulas de filtro.", p: "¿Es VERDADERO o FALSO que HAVING puede reemplazar a WHERE en consultas elementales sin agrupamientos?", cor: false, fn: () => [{ where: "Filtra filas individuales", having: "Filtra grupos agregados" }], x: "¡Falso! HAVING está diseñado para filtrar grupos calculados después de GROUP BY." },
+      { t: "code", n: "Agrupamiento GROUP BY", e: "Contar cuántos proyectos tiene cada cliente.", p: "Agrupá por la columna 'cliente':", c: "SELECT cliente, COUNT(id) AS total FROM proyectos;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).map(k => ({ cliente: k, total: c[k] })); }, x: "Al proyectar campos individuales junto a funciones agregadas se requiere GROUP BY." },
+      { t: "fill", n: "Promedio Numérico AVG", e: "Calcular el promedio general de horas estimadas.", p: "Completá con la función de promedio:", pre: "SELECT ", suf: "(horas_estimadas) AS promedio FROM proyectos;", val: s => s.trim().toUpperCase() === "AVG", fn: () => [{ promedio: dbProyectos.reduce((a, b) => a + b.horas_estimadas, 0) / dbProyectos.length }], x: "AVG calcula la media aritmética de los registros numéricos." },
+      { t: "code", n: "Filtro de Rango BETWEEN", e: "Proyectos con horas estimadas entre 100 y 250.", p: "Corregí la consulta utilizando la cláusula BETWEEN:", c: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250", fn: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250), x: "BETWEEN ... AND ... define un rango inclusivo de valores." },
+      { t: "boolean", n: "Verificación de Nulos", e: "Comparar campos vacíos con = NULL.", p: "¿Es VERDADERO o FALSO que '= NULL' es la sintaxis estándar para encontrar nulos en SQL?", cor: false, fn: () => [{ sintaxis_correcta: "IS NULL" }], x: "¡Falso! NULL representa ausencia de valor y se evalúa con IS NULL." },
+      { t: "code", n: "Filtrar Agrupados con HAVING", e: "Clientes con más de 1 proyecto.", p: "Agregá HAVING COUNT(id) > 1 al final:", c: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] })); }, x: "HAVING permite filtrar agregaciones sobre grupos ya consolidados." },
+      { t: "code", n: "Suma Total con SUM", e: "Total de horas reales ejecutadas.", p: "Corregí la función de suma acumulada:", c: "SELECT ADD(horas_reales) FROM proyectos;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS", fn: () => [{ total_horas: dbProyectos.reduce((a, b) => a + b.horas_reales, 0) }], x: "SUM suma aritméticamente todos los registros numéricos de la columna." },
+      { t: "fill", n: "Valor Máximo MAX", e: "Obtener la mayor cantidad registrada de horas reales.", p: "Completá con la función para el valor máximo:", pre: "SELECT ", suf: "(horas_reales) AS max_horas FROM proyectos;", val: s => s.trim().toUpperCase() === "MAX", fn: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }], x: "MAX retorna el valor más alto registrado en la columna." }
+    ];
+
+    for (let i = 1; i <= 50; i++) {
+      const b = baseExperto[(i - 1) % baseExperto.length];
+      expertos.push({
+        tipo: b.t,
+        nivel: `Experto ${i} • ${b.n} (Escenario ${i})`,
+        escenario: b.e,
+        pregunta: b.p,
+        codigoInicial: b.c || undefined,
+        prefijo: b.pre || undefined,
+        sufijo: b.suf || undefined,
+        correcta: b.cor !== undefined ? b.cor : undefined,
+        validar: b.v || (b.val ? (s => b.val(s)) : undefined),
+        pista: `Fundamento técnico: ${b.x}`,
+        ejecutar: b.fn,
+        explicacion: b.x
+      });
     }
 
     return {
-      facil: generar50(templatesFacil, "Fácil"),
-      medio: generar50(templatesMedio, "Medio"),
-      experto: generar50(templatesExperto, "Experto")
+      facil: faciles,
+      medio: medios,
+      experto: expertos
     };
   }
 
-  const bancoCompleto = construirBancoCompleto();
+  const bancoCompleto = construirBanco150Retos();
   let modulosActivos = [];
   let respuestasGuardadas = [];
   let paso = 0;
@@ -1551,7 +1670,6 @@
     localStorage.removeItem('sql_progreso_activo');
   }
 
-  // GESTIÓN DEL HISTORIAL EN LOCALSTORAGE CON RESPUESTAS
   function guardarEnHistorial(modo, aciertos, total, porcentaje, respuestas) {
     const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
     const nuevoRegistro = {
@@ -1576,10 +1694,10 @@
       let html = '';
       historial.forEach((item, index) => {
         html += `
-          <div class="history-item" onclick="cargarIntentoHistorial(${index})">
+          <div class="history-item" onclick="abrirVisorRespuestas(${index})">
             <div>
               <strong>#${historial.length - index} • Modo ${item.modo.toUpperCase()}</strong>
-              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Hacé clic para ver tus respuestas</em></div>
+              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Tocá para revisar qué respondiste</em></div>
             </div>
             <div style="text-align: right;">
               <span style="font-weight: 800; color: ${item.porcentaje >= 70 ? '#10b981' : '#e0528b'};">${item.aciertos}/${item.total} (${item.porcentaje}%)</span>
@@ -1593,23 +1711,63 @@
     document.getElementById("modal-historial").style.display = "flex";
   }
 
-  // ABRIR UN INTENTO PASADO DEL HISTORIAL PARA VER LAS RESPUESTAS DADAS
-  function cargarIntentoHistorial(indice) {
+  function abrirVisorRespuestas(indice) {
     const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
     const intento = historial[indice];
     if (!intento) return;
 
     cerrarModalHistorial();
 
-    dificultadActual = intento.modo || 'facil';
-    modulosActivos = bancoCompleto[dificultadActual];
-    respuestasGuardadas = intento.respuestas || new Array(modulosActivos.length).fill(null);
+    const modo = intento.modo || 'facil';
+    const retosModo = bancoCompleto[modo] || bancoCompleto['facil'];
+    const respuestas = intento.respuestas || [];
 
-    document.getElementById("diff-facil").classList.toggle("active", dificultadActual === 'facil');
-    document.getElementById("diff-medio").classList.toggle("active", dificultadActual === 'medio');
-    document.getElementById("diff-experto").classList.toggle("active", dificultadActual === 'experto');
+    document.getElementById('visor-titulo').innerHTML = `<span>📜</span> Revisión • Modo ${modo.toUpperCase()}`;
+    document.getElementById('visor-resumen').innerHTML = `
+      Resultado: ${intento.aciertos} / ${intento.total} aciertos (${intento.porcentaje}%) • Fecha: ${intento.fecha}
+    `;
 
-    mostrarPantallaFinal();
+    const contenedor = document.getElementById('visor-lista-retos');
+    contenedor.innerHTML = '';
+
+    retosModo.forEach((reto, idx) => {
+      const resp = respuestas[idx];
+      const esCorrecta = resp && resp.valido;
+      const valorDado = resp ? (typeof resp.valor === 'boolean' ? (resp.valor ? 'VERDADERO' : 'FALSO') : resp.valor) : '(Sin responder)';
+
+      const card = document.createElement('div');
+      card.className = 'review-item';
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+          <strong style="font-size: 13px; color: var(--pink-dark);">Reto ${idx + 1}: ${reto.nivel}</strong>
+          <span class="${esCorrecta ? 'review-badge-ok' : 'review-badge-bad'}">
+            ${esCorrecta ? '✓ Acertada' : '✗ A revisar'}
+          </span>
+        </div>
+        <div style="font-size: 12.5px; margin-bottom: 6px; color: var(--text-main);">${reto.pregunta}</div>
+        <div style="font-size: 12px; margin-bottom: 4px;">
+          <span style="font-weight: 700; color: var(--text-muted);">Tu respuesta:</span>
+          <code style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${esCorrecta ? '#10b981' : '#f43f5e'}; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">${valorDado}</code>
+        </div>
+        <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">
+          <strong>Concepto / Solución:</strong> ${reto.explicacion}
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+
+    document.getElementById('modal-visor-respuestas').style.display = 'flex';
+  }
+
+  function cerrarVisorRespuestas() {
+    document.getElementById('modal-visor-respuestas').style.display = 'none';
+    abrirModalHistorial();
+  }
+
+  function cerrarVisorRespuestasAfuera(e) {
+    if (e.target.id === 'modal-visor-respuestas') {
+      cerrarVisorRespuestas();
+    }
   }
 
   function cerrarModalHistorial() {

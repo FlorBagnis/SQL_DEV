@@ -622,7 +622,6 @@
       font-size: 12px;
     }
 
-    /* FIRMA Y SELLO EN CERTIFICADO */
     .cert-footer-layout {
       display: flex;
       justify-content: space-between;
@@ -664,7 +663,6 @@
       color: var(--text-muted);
     }
 
-    /* BOTONES DE ACCIÓN FINAL Y REDES */
     .btn-pdf {
       background: linear-gradient(135deg, #a855f7, #ec4899);
       color: #ffffff;
@@ -727,14 +725,13 @@
 
     .btn-linkedin { background: #0077b5; color: #ffffff; }
     .btn-whatsapp { background: #25d366; color: #ffffff; }
-    .btn-gmail { background: #ea4335; color: #ffffff; }
     .btn-native { background: var(--pink-primary); color: #ffffff; }
 
-    /* ESTILOS DE IMPRESIÓN Y PDF ESTILO DIPLOMA OFICIAL (A4 APAISADO) */
+    /* ESTILOS DE IMPRESIÓN Y PDF - DIPLOMA LIMPIO */
     @media print {
       @page {
         size: A4 landscape;
-        margin: 1cm;
+        margin: 1.2cm;
       }
 
       body {
@@ -753,7 +750,8 @@
       .btn-pdf,
       .btn-execute,
       .share-section,
-      .modal-overlay {
+      .modal-overlay,
+      .breakdown-list {
         display: none !important;
       }
 
@@ -767,12 +765,16 @@
       }
 
       #results-card {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: 80vh !important;
         border: 8px double #e0528b !important;
         outline: 2px solid #ff70a6 !important;
         outline-offset: -12px !important;
-        border-radius: 20px !important;
-        padding: 40px 48px !important;
+        border-radius: 24px !important;
+        padding: 40px 60px !important;
         margin: 0 auto !important;
         page-break-inside: avoid;
         background: #fffbfe !important;
@@ -781,35 +783,25 @@
       }
 
       .cert-title {
-        font-size: 32px !important;
+        font-size: 34px !important;
         color: #be185d !important;
       }
 
       .results-score-big {
-        font-size: 52px !important;
+        font-size: 58px !important;
         color: #e0528b !important;
       }
 
       .motivational-box {
         background: #fff0f6 !important;
         border: 1.5px dashed #f472b6 !important;
+        max-width: 720px !important;
       }
 
-      /* Vista sin scrollbar en PDF: 2 columnas elegantes */
-      .breakdown-list {
-        max-height: none !important;
-        overflow: visible !important;
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 6px 16px !important;
-        border: 1px solid #ffd7e8 !important;
-        background: #ffffff !important;
-        padding: 12px 16px !important;
-      }
-
-      .breakdown-item {
-        padding: 3px 0 !important;
-        font-size: 10.5px !important;
+      .cert-footer-layout {
+        width: 100% !important;
+        max-width: 720px !important;
+        margin-top: 30px !important;
       }
 
       [data-theme="dark"] body {
@@ -821,16 +813,6 @@
         color: #fdf2f8 !important;
         border-color: #f472b6 !important;
         outline-color: #4a243d !important;
-      }
-
-      [data-theme="dark"] .breakdown-list {
-        background: #110913 !important;
-        border-color: #3b2234 !important;
-      }
-
-      [data-theme="dark"] .breakdown-item {
-        border-color: #3b2234 !important;
-        color: #fdf2f8 !important;
       }
 
       [data-theme="dark"] .motivational-box {
@@ -1049,6 +1031,7 @@
       </p>
     </div>
 
+    <!-- Lista de respuestas en pantalla interactiva -->
     <div class="breakdown-list" id="final-breakdown"></div>
 
     <!-- Pie Oficial de Firma del Certificado -->
@@ -1073,7 +1056,7 @@
       </button>
     </div>
 
-    <!-- Compartir en Redes -->
+    <!-- Compartir en Redes (Sin Gmail) -->
     <div class="share-section">
       <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
       <div class="share-buttons-grid">
@@ -1082,9 +1065,6 @@
         </button>
         <button class="btn-share btn-whatsapp" onclick="compartirWhatsApp()">
           <span>💬</span> WhatsApp
-        </button>
-        <button class="btn-share btn-gmail" onclick="compartirGmail()">
-          <span>✉️</span> Gmail
         </button>
         <button class="btn-share btn-native" onclick="compartirNativo()">
           <span>✨</span> Más opciones
@@ -1152,7 +1132,6 @@
     return str.trim().toUpperCase().replace(/\s+/g, ' ');
   }
 
-  // BANCO DE 60 RETOS COMPLETOS (20 FÁCIL, 20 MEDIO, 20 EXPERTO)
   const bancoCompleto = {
     facil: [
       {
@@ -1856,7 +1835,6 @@
   let paso = 0;
   let dificultadActual = 'facil';
 
-  // CONTROL DEL MODO OSCURO
   function alternarTema() {
     const esOscuro = document.documentElement.getAttribute('data-theme') === 'dark';
     const nuevoTema = esOscuro ? 'light' : 'dark';
@@ -1876,7 +1854,6 @@
   document.documentElement.setAttribute('data-theme', temaGuardado);
   actualizarBotonTema(temaGuardado);
 
-  // AUTO-GUARDADO Y RESTAURACIÓN DE SESIÓN EN VIVO
   function guardarEstadoProgreso() {
     const estado = {
       dificultad: dificultadActual,
@@ -2115,7 +2092,6 @@
     }
   }
 
-  // PANTALLA FINAL DE DIAGNÓSTICO Y GENERACIÓN DE DIPLOMA
   function mostrarPantallaFinal() {
     document.getElementById("quiz-area").style.display = "none";
     const resCard = document.getElementById("results-card");
@@ -2147,7 +2123,6 @@
       feedbackMsg.textContent = "¡Buen entrenamiento! Las bases están en camino. Volvé a intentarlo prestando especial atención a las pistas de sintaxis.";
     }
 
-    // Fecha actual para el diploma
     const fechaActual = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
     document.getElementById("cert-issue-date").textContent = fechaActual;
 
@@ -2171,7 +2146,6 @@
     localStorage.removeItem('sql_progreso_activo');
   }
 
-  // GESTIÓN DEL HISTORIAL EN LOCALSTORAGE
   function guardarEnHistorial(modo, aciertos, total, porcentaje) {
     const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
     const nuevoRegistro = {
@@ -2229,12 +2203,10 @@
     }
   }
 
-  // EXPORTACIÓN A PDF DIPLOMA
   function exportarCertificadoPDF() {
     window.print();
   }
 
-  // COMPARTIR EN REDES SOCIALES
   function obtenerTextoCompartir() {
     const aciertos = respuestasGuardadas.filter(r => r && r.valido).length;
     const total = modulosActivos.length;
@@ -2251,14 +2223,6 @@
   function compartirWhatsApp() {
     const texto = encodeURIComponent(obtenerTextoCompartir());
     window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
-  }
-
-  // BOTÓN DE GMAIL ARREGLADO: ABRE DIRECTAMENTE GMAIL WEB
-  function compartirGmail() {
-    const asunto = encodeURIComponent("¡Certificado SQL Dev Bootcamp completado! 🌸");
-    const cuerpo = encodeURIComponent(obtenerTextoCompartir());
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${asunto}&body=${cuerpo}`;
-    window.open(gmailUrl, '_blank');
   }
 
   function compartirNativo() {
@@ -2288,7 +2252,6 @@
     }
   }
 
-  // INICIALIZACIÓN CON RESTAURACIÓN DE SESIÓN INCOMPLETA
   (function init() {
     const progresoGuardado = localStorage.getItem('sql_progreso_activo');
     if (progresoGuardado) {

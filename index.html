@@ -7,7 +7,7 @@
   <title>SQL Dev Bootcamp ✨ Practical Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #fdf2f8 50%, #f5e8ff 100%);
@@ -527,60 +527,91 @@
       display: none;
     }
 
-    /* PANTALLA FINAL Y CERTIFICADO */
+    /* PANTALLA DE RESULTADOS / CERTIFICADO */
     .results-card {
       display: none;
-      background: var(--pink-light);
-      border: 2px solid var(--border-pink);
+      background: var(--card-bg);
+      border: 3px double var(--pink-primary);
       border-radius: 24px;
-      padding: 28px;
+      padding: 34px 28px;
       text-align: center;
       margin-top: 15px;
       box-shadow: 0 10px 30px rgba(244, 114, 182, 0.12);
+      position: relative;
+    }
+
+    .cert-subhead {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cert-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cert-divider {
+      width: 140px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
+      margin: 0 auto 16px auto;
     }
 
     .results-score-big {
-      font-size: 46px;
+      font-size: 48px;
       font-weight: 800;
       color: var(--pink-dark);
-      margin: 8px 0;
+      margin: 4px 0 8px 0;
+      letter-spacing: -0.02em;
     }
 
     .results-badge {
       display: inline-block;
-      padding: 6px 18px;
-      border-radius: 16px;
-      font-size: 13px;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       margin-bottom: 14px;
+      border: 1px solid currentColor;
     }
 
     .motivational-box {
-      background: var(--card-bg);
+      background: var(--pink-light);
       border: 1.5px dashed var(--pink-primary);
       border-radius: 16px;
       padding: 14px 18px;
-      margin-bottom: 16px;
+      margin: 14px auto 18px auto;
+      max-width: 680px;
     }
 
     .motivational-box p {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--pink-dark);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .breakdown-list {
       max-height: 220px;
       overflow-y: auto;
       text-align: left;
-      margin: 18px 0;
+      margin: 16px auto;
       padding: 10px;
       background: var(--card-bg);
       border: 1px solid var(--border-pink);
       border-radius: 14px;
+      max-width: 700px;
     }
 
     .breakdown-item {
@@ -589,6 +620,48 @@
       padding: 8px 10px;
       border-bottom: 1px solid var(--border-pink);
       font-size: 12px;
+    }
+
+    /* FIRMA Y SELLO EN CERTIFICADO */
+    .cert-footer-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1.5px dashed var(--pink-soft);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cert-signature-box {
+      text-align: right;
+    }
+
+    .cert-sign-line {
+      display: inline-block;
+      min-width: 190px;
+      border-bottom: 1.5px solid var(--pink-primary);
+      padding-bottom: 4px;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      color: var(--pink-dark);
+      font-size: 14px;
+    }
+
+    .cert-sign-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .cert-date-box {
+      text-align: left;
+      font-size: 11.5px;
+      color: var(--text-muted);
     }
 
     /* BOTONES DE ACCIÓN FINAL Y REDES */
@@ -652,40 +725,22 @@
       transform: translateY(-2px);
     }
 
-    .btn-linkedin {
-      background: #0077b5;
-      color: #ffffff;
-    }
+    .btn-linkedin { background: #0077b5; color: #ffffff; }
+    .btn-whatsapp { background: #25d366; color: #ffffff; }
+    .btn-gmail { background: #ea4335; color: #ffffff; }
+    .btn-native { background: var(--pink-primary); color: #ffffff; }
 
-    .btn-whatsapp {
-      background: #25d366;
-      color: #ffffff;
-    }
-
-    .btn-gmail {
-      background: #ea4335;
-      color: #ffffff;
-    }
-
-    .btn-native {
-      background: var(--pink-primary);
-      color: #ffffff;
-    }
-
-    .certificate-signature {
-      margin-top: 22px;
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--pink-dark);
-      letter-spacing: 0.03em;
-    }
-
-    /* ESTILOS DE IMPRESIÓN Y PDF NATIVO */
+    /* ESTILOS DE IMPRESIÓN Y PDF ESTILO DIPLOMA OFICIAL (A4 APAISADO) */
     @media print {
+      @page {
+        size: A4 landscape;
+        margin: 1cm;
+      }
+
       body {
         background: #ffffff !important;
         padding: 0 !important;
-        color: #000000 !important;
+        color: #2b1222 !important;
       }
 
       .container > *:not(#results-card),
@@ -708,17 +763,53 @@
         padding: 0 !important;
         max-width: 100% !important;
         width: 100% !important;
+        background: transparent !important;
       }
 
       #results-card {
         display: block !important;
-        border: 4px double #ff70a6 !important;
+        border: 8px double #e0528b !important;
+        outline: 2px solid #ff70a6 !important;
+        outline-offset: -12px !important;
         border-radius: 20px !important;
-        padding: 40px !important;
+        padding: 40px 48px !important;
         margin: 0 auto !important;
         page-break-inside: avoid;
+        background: #fffbfe !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+      }
+
+      .cert-title {
+        font-size: 32px !important;
+        color: #be185d !important;
+      }
+
+      .results-score-big {
+        font-size: 52px !important;
+        color: #e0528b !important;
+      }
+
+      .motivational-box {
+        background: #fff0f6 !important;
+        border: 1.5px dashed #f472b6 !important;
+      }
+
+      /* Vista sin scrollbar en PDF: 2 columnas elegantes */
+      .breakdown-list {
+        max-height: none !important;
+        overflow: visible !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px 16px !important;
+        border: 1px solid #ffd7e8 !important;
+        background: #ffffff !important;
+        padding: 12px 16px !important;
+      }
+
+      .breakdown-item {
+        padding: 3px 0 !important;
+        font-size: 10.5px !important;
       }
 
       [data-theme="dark"] body {
@@ -729,10 +820,10 @@
         background: #1f111c !important;
         color: #fdf2f8 !important;
         border-color: #f472b6 !important;
+        outline-color: #4a243d !important;
       }
 
-      [data-theme="dark"] .breakdown-list,
-      [data-theme="dark"] .motivational-box {
+      [data-theme="dark"] .breakdown-list {
         background: #110913 !important;
         border-color: #3b2234 !important;
       }
@@ -742,8 +833,9 @@
         color: #fdf2f8 !important;
       }
 
-      [data-theme="dark"] .results-score-big {
-        color: #f472b6 !important;
+      [data-theme="dark"] .motivational-box {
+        background: #2b1625 !important;
+        border-color: #f472b6 !important;
       }
     }
 
@@ -758,7 +850,7 @@
       padding-top: 14px;
     }
 
-    /* Modal */
+    /* Modales */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -830,6 +922,18 @@
       border-color: #4a243d;
       color: #f472b6;
     }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-pink);
+      font-size: 12.5px;
+    }
+    .history-item:last-child {
+      border-bottom: none;
+    }
   </style>
 </head>
 <body>
@@ -842,6 +946,7 @@
     </div>
     <div class="header-actions">
       <button class="btn-action" id="theme-toggle" onclick="alternarTema()">🌙 Modo Oscuro</button>
+      <button class="btn-action" onclick="abrirModalHistorial()"><span>📜</span> Historial</button>
       <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
       <button class="btn-action" onclick="abrirModal()"><span>✨</span> About</button>
     </div>
@@ -927,24 +1032,39 @@
     </div>
   </div>
 
-  <!-- Tarjeta de Evaluación Final, Certificado y Compartir -->
+  <!-- Tarjeta de Evaluación Final / Diploma de Certificación -->
   <div id="results-card" class="results-card">
-    <h2>🏆 Certificado de Logro & Evaluación Técnica</h2>
+    <div class="cert-subhead">Acreditación Técnica de Rendimiento</div>
+    <div class="cert-title">Certificado de Finalización</div>
+    <div class="cert-divider"></div>
+
     <div class="results-score-big" id="final-score-text">0 / 20</div>
     <div class="results-badge" id="final-badge">Nivel</div>
-    <p id="final-feedback-msg" style="font-size: 14px; margin-bottom: 14px;"></p>
+    <p id="final-feedback-msg" style="font-size: 14px; max-width: 650px; margin: 0 auto 12px auto; line-height: 1.5;"></p>
     
-    <!-- Mensaje motivacional y felicitaciones -->
+    <!-- Mensaje motivacional -->
     <div class="motivational-box">
       <p>
-        ✨ ¡Felicitaciones por completar este desafío intensivo de SQL! Cada consulta formulada demuestra tu compromiso, capacidad analítica y constancia para resolver problemas reales en bases de datos. ¡A seguir aprendiendo y codificando con todo!
+        ✨ ¡Felicitaciones por completar este módulo de especialización práctica en SQL! Cada consulta formulada demuestra capacidad analítica, criterio técnico y constancia para resolver escenarios reales de bases de datos. ¡A seguir codificando con todo!
       </p>
     </div>
 
     <div class="breakdown-list" id="final-breakdown"></div>
 
+    <!-- Pie Oficial de Firma del Certificado -->
+    <div class="cert-footer-layout">
+      <div class="cert-date-box">
+        <div><strong>Fecha de Emisión:</strong></div>
+        <div id="cert-issue-date">30/09/2026</div>
+      </div>
+      <div class="cert-signature-box">
+        <div class="cert-sign-line">Flor Bagnis 💗</div>
+        <div class="cert-sign-sub">Instructor & Software Dev Lead</div>
+      </div>
+    </div>
+
     <!-- Acciones principales -->
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
       <button class="btn-pdf" onclick="exportarCertificadoPDF()">
         <span>📄</span> Descargar Certificado (PDF)
       </button>
@@ -953,7 +1073,7 @@
       </button>
     </div>
 
-    <!-- Sección de Compartir en Redes -->
+    <!-- Compartir en Redes -->
     <div class="share-section">
       <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
       <div class="share-buttons-grid">
@@ -970,10 +1090,6 @@
           <span>✨</span> Más opciones
         </button>
       </div>
-    </div>
-
-    <div class="certificate-signature">
-      Creado By Flor Bagnis 💗
     </div>
   </div>
 
@@ -1002,6 +1118,22 @@
         <span class="pill-tag">Interactive Learning</span>
         <span class="pill-tag">JavaScript ES6</span>
         <span class="pill-tag">Dynamic DOM</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Historial de Intentos -->
+<div class="modal-overlay" id="modal-historial" onclick="cerrarModalHistorialAfuera(event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title"><span>📜</span> Historial de Evaluaciones</div>
+      <button class="btn-close" onclick="cerrarModalHistorial()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="lista-historial" style="max-height: 260px; overflow-y: auto; margin-bottom: 14px;"></div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn-action" style="color: #f43f5e;" onclick="borrarHistorial()">🗑️ Borrar Historial</button>
       </div>
     </div>
   </div>
@@ -1113,7 +1245,7 @@
       },
       {
         tipo: "code",
-        nivel: "Fácil 9 • Proyección de MúltiテクColumnas",
+        nivel: "Fácil 9 • Proyección de Múltiples Columnas",
         escenario: "El equipo solicita visualizar únicamente el servicio y el estado actual.",
         pregunta: "Proyectá únicamente las columnas 'servicio' y 'estado':",
         codigoInicial: "SELECT servicio AND estado FROM proyectos;",
@@ -1740,12 +1872,21 @@
     }
   }
 
-  // Inicializar tema guardado
   const temaGuardado = localStorage.getItem('sql_theme_flor') || 'light';
   document.documentElement.setAttribute('data-theme', temaGuardado);
   actualizarBotonTema(temaGuardado);
 
-  function cambiarDificultad(modo) {
+  // AUTO-GUARDADO Y RESTAURACIÓN DE SESIÓN EN VIVO
+  function guardarEstadoProgreso() {
+    const estado = {
+      dificultad: dificultadActual,
+      paso: paso,
+      respuestas: respuestasGuardadas
+    };
+    localStorage.setItem('sql_progreso_activo', JSON.stringify(estado));
+  }
+
+  function cambiarDificultad(modo, resetManual = true) {
     dificultadActual = modo;
     document.getElementById("diff-facil").classList.toggle("active", modo === 'facil');
     document.getElementById("diff-medio").classList.toggle("active", modo === 'medio');
@@ -1755,13 +1896,18 @@
     document.getElementById("results-card").style.display = "none";
 
     modulosActivos = bancoCompleto[modo];
-    paso = 0;
-    respuestasGuardadas = new Array(modulosActivos.length).fill(null);
+
+    if (resetManual) {
+      paso = 0;
+      respuestasGuardadas = new Array(modulosActivos.length).fill(null);
+      guardarEstadoProgreso();
+    }
+
     renderizarDesafio();
   }
 
   function reiniciarBootcamp() {
-    cambiarDificultad(dificultadActual);
+    cambiarDificultad(dificultadActual, true);
   }
 
   function togglePista() {
@@ -1870,6 +2016,7 @@
 
   function guardarRespuesta(valor, esValido) {
     respuestasGuardadas[paso] = { valor, valido: esValido };
+    guardarEstadoProgreso();
     mostrarResultado(esValido);
 
     const respondidas = respuestasGuardadas.filter(r => r !== null).length;
@@ -1877,7 +2024,6 @@
     document.getElementById("progress-fill").style.width = `${porcentaje}%`;
   }
 
-  // VALIDACIÓN Y CORRECCIÓN LIBRE DE RESPUESTAS
   function mostrarResultado(esValido) {
     const data = modulosActivos[paso];
     const feedback = document.getElementById("feedback");
@@ -1887,7 +2033,6 @@
       const btnT = document.getElementById("btn-true");
       const btnF = document.getElementById("btn-false");
       if (btnT && btnF) {
-        // Limpiamos estilos previos
         btnT.style.borderColor = "";
         btnT.style.background = "";
         btnF.style.borderColor = "";
@@ -1901,7 +2046,6 @@
           btnT.disabled = true;
           btnF.disabled = true;
         } else {
-          // NO se deshabilitan: quedan activos para que el usuario pueda corregir tocando la otra opción
           btnElegido.style.borderColor = "#f43f5e";
           btnElegido.style.background = "var(--error-bg)";
           btnT.disabled = false;
@@ -1958,6 +2102,7 @@
   function proximoDesafio() {
     if (paso < modulosActivos.length - 1) {
       paso++;
+      guardarEstadoProgreso();
       renderizarDesafio();
     }
   }
@@ -1965,11 +2110,12 @@
   function anteriorDesafio() {
     if (paso > 0) {
       paso--;
+      guardarEstadoProgreso();
       renderizarDesafio();
     }
   }
 
-  // PANTALLA FINAL DE DIAGNÓSTICO
+  // PANTALLA FINAL DE DIAGNÓSTICO Y GENERACIÓN DE DIPLOMA
   function mostrarPantallaFinal() {
     document.getElementById("quiz-area").style.display = "none";
     const resCard = document.getElementById("results-card");
@@ -2001,6 +2147,10 @@
       feedbackMsg.textContent = "¡Buen entrenamiento! Las bases están en camino. Volvé a intentarlo prestando especial atención a las pistas de sintaxis.";
     }
 
+    // Fecha actual para el diploma
+    const fechaActual = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    document.getElementById("cert-issue-date").textContent = fechaActual;
+
     const breakdown = document.getElementById("final-breakdown");
     breakdown.innerHTML = "";
     modulosActivos.forEach((m, idx) => {
@@ -2009,16 +2159,77 @@
       const item = document.createElement("div");
       item.className = "breakdown-item";
       item.innerHTML = `
-        <span><strong>Reto ${idx + 1}:</strong> ${m.nivel}</span>
+        <span><strong>#${idx + 1}</strong> ${m.nivel}</span>
         <span style="color: ${acerto ? '#10b981' : '#f43f5e'}; font-weight: 800;">
           ${acerto ? '✓ Correcto' : '✗ A revisar'}
         </span>
       `;
       breakdown.appendChild(item);
     });
+
+    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje);
+    localStorage.removeItem('sql_progreso_activo');
   }
 
-  // EXPORTACIÓN A PDF NATIVO
+  // GESTIÓN DEL HISTORIAL EN LOCALSTORAGE
+  function guardarEnHistorial(modo, aciertos, total, porcentaje) {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const nuevoRegistro = {
+      fecha: new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      modo: modo.toUpperCase(),
+      aciertos: aciertos,
+      total: total,
+      porcentaje: porcentaje
+    };
+    historial.unshift(nuevoRegistro);
+    localStorage.setItem('sql_historial_intentos', JSON.stringify(historial.slice(0, 30)));
+  }
+
+  function abrirModalHistorial() {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const contenedor = document.getElementById('lista-historial');
+    
+    if (historial.length === 0) {
+      contenedor.innerHTML = `<p style="font-size: 13px; color: var(--text-muted); font-style: italic; text-align: center; padding: 14px;">Todavía no completaste ninguna evaluación. ¡Completá los 20 retos de un modo para registrar tu puntaje!</p>`;
+    } else {
+      let html = '';
+      historial.forEach((item, index) => {
+        html += `
+          <div class="history-item">
+            <div>
+              <strong>#${historial.length - index} • Modo ${item.modo}</strong>
+              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha}</div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-weight: 800; color: ${item.porcentaje >= 70 ? '#10b981' : '#e0528b'};">${item.aciertos}/${item.total} (${item.porcentaje}%)</span>
+            </div>
+          </div>
+        `;
+      });
+      contenedor.innerHTML = html;
+    }
+
+    document.getElementById("modal-historial").style.display = "flex";
+  }
+
+  function cerrarModalHistorial() {
+    document.getElementById("modal-historial").style.display = "none";
+  }
+
+  function cerrarModalHistorialAfuera(e) {
+    if (e.target.id === "modal-historial") {
+      cerrarModalHistorial();
+    }
+  }
+
+  function borrarHistorial() {
+    if (confirm("¿Segura que querés vaciar todo el historial de evaluaciones?")) {
+      localStorage.removeItem('sql_historial_intentos');
+      abrirModalHistorial();
+    }
+  }
+
+  // EXPORTACIÓN A PDF DIPLOMA
   function exportarCertificadoPDF() {
     window.print();
   }
@@ -2042,10 +2253,12 @@
     window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
   }
 
+  // BOTÓN DE GMAIL ARREGLADO: ABRE DIRECTAMENTE GMAIL WEB
   function compartirGmail() {
     const asunto = encodeURIComponent("¡Certificado SQL Dev Bootcamp completado! 🌸");
     const cuerpo = encodeURIComponent(obtenerTextoCompartir());
-    window.open(`mailto:?subject=${asunto}&body=${cuerpo}`, '_blank');
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&su=${asunto}&body=${cuerpo}`;
+    window.open(gmailUrl, '_blank');
   }
 
   function compartirNativo() {
@@ -2075,8 +2288,24 @@
     }
   }
 
-  // Carga inicial
-  cambiarDificultad('facil');
+  // INICIALIZACIÓN CON RESTAURACIÓN DE SESIÓN INCOMPLETA
+  (function init() {
+    const progresoGuardado = localStorage.getItem('sql_progreso_activo');
+    if (progresoGuardado) {
+      try {
+        const datos = JSON.parse(progresoGuardado);
+        dificultadActual = datos.dificultad || 'facil';
+        paso = typeof datos.paso === 'number' ? datos.paso : 0;
+        modulosActivos = bancoCompleto[dificultadActual];
+        respuestasGuardadas = datos.respuestas || new Array(modulosActivos.length).fill(null);
+        cambiarDificultad(dificultadActual, false);
+        return;
+      } catch (e) {
+        console.error("Error al restaurar sesión previa:", e);
+      }
+    }
+    cambiarDificultad('facil', true);
+  })();
 </script>
 
 </body>

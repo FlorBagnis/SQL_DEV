@@ -938,7 +938,7 @@
 
     .review-card {
       background: var(--card-bg);
-      max-width: 680px;
+      max-width: 720px;
       width: 100%;
       border-radius: 20px;
       padding: 24px;
@@ -1166,7 +1166,7 @@
   </div>
 </div>
 
-<!-- Modal Visor Detallado de Respuestas Guardadas -->
+<!-- Modal Visor Detallado y Editor de Respuestas -->
 <div class="modal-overlay" id="modal-visor-respuestas" onclick="cerrarVisorRespuestasAfuera(event)">
   <div class="review-card">
     <div class="modal-header">
@@ -1176,7 +1176,8 @@
     <div class="modal-body">
       <div id="visor-resumen" style="font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--pink-dark);"></div>
       <div id="visor-lista-retos" style="max-height: 380px; overflow-y: auto; padding-right: 4px;"></div>
-      <div style="display: flex; justify-content: flex-end; margin-top: 14px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 8px;">
+        <button class="btn-execute" id="btn-cargar-simulador" onclick="cargarIntentoEnSimuladorActivo()">✏️ Reanudar y corregir este intento en el simulador</button>
         <button class="btn-action" onclick="cerrarVisorRespuestas()">Volver al Historial</button>
       </div>
     </div>
@@ -1196,7 +1197,7 @@
     return str.trim().toUpperCase().replace(/\s+/g, ' ');
   }
 
-  // BANCO DE 150 RETOS COMPLETOS INDIVIDUALES Y DISTINTOS
+  // BANCO DE 150 RETOS COMPLETOS INDIVIDUALES
   function construirBanco150Retos() {
     const faciles = [
       { tipo: "code", nivel: "Fácil 1 • Proyección Completa", escenario: "Auditoría integral de la tabla.", pregunta: "Consultá todas las columnas de la tabla 'proyectos':", codigoInicial: "GET ALL COLUMNS IN proyectos;", pista: "Usá el asterisco: SELECT * FROM proyectos;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS", ejecutar: () => dbProyectos, explicacion: "El asterisco (*) proyecta todas las columnas registradas." },
@@ -1221,7 +1222,6 @@
       { tipo: "code", nivel: "Fácil 20 • Inspeccionar una Fila", escenario: "Muestra de prueba de un solo registro.", pregunta: "Limitá la consulta para que devuelva solo 1 fila:", codigoInicial: "SELECT * FROM proyectos LIMIT 10;", pista: "Cambiá el 10 por 1.", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 1", ejecutar: () => dbProyectos.slice(0, 1), explicacion: "LIMIT 1 es ideal para comprobar la estructura de las columnas rápidamente." }
     ];
 
-    // Generamos las 30 restantes de Fácil con escenarios y consultas únicas sobre los campos
     const camposFacil = [
       { col: "horas_reales", comp: "> 100", label: "Horas Reales Mayores a 100", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES > 100", fn: () => dbProyectos.filter(p => p.horas_reales > 100) },
       { col: "horas_reales", comp: "< 300", label: "Horas Reales Menores a 300", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES < 300", fn: () => dbProyectos.filter(p => p.horas_reales < 300) },
@@ -1276,7 +1276,7 @@
       }
     }
 
-    // MODO MEDIO: 50 RETOS ÚNICOS (AND, OR, NOT, LIKE, IN, ORDER BY, LIMIT, OFFSET)
+    // MODO MEDIO: 50 RETOS ÚNICOS
     const medios = [];
     const baseMedio = [
       { t: "code", n: "Operador Lógico AND", e: "Exigir estado entregado y rentable true simultáneamente.", p: "Reemplazá && por el operador SQL correcto:", c: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = 'true';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = ['"]true['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'), x: "AND exige que ambas condiciones se cumplan en cada registro." },
@@ -1295,7 +1295,7 @@
       const b = baseMedio[(i - 1) % baseMedio.length];
       medios.push({
         tipo: b.t,
-        nivel: `Medio ${i} • ${b.n} (Variante ${i})`,
+        nivel: `Medio ${i} • ${b.n} (${i})`,
         escenario: b.e,
         pregunta: b.p,
         codigoInicial: b.c || undefined,
@@ -1309,7 +1309,7 @@
       });
     }
 
-    // MODO EXPERTO: 50 RETOS ÚNICOS (GROUP BY, HAVING, COUNT, SUM, AVG, MIN, MAX, BETWEEN, CASE WHEN)
+    // MODO EXPERTO: 50 RETOS ÚNICOS
     const expertos = [];
     const baseExperto = [
       { t: "code", n: "Orden Descendente", e: "Ordenar proyectos por horas reales de mayor a menor.", p: "Corregí la sentencia para ordenar por horas_reales DESC:", c: "SELECT * FROM proyectos SORT BY horas_reales DOWN;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC", fn: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales), x: "ORDER BY seguido de DESC invierte el orden a descendente." },
@@ -1328,7 +1328,7 @@
       const b = baseExperto[(i - 1) % baseExperto.length];
       expertos.push({
         tipo: b.t,
-        nivel: `Experto ${i} • ${b.n} (Escenario ${i})`,
+        nivel: `Experto ${i} • ${b.n} (${i})`,
         escenario: b.e,
         pregunta: b.p,
         codigoInicial: b.c || undefined,
@@ -1354,6 +1354,7 @@
   let respuestasGuardadas = [];
   let paso = 0;
   let dificultadActual = 'facil';
+  let intentoSeleccionadoParaEdicion = null;
 
   function alternarTema() {
     const esOscuro = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -1378,7 +1379,7 @@
     const estado = {
       dificultad: dificultadActual,
       paso: paso,
-      respuestas: respuestasGuardadas
+      respuestas: JSON.parse(JSON.stringify(respuestasGuardadas))
     };
     localStorage.setItem('sql_progreso_activo', JSON.stringify(estado));
   }
@@ -1456,7 +1457,7 @@
         </div>
       `;
       const txt = document.getElementById("sql-input");
-      txt.value = respuestasGuardadas[paso] ? respuestasGuardadas[paso].valor : data.codigoInicial;
+      txt.value = (respuestasGuardadas[paso] && respuestasGuardadas[paso].valor !== undefined) ? respuestasGuardadas[paso].valor : data.codigoInicial;
 
     } else if (data.tipo === "fill") {
       inputContainer.innerHTML = `
@@ -1468,7 +1469,7 @@
         </div>
       `;
       const inp = document.getElementById("fill-input");
-      if (respuestasGuardadas[paso]) {
+      if (respuestasGuardadas[paso] && respuestasGuardadas[paso].valor !== undefined) {
         inp.value = respuestasGuardadas[paso].valor;
       }
 
@@ -1512,7 +1513,7 @@
   }
 
   function guardarRespuesta(valor, esValido) {
-    respuestasGuardadas[paso] = { valor, valido: esValido };
+    respuestasGuardadas[paso] = { valor: valor, valido: esValido };
     guardarEstadoProgreso();
     mostrarResultado(esValido);
 
@@ -1666,7 +1667,8 @@
       breakdown.appendChild(item);
     });
 
-    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje, [...respuestasGuardadas]);
+    // Guardado seguro con clonación profunda
+    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje, JSON.parse(JSON.stringify(respuestasGuardadas)));
     localStorage.removeItem('sql_progreso_activo');
   }
 
@@ -1697,7 +1699,7 @@
           <div class="history-item" onclick="abrirVisorRespuestas(${index})">
             <div>
               <strong>#${historial.length - index} • Modo ${item.modo.toUpperCase()}</strong>
-              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Tocá para revisar qué respondiste</em></div>
+              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Tocá para revisar y corregir</em></div>
             </div>
             <div style="text-align: right;">
               <span style="font-weight: 800; color: ${item.porcentaje >= 70 ? '#10b981' : '#e0528b'};">${item.aciertos}/${item.total} (${item.porcentaje}%)</span>
@@ -1716,15 +1718,16 @@
     const intento = historial[indice];
     if (!intento) return;
 
+    intentoSeleccionadoParaEdicion = intento;
     cerrarModalHistorial();
 
     const modo = intento.modo || 'facil';
     const retosModo = bancoCompleto[modo] || bancoCompleto['facil'];
     const respuestas = intento.respuestas || [];
 
-    document.getElementById('visor-titulo').innerHTML = `<span>📜</span> Revisión • Modo ${modo.toUpperCase()}`;
+    document.getElementById('visor-titulo').innerHTML = `<span>📜</span> Revisión & Corrección • Modo ${modo.toUpperCase()}`;
     document.getElementById('visor-resumen').innerHTML = `
-      Resultado: ${intento.aciertos} / ${intento.total} aciertos (${intento.porcentaje}%) • Fecha: ${intento.fecha}
+      Puntaje: ${intento.aciertos} / ${intento.total} aciertos (${intento.porcentaje}%) • Fecha: ${intento.fecha}
     `;
 
     const contenedor = document.getElementById('visor-lista-retos');
@@ -1745,9 +1748,12 @@
           </span>
         </div>
         <div style="font-size: 12.5px; margin-bottom: 6px; color: var(--text-main);">${reto.pregunta}</div>
-        <div style="font-size: 12px; margin-bottom: 4px;">
-          <span style="font-weight: 700; color: var(--text-muted);">Tu respuesta:</span>
-          <code style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${esCorrecta ? '#10b981' : '#f43f5e'}; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">${valorDado}</code>
+        <div style="font-size: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-weight: 700; color: var(--text-muted);">Tu respuesta:</span>
+            <code style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${esCorrecta ? '#10b981' : '#f43f5e'}; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">${valorDado}</code>
+          </div>
+          <button class="btn-action" style="padding: 3px 8px; font-size: 11px;" onclick="irACorregirRetoEspecifico(${idx})">Ir a corregir ➜</button>
         </div>
         <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">
           <strong>Concepto / Solución:</strong> ${reto.explicacion}
@@ -1759,9 +1765,35 @@
     document.getElementById('modal-visor-respuestas').style.display = 'flex';
   }
 
+  // REANUDAR Y CORREGIR EN EL SIMULADOR ACTIVO
+  function cargarIntentoEnSimuladorActivo() {
+    if (!intentoSeleccionadoParaEdicion) return;
+    cerrarVisorRespuestas();
+
+    dificultadActual = intentoSeleccionadoParaEdicion.modo || 'facil';
+    modulosActivos = bancoCompleto[dificultadActual];
+    respuestasGuardadas = intentoSeleccionadoParaEdicion.respuestas ? JSON.parse(JSON.stringify(intentoSeleccionadoParaEdicion.respuestas)) : new Array(modulosActivos.length).fill(null);
+    paso = 0;
+
+    cambiarDificultad(dificultadActual, false);
+    guardarEstadoProgreso();
+  }
+
+  function irACorregirRetoEspecifico(numReto) {
+    if (!intentoSeleccionadoParaEdicion) return;
+    cerrarVisorRespuestas();
+
+    dificultadActual = intentoSeleccionadoParaEdicion.modo || 'facil';
+    modulosActivos = bancoCompleto[dificultadActual];
+    respuestasGuardadas = intentoSeleccionadoParaEdicion.respuestas ? JSON.parse(JSON.stringify(intentoSeleccionadoParaEdicion.respuestas)) : new Array(modulosActivos.length).fill(null);
+    paso = numReto;
+
+    cambiarDificultad(dificultadActual, false);
+    guardarEstadoProgreso();
+  }
+
   function cerrarVisorRespuestas() {
     document.getElementById('modal-visor-respuestas').style.display = 'none';
-    abrirModalHistorial();
   }
 
   function cerrarVisorRespuestasAfuera(e) {

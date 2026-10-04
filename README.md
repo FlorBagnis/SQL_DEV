@@ -71,6 +71,16 @@ Aprender haciendo (Hands-on): Ofrecer una experiencia interactiva donde el error
 
 ---
 
+
+¿Te sirvió? Dejale una ⭐ al repo.
+
+---
+
+## 📄 Licencia
+
+Distribuido bajo licencia MIT. Ver el archivo `LICENSE`.
+
+
 ### 👩‍💻 Autora
 
 **Florencia Bagnis**

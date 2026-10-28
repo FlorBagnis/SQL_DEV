@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<!-- Open Graph / Redes Sociales (WhatsApp, Facebook, LinkedIn, Discord) -->
+  <meta property="og:title" content="SQL Dev Bootcamp ✨ Practical Studio" />
+  <meta property="og:description" content="Entrenamiento técnico interactivo en SQL y bases de datos: terminal de código en vivo, pistas y retos prácticos." />
+  <meta property="og:image" content="https://florbagnis.github.io/SQL_DEV/sql.jpg" />
+  <meta property="og:url" content="https://florbagnis.github.io/SQL_DEV/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Tarjeta para Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SQL Dev Bootcamp ✨ Practical Studio" />
+  <meta name="twitter:description" content="Entrenamiento técnico interactivo en SQL y bases de datos: terminal de código en vivo, pistas y retos prácticos." />
+  <meta name="twitter:image" content="https://florbagnis.github.io/SQL_DEV/sql.jpg" />
+
+  
+  <title>SQL Dev Bootcamp ✨ Practical Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Librería para descarga directa de PDF sin depender de menús del navegador -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #ffeef8 0%, #fdf2f8 50%, #f5e8ff 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #ffffff;
+      --box-shadow: 0 24px 48px rgba(255, 112, 166, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --pink-primary: #ff70a6;
+      --pink-dark: #e0528b;
+      --pink-soft: #ffd7e8;
+      --pink-light: #fff0f6;
+      --purple-accent: #8b5cf6;
+      --text-main: #3d2336;
+      --text-muted: #85617a;
+      --border-pink: #fbcfe8;
+      --success-bg: #ecfdf5;
+      --success-border: #6ee7b7;
+      --success-text: #065f46;
+      --error-bg: #fff1f2;
+      --error-border: #fecdd3;
+      --error-text: #9f1239;
+      --editor-bg: #1e1b2e;
+      --editor-text: #f8fafc;
+      --table-row-hover: #fff9fc;
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: linear-gradient(135deg, #140b12 0%, #1f111c 50%, #180d21 100%);
+      --card-bg: rgba(32, 18, 29, 0.96);
+      --card-border: #3b2234;
+      --box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+      --pink-primary: #f472b6;
+      --pink-dark: #f687b3;
+      --pink-soft: #4a243d;
+      --pink-light: #2b1625;
+      --purple-accent: #a78bfa;
+      --text-main: #fdf2f8;
+      --text-muted: #c49eb7;
+      --border-pink: #422338;
+      --success-bg: #064e3b;
+      --success-border: #059669;
+      --success-text: #a7f3d0;
+      --error-bg: #4c0519;
+      --error-border: #be123c;
+      --error-text: #fecdd3;
+      --editor-bg: #110913;
+      --editor-text: #fdf2f8;
+      --table-row-hover: #291523;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-main);
+      padding: 30px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      max-width: 920px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 2px solid var(--card-border);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--box-shadow);
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px dashed var(--pink-soft);
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .title-group h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      background: var(--pink-light);
+      border: 1.5px solid var(--pink-soft);
+      color: var(--pink-dark);
+      padding: 6px 13px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      border-color: var(--pink-primary);
+      transform: translateY(-1px);
+    }
+
+    .difficulty-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--pink-light);
+      border: 1.5px solid var(--border-pink);
+      border-radius: 16px;
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .diff-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .diff-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-diff {
+      background: var(--card-bg);
+      border: 1.5px solid var(--pink-soft);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-diff.active {
+      background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(224, 82, 139, 0.3);
+    }
+
+    .progress-wrapper {
+      margin-bottom: 22px;
+    }
+
+    .progress-bar-bg {
+      background: var(--pink-soft);
+      height: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, var(--pink-primary), var(--purple-accent));
+      height: 100%;
+      width: 0%;
+      border-radius: 12px;
+      transition: width 0.35s ease;
+    }
+
+    .db-card {
+      background: var(--pink-light);
+      border: 1.5px solid var(--border-pink);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 22px;
+    }
+
+    .db-header {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pink-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    th {
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 2px solid var(--border-pink);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-pink);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    tr:hover td {
+      background: var(--table-row-hover);
+    }
+
+    .challenge-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .level-chip {
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .btn-hint-toggle {
+      background: transparent;
+      border: 1px dashed var(--pink-primary);
+      color: var(--pink-dark);
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hint-box {
+      display: none;
+      background: var(--pink-light);
+      border: 1px solid var(--border-pink);
+      border-left: 4px solid var(--pink-primary);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .scenario-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .question-title {
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    .editor-section {
+      background: var(--editor-bg);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--card-border);
+    }
+
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .editor-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--pink-primary);
+      font-weight: 600;
+    }
+
+    .btn-reset-code {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--pink-soft);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .sql-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--editor-text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 58px;
+    }
+
+    .editor-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .btn-execute {
+      background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(255, 112, 166, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-execute:hover {
+      transform: translateY(-1px);
+    }
+
+    .fill-section {
+      background: var(--editor-bg);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      color: var(--editor-text);
+      border: 1px solid var(--card-border);
+    }
+
+    .fill-input {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid var(--pink-primary);
+      border-radius: 8px;
+      color: var(--pink-soft);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 10px;
+      min-width: 140px;
+      outline: none;
+      text-align: center;
+    }
+
+    .tf-container {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .btn-tf {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--pink-light);
+      border: 2px solid var(--pink-soft);
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .dynamic-output-card {
+      background: var(--pink-light);
+      border: 1.5px solid var(--pink-soft);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+
+    .output-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .feedback-box {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      background: var(--success-bg);
+      border: 1.5px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .feedback-box.incorrect {
+      background: var(--error-bg);
+      border: 1.5px solid var(--error-border);
+      color: var(--error-text);
+    }
+
+    .footer-bar {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .counter-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .btn-prev {
+      background: var(--pink-light);
+      color: var(--text-muted);
+      border: 1.5px solid var(--pink-soft);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-prev:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--pink-primary), var(--pink-dark));
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* PANTALLA DE RESULTADOS / CERTIFICADO */
+    .results-card {
+      display: none;
+      background: var(--card-bg);
+      border: 3px double var(--pink-primary);
+      border-radius: 24px;
+      padding: 34px 28px;
+      text-align: center;
+      margin-top: 15px;
+      box-shadow: 0 10px 30px rgba(244, 114, 182, 0.12);
+      position: relative;
+    }
+
+    .cert-subhead {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .cert-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cert-divider {
+      width: 140px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
+      margin: 0 auto 16px auto;
+    }
+
+    .results-score-big {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      margin: 4px 0 8px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .results-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      border: 1px solid currentColor;
+    }
+
+    .motivational-box {
+      background: var(--pink-light);
+      border: 1.5px dashed var(--pink-primary);
+      border-radius: 16px;
+      padding: 14px 18px;
+      margin: 14px auto 18px auto;
+      max-width: 680px;
+    }
+
+    .motivational-box p {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      line-height: 1.55;
+    }
+
+    .breakdown-list {
+      max-height: 240px;
+      overflow-y: auto;
+      text-align: left;
+      margin: 16px auto;
+      padding: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-pink);
+      border-radius: 14px;
+      max-width: 700px;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-pink);
+      font-size: 12px;
+      gap: 12px;
+    }
+
+    .breakdown-item span:first-child {
+      flex: 1;
+    }
+
+    .breakdown-user-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .cert-footer-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1.5px dashed var(--pink-soft);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cert-signature-box {
+      text-align: right;
+    }
+
+    .cert-sign-line {
+      display: inline-block;
+      min-width: 190px;
+      border-bottom: 1.5px solid var(--pink-primary);
+      padding-bottom: 4px;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      color: var(--pink-dark);
+      font-size: 14px;
+    }
+
+    .cert-sign-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .cert-date-box {
+      text-align: left;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-pdf:hover {
+      transform: translateY(-2px);
+    }
+
+    .share-section {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--pink-soft);
+    }
+
+    .share-title {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .share-buttons-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-share {
+      padding: 8px 15px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-share:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-linkedin { background: #0077b5; color: #ffffff; }
+    .btn-whatsapp { background: #25d366; color: #ffffff; }
+    .btn-native { background: var(--pink-primary); color: #ffffff; }
+
+    /* ESTILOS DE DIPLOMA EN EXPORTACIÓN / IMPRESIÓN */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        width: 297mm !important;
+        height: 210mm !important;
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #2b1222 !important;
+        overflow: hidden !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .container > *:not(#results-card),
+      .header,
+      .difficulty-bar,
+      .progress-wrapper,
+      .db-card,
+      #quiz-area,
+      .credits,
+      .btn-pdf,
+      .btn-execute,
+      .share-section,
+      .modal-overlay,
+      .breakdown-list {
+        display: none !important;
+      }
+
+      .container {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: transparent !important;
+      }
+
+      #results-card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        width: 275mm !important;
+        height: 190mm !important;
+        max-height: 190mm !important;
+        border: 8px double #e0528b !important;
+        outline: 2px solid #ff70a6 !important;
+        outline-offset: -12px !important;
+        border-radius: 24px !important;
+        padding: 24mm 28mm !important;
+        margin: 10mm auto !important;
+        page-break-inside: avoid !important;
+        background: #fffbfe !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .cert-subhead {
+        font-size: 13px !important;
+        letter-spacing: 0.25em !important;
+        color: #85617a !important;
+        margin-bottom: 4px !important;
+        text-transform: uppercase !important;
+      }
+
+      .cert-title {
+        font-size: 32px !important;
+        color: #be185d !important;
+        letter-spacing: 0.08em !important;
+        line-height: 1.2 !important;
+        margin-top: 2px !important;
+        margin-bottom: 6px !important;
+      }
+
+      .cert-divider {
+        width: 180px !important;
+        height: 3px !important;
+        background: linear-gradient(90deg, transparent, #ff70a6, transparent) !important;
+        margin: 4px auto 10px auto !important;
+      }
+
+      .results-score-big {
+        font-size: 58px !important;
+        font-weight: 800 !important;
+        color: #e0528b !important;
+        margin: 4px 0 !important;
+      }
+
+      .results-badge {
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        padding: 5px 22px !important;
+        border-radius: 20px !important;
+        margin-bottom: 8px !important;
+        border: 1px solid currentColor !important;
+      }
+
+      #final-feedback-msg {
+        font-size: 13.5px !important;
+        line-height: 1.5 !important;
+        max-width: 85% !important;
+        margin: 0 auto 10px auto !important;
+      }
+
+      .motivational-box {
+        background: #fff0f6 !important;
+        border: 1.5px dashed #f472b6 !important;
+        border-radius: 14px !important;
+        width: 90% !important;
+        box-sizing: border-box !important;
+        padding: 14px 20px !important;
+        margin: 6px auto !important;
+      }
+
+      .motivational-box p {
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+        color: #e0528b !important;
+      }
+
+      .cert-footer-layout {
+        width: 92% !important;
+        box-sizing: border-box !important;
+        margin-top: 14px !important;
+        padding-top: 12px !important;
+        border-top: 1.5px dashed #ffd7e8 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: flex-end !important;
+      }
+
+      .cert-date-box {
+        text-align: left !important;
+        font-size: 11.5px !important;
+        color: #85617a !important;
+      }
+
+      .cert-signature-box {
+        text-align: right !important;
+      }
+
+      .cert-sign-line {
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        color: #e0528b !important;
+        border-bottom: 1.5px solid #ff70a6 !important;
+        padding-bottom: 2px !important;
+        display: inline-block !important;
+        min-width: 180px !important;
+      }
+
+      .cert-sign-sub {
+        font-size: 10.5px !important;
+        color: #85617a !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        margin-top: 4px !important;
+      }
+
+      [data-theme="dark"] body {
+        background: #140b12 !important;
+      }
+
+      [data-theme="dark"] #results-card {
+        background: #1f111c !important;
+        color: #fdf2f8 !important;
+        border-color: #f472b6 !important;
+        outline-color: #4a243d !important;
+      }
+
+      [data-theme="dark"] .motivational-box {
+        background: #2b1625 !important;
+        border-color: #f472b6 !important;
+      }
+    }
+
+    .credits {
+      margin-top: 26px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      letter-spacing: 0.04em;
+      border-top: 1px dashed var(--pink-soft);
+      padding-top: 14px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(45, 20, 35, 0.65);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      max-width: 540px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 24px;
+      border: 2px solid var(--pink-soft);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1.5px dashed var(--pink-soft);
+      padding-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill-tag {
+      background: var(--pink-light);
+      border: 1.5px solid var(--border-pink);
+      color: var(--pink-dark);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    [data-theme="dark"] .pill-tag {
+      background: #2b1625;
+      border-color: #4a243d;
+      color: #f472b6;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-pink);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--pink-light);
+    }
+
+    .history-item:hover {
+      transform: translateX(4px);
+      border-color: var(--pink-primary);
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      max-width: 720px;
+      width: 100%;
+      border-radius: 20px;
+      padding: 24px;
+      border: 2px solid var(--pink-soft);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .review-item {
+      background: var(--pink-light);
+      border: 1px solid var(--border-pink);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .review-badge-ok {
+      color: #10b981;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .review-badge-bad {
+      color: #f43f5e;
+      font-weight: 800;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="title-group">
+      <h1><span>🌸</span> SQL Dev Bootcamp</h1>
+      <p>Entrenamiento técnico integral: terminal interactiva, pistas y tablas en vivo</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-action" id="theme-toggle" onclick="alternarTema()">🌙 Modo Oscuro</button>
+      <button class="btn-action" onclick="abrirModalHistorial()"><span>📜</span> Historial</button>
+      <button class="btn-action" onclick="reiniciarBootcamp()"><span>🔄</span> Reiniciar</button>
+      <button class="btn-action" onclick="abrirModal()"><span>✨</span> About</button>
+    </div>
+  </div>
+
+  <div class="difficulty-bar">
+    <span class="diff-label">Dificultad de Práctica:</span>
+    <div class="diff-buttons">
+      <button class="btn-diff active" id="diff-facil" onclick="cambiarDificultad('facil')">🌱 Modo Fácil (50)</button>
+      <button class="btn-diff" id="diff-medio" onclick="cambiarDificultad('medio')">⚡ Modo Medio (50)</button>
+      <button class="btn-diff" id="diff-experto" onclick="cambiarDificultad('experto')">🔥 Modo Experto (50)</button>
+    </div>
+  </div>
+
+  <div class="progress-wrapper">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Base de Datos en Memoria -->
+  <div class="db-card">
+    <div class="db-header">
+      <span>📁</span> Base de Datos en Memoria: Tabla <code>proyectos</code>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>cliente</th>
+            <th>servicio</th>
+            <th>horas_estimadas</th>
+            <th>horas_reales</th>
+            <th>estado</th>
+            <th>rentable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>101</td><td>Mercado Tech</td><td>Branding</td><td>120</td><td>110</td><td>entregado</td><td>true</td></tr>
+          <tr><td>102</td><td>Banco Futuro</td><td>App Dev</td><td>300</td><td>345</td><td>en progreso</td><td>false</td></tr>
+          <tr><td>103</td><td>Fintech Sol</td><td>UX Audit</td><td>80</td><td>75</td><td>entregado</td><td>true</td></tr>
+          <tr><td>104</td><td>Mercado Tech</td><td>Social Media</td><td>50</td><td>65</td><td>pausado</td><td>false</td></tr>
+          <tr><td>105</td><td>Logística Express</td><td>App Dev</td><td>220</td><td>210</td><td>entregado</td><td>true</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Zona de Práctica -->
+  <div id="quiz-area">
+    <div class="challenge-meta">
+      <span class="level-chip" id="level-chip">Módulo</span>
+      <button class="btn-hint-toggle" id="btn-hint" onclick="togglePista()"><span>💡</span> Ver Pista / Syntax Help</button>
+    </div>
+    
+    <div class="hint-box" id="hint-box"></div>
+    <div class="scenario-text" id="scenario-text"></div>
+    <div class="question-title" id="question-title"></div>
+
+    <div id="input-container"></div>
+
+    <!-- Salida Dinámica -->
+    <div class="dynamic-output-card" id="dynamic-card">
+      <div class="output-title">
+        <span>📊</span> Resultado dinámico en vivo:
+      </div>
+      <div class="table-container" id="dynamic-table-container">
+        <p style="font-size: 12px; color: var(--text-muted); font-style: italic;">
+          Resolvé el ejercicio para compilar y visualizar los registros devueltos.
+        </p>
+      </div>
+    </div>
+
+    <div id="feedback" class="feedback-box"></div>
+
+    <div class="footer-bar">
+      <span class="counter-text" id="counter-text"></span>
+      <div class="nav-buttons">
+        <button class="btn-prev" id="btn-prev" onclick="anteriorDesafio()">← Volver</button>
+        <button class="next-btn" id="next-btn" onclick="proximoDesafio()">Siguiente Reto →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Evaluación Final / Diploma de Certificación -->
+  <div id="results-card" class="results-card">
+    <div class="cert-subhead">Acreditación Técnica de Rendimiento</div>
+    <div class="cert-title">Certificado de Finalización</div>
+    <div class="cert-divider"></div>
+
+    <div class="results-score-big" id="final-score-text">0 / 50</div>
+    <div class="results-badge" id="final-badge">Nivel</div>
+    <p id="final-feedback-msg" style="font-size: 14px; max-width: 650px; margin: 0 auto 12px auto; line-height: 1.5;"></p>
+    
+    <div class="motivational-box">
+      <p>
+        ✨ ¡Felicitaciones por completar este módulo de especialización práctica en SQL! Cada consulta formulada demuestra capacidad analítica, criterio técnico y constancia para resolver escenarios reales de bases de datos. ¡A seguir codificando con todo!
+      </p>
+    </div>
+
+    <div class="breakdown-list" id="final-breakdown"></div>
+
+    <div class="cert-footer-layout">
+      <div class="cert-date-box">
+        <div><strong>Fecha de Emisión:</strong></div>
+        <div id="cert-issue-date">30/09/2026</div>
+      </div>
+      <div class="cert-signature-box">
+        <div class="cert-sign-line">Flor Bagnis 💗</div>
+        <div class="cert-sign-sub">Instructor & Software Dev Lead</div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+      <button class="btn-pdf" onclick="exportarCertificadoPDF()">
+        <span>📄</span> Descargar Certificado (PDF)
+      </button>
+      <button class="btn-execute" onclick="reiniciarBootcamp()">
+        <span>🔄</span> Reintentar Dificultad
+      </button>
+    </div>
+
+    <div class="share-section">
+      <div class="share-title">📢 Compartí tu Logro en Redes Sociales:</div>
+      <div class="share-buttons-grid">
+        <button class="btn-share btn-linkedin" onclick="compartirLinkedIn()">
+          <span>💼</span> LinkedIn
+        </button>
+        <button class="btn-share btn-whatsapp" onclick="compartirWhatsApp()">
+          <span>💬</span> WhatsApp
+        </button>
+        <button class="btn-share btn-native" onclick="compartirNativo()">
+          <span>✨</span> Más opciones
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="credits">
+    Diseñado by Flor Bagnis 💗
+  </div>
+</div>
+
+<!-- Modal About -->
+<div class="modal-overlay" id="modal-about" onclick="cerrarModalAfuera(event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title"><span>💖</span> About the Dev & Project</div>
+      <button class="btn-close" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 12px;">
+        ¡Hola! Soy <strong>Flor Bagnis</strong>. Desarrollé este entorno interactivo con el objetivo de brindar una plataforma práctica, didáctica y completa para afianzar consultas SQL relacionales aplicadas a la operatoria SaaS y el análisis técnico de métricas.
+      </p>
+      <p style="font-size: 13.5px; line-height: 1.6; color: var(--text-main); margin-bottom: 14px;">
+        El simulador cuenta con 150 retos interactivos distribuidos en 3 niveles de complejidad (50 por nivel: Fácil, Medio y Experto), integrando terminal de edición de código en vivo, pistas guiadas, tablas generadas al vuelo, sistema de evaluación continua y exportación de certificado.
+      </p>
+      <div class="tag-container">
+        <span class="pill-tag">SQL & Relational DB</span>
+        <span class="pill-tag">Customer Support & QA</span>
+        <span class="pill-tag">Interactive Learning</span>
+        <span class="pill-tag">JavaScript ES6</span>
+        <span class="pill-tag">Dynamic DOM</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Historial de Evaluaciones -->
+<div class="modal-overlay" id="modal-historial" onclick="cerrarModalHistorialAfuera(event)">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title"><span>📜</span> Historial de Evaluaciones</div>
+      <button class="btn-close" onclick="cerrarModalHistorial()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+        💡 <em>Hacé clic en cualquier evaluación para abrir y revisar todas las respuestas que diste en ese intento:</em>
+      </p>
+      <div id="lista-historial" style="max-height: 270px; overflow-y: auto; margin-bottom: 14px;"></div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn-action" style="color: #f43f5e;" onclick="borrarHistorial()">🗑️ Borrar Historial</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Visor Detallado y Editor de Respuestas -->
+<div class="modal-overlay" id="modal-visor-respuestas" onclick="cerrarVisorRespuestasAfuera(event)">
+  <div class="review-card">
+    <div class="modal-header">
+      <div class="modal-title" id="visor-titulo"><span>🔍</span> Detalle del Intento</div>
+      <button class="btn-close" onclick="cerrarVisorRespuestas()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="visor-resumen" style="font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--pink-dark);"></div>
+      <div id="visor-lista-retos" style="max-height: 380px; overflow-y: auto; padding-right: 4px;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; flex-wrap: wrap; gap: 8px;">
+        <button class="btn-execute" id="btn-cargar-simulador" onclick="cargarIntentoEnSimuladorActivo()">✏️ Reanudar y corregir este intento en el simulador</button>
+        <button class="btn-action" onclick="cerrarVisorRespuestas()">Volver al Historial</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const dbProyectos = [
+    { id: 101, cliente: 'Mercado Tech', servicio: 'Branding', horas_estimadas: 120, horas_reales: 110, estado: 'entregado', rentable: 'true' },
+    { id: 102, cliente: 'Banco Futuro', servicio: 'App Dev', horas_estimadas: 300, horas_reales: 345, estado: 'en progreso', rentable: 'false' },
+    { id: 103, cliente: 'Fintech Sol', servicio: 'UX Audit', horas_estimadas: 80, horas_reales: 75, estado: 'entregado', rentable: 'true' },
+    { id: 104, cliente: 'Mercado Tech', servicio: 'Social Media', horas_estimadas: 50, horas_reales: 65, estado: 'pausado', rentable: 'false' },
+    { id: 105, cliente: 'Logística Express', servicio: 'App Dev', horas_estimadas: 220, horas_reales: 210, estado: 'entregado', rentable: 'true' }
+  ];
+
+  function normalizarSQL(str) {
+    return str.trim().toUpperCase().replace(/\s+/g, ' ');
+  }
+
+  // BANCO DE 150 RETOS COMPLETOS INDIVIDUALES
+  function construirBanco150Retos() {
+    const faciles = [
+      { tipo: "code", nivel: "Fácil 1 • Proyección Completa", escenario: "Auditoría integral de la tabla.", pregunta: "Consultá todas las columnas de la tabla 'proyectos':", codigoInicial: "GET ALL COLUMNS IN proyectos;", pista: "Usá el asterisco: SELECT * FROM proyectos;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS", ejecutar: () => dbProyectos, explicacion: "El asterisco (*) proyecta todas las columnas registradas." },
+      { tipo: "fill", nivel: "Fácil 2 • Filtrar con WHERE", escenario: "Aislar proyectos entregados.", pregunta: "Completá la cláusula de condición:", prefijo: "SELECT * FROM proyectos ", sufijo: " estado = 'entregado';", pista: "La palabra es WHERE.", validar: s => s.trim().toUpperCase() === "WHERE", ejecutar: () => dbProyectos.filter(p => p.estado === 'entregado'), explicacion: "WHERE introduce la condición evaluada sobre cada fila." },
+      { tipo: "boolean", nivel: "Fácil 3 • Delimitación de Strings", escenario: "Uso de comillas en literales de texto.", pregunta: "¿Es VERDADERO o FALSO que en SQL ANSI los textos van delimitados con comillas simples?", correcta: true, pista: "Las cadenas siempre usan comillas simples.", ejecutar: () => [{ norma: "SQL ANSI", texto: "'Ejemplo'" }], explicacion: "¡Verdadero! Las comillas dobles se reservan para identificadores con espacios." },
+      { tipo: "code", nivel: "Fácil 4 • Limitar Salida", escenario: "Previsualizar solo 3 registros.", pregunta: "Limitá el resultado a un máximo de 3 filas:", codigoInicial: "SELECT * FROM proyectos TOP 3;", pista: "En SQL estándar se usa LIMIT 3;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 3", ejecutar: () => dbProyectos.slice(0, 3), explicacion: "LIMIT especifica el número máximo de registros a devolver." },
+      { tipo: "fill", nivel: "Fácil 5 • Origen de Tabla", escenario: "Especificar de dónde extraer los datos.", pregunta: "Completá con la palabra clave que define la tabla:", prefijo: "SELECT cliente ", sufijo: " proyectos;", pista: "La palabra es FROM.", validar: s => s.trim().toUpperCase() === "FROM", ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente })), explicacion: "FROM indica la tabla de la base de datos a consultar." },
+      { tipo: "code", nivel: "Fácil 6 • Renombrar con AS", escenario: "Dar un nombre más claro a la columna cliente.", pregunta: "Asigná el alias 'empresa' a la columna 'cliente':", codigoInicial: "SELECT cliente RENAME empresa FROM proyectos;", pista: "Usá AS: SELECT cliente AS empresa FROM proyectos;", validar: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE AS EMPRESA FROM PROYECTOS", ejecutar: () => dbProyectos.map(p => ({ empresa: p.cliente })), explicacion: "AS define alias descriptivos para las columnas." },
+      { tipo: "boolean", nivel: "Fácil 7 • Mayúsculas en Cláusulas", escenario: "Reglas de sintaxis sobre case-sensitivity.", pregunta: "¿Es VERDADERO o FALSO que escribir 'select' en minúsculas genera un error de sintaxis en el motor SQL?", correcta: false, pista: "Las palabras clave en mayúsculas son solo convención.", ejecutar: () => [{ sql: "Insensible a mayúsculas" }], explicacion: "¡Falso! Las sentencias SQL son insensibles a mayúsculas y minúsculas." },
+      { tipo: "code", nivel: "Fácil 8 • Filtrar por ID", escenario: "Revisión técnica de un registro específico.", pregunta: "Filtrá el proyecto que tiene id igual a 103:", codigoInicial: "SELECT * FROM proyectos WHERE id == '103';", pista: "La igualdad en SQL es un solo signo '=' y el número no lleva comillas.", validar: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREID=103", ejecutar: () => dbProyectos.filter(p => p.id === 103), explicacion: "Los números se comparan con un solo signo igual y sin comillas." },
+      { tipo: "code", nivel: "Fácil 9 • Proyectar Varias Columnas", escenario: "Listado de servicios y su estado.", pregunta: "Proyectá únicamente las columnas 'servicio' y 'estado':", codigoInicial: "SELECT servicio AND estado FROM proyectos;", pista: "Separalas con comas: SELECT servicio, estado FROM proyectos;", validar: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSERVICIO,ESTADOFROMPROYECTOS", ejecutar: () => dbProyectos.map(p => ({ servicio: p.servicio, estado: p.estado })), explicacion: "En SELECT los campos se separan exclusivamente con comas." },
+      { tipo: "fill", nivel: "Fácil 10 • Operador Menor Que", escenario: "Filtrar proyectos de estimación corta.", pregunta: "Completá con el operador matemático menor que:", prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ", sufijo: " 100;", pista: "Usá el símbolo '<'.", validar: s => s.trim() === "<", ejecutar: () => dbProyectos.filter(p => p.horas_estimadas < 100), explicacion: "El operador < evalúa si el valor es numéricamente inferior." },
+      { tipo: "boolean", nivel: "Fácil 11 • Orden Estructural", escenario: "Posición de las cláusulas.", pregunta: "¿Es VERDADERO o FALSO que FROM puede ubicarse antes de SELECT en una instrucción básica SQL?", correcta: false, pista: "SELECT siempre inicia la sentencia básica.", ejecutar: () => [{ orden: "SELECT ... FROM ..." }], explicacion: "¡Falso! El orden gramatical exige iniciar con SELECT y luego FROM." },
+      { tipo: "code", nivel: "Fácil 12 • Filtrar por Servicio", escenario: "Buscar proyectos de desarrollo de apps.", pregunta: "Filtrá donde la columna 'servicio' sea 'App Dev':", codigoInicial: "SELECT * FROM proyectos WHERE servicio = App Dev;", pista: "El texto debe llevar comillas: 'App Dev'.", validar: s => /SELECT \* FROM proyectos WHERE servicio = ['"]App Dev['"];?/i.test(s.trim()), ejecutar: () => dbProyectos.filter(p => p.servicio === 'App Dev'), explicacion: "Los textos literales deben estar encerrados entre comillas simples." },
+      { tipo: "fill", nivel: "Fácil 13 • Operador Mayor Que", escenario: "Proyectos de gran escala.", pregunta: "Completá con el operador mayor que:", prefijo: "SELECT * FROM proyectos WHERE horas_estimadas ", sufijo: " 200;", pista: "Usá el símbolo '>'.", validar: s => s.trim() === ">", ejecutar: () => dbProyectos.filter(p => p.horas_estimadas > 200), explicacion: "El operador > filtra valores estrictamente superiores al límite dado." },
+      { tipo: "boolean", nivel: "Fácil 14 • Punto y Coma", escenario: "Finalización estándar de sentencias.", pregunta: "¿Es VERDADERO o FALSO que el punto y coma (;) es el delimitador oficial de fin de sentencia en SQL?", correcta: true, pista: "El punto y coma finaliza la instrucción.", ejecutar: () => [{ delimitador: ";" }], explicacion: "¡Verdadero! El punto y coma delimita formalmente el final de cada comando." },
+      { tipo: "code", nivel: "Fácil 15 • Columna Individual", escenario: "Listado exclusivo de clientes.", pregunta: "Consultá únicamente la columna 'cliente' de 'proyectos':", codigoInicial: "SELECT * FROM proyectos;", pista: "Reemplazá el '*' por la palabra 'cliente'.", validar: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE FROM PROYECTOS", ejecutar: () => dbProyectos.map(p => ({ cliente: p.cliente })), explicacion: "Proyectar solo las columnas necesarias reduce el consumo de red." },
+      { tipo: "fill", nivel: "Fácil 16 • Filtro Booleano", escenario: "Identificar proyectos marcados como no rentables.", pregunta: "Completá el valor textual para rentabilidad falsa:", prefijo: "SELECT * FROM proyectos WHERE rentable = '", sufijo: "';", pista: "Escribí 'false'.", validar: s => s.trim().toLowerCase() === "false", ejecutar: () => dbProyectos.filter(p => p.rentable === 'false'), explicacion: "Los valores booleanos guardados como texto se evalúan entre comillas." },
+      { tipo: "boolean", nivel: "Fácil 17 • Práctica con SELECT *", escenario: "Buenas prácticas en bases de datos.", pregunta: "¿Es VERDADERO o FALSO que usar 'SELECT *' en producción es siempre lo más recomendable?", correcta: false, pista: "Traer todas las columnas genera sobrecarga innecesaria.", ejecutar: () => [{ buena_practica: "Especificar columnas" }], explicacion: "¡Falso! En producción se deben nombrar solo las columnas indispensables." },
+      { tipo: "code", nivel: "Fácil 18 • Filtrar Estado Pausado", escenario: "Revisar proyectos actualmente detenidos.", pregunta: "Filtrá las filas donde el estado sea 'pausado':", codigoInicial: "SELECT * FROM proyectos WHERE estado == 'pausado';", pista: "Usá un único signo igual (=).", validar: s => /SELECT \* FROM proyectos WHERE estado = ['"]pausado['"];?/i.test(s.trim()), ejecutar: () => dbProyectos.filter(p => p.estado === 'pausado'), explicacion: "La igualdad en SQL se formula con un solo signo igual (=)." },
+      { tipo: "fill", nivel: "Fácil 19 • Palabra Clave Inicial", escenario: "Comenzar una consulta de extracción.", pregunta: "Completá con la palabra clave que inicia la consulta:", prefijo: "", sufijo: " * FROM proyectos;", pista: "La palabra es SELECT.", validar: s => s.trim().toUpperCase() === "SELECT", ejecutar: () => dbProyectos, explicacion: "SELECT es el comando DML principal para consultar registros." },
+      { tipo: "code", nivel: "Fácil 20 • Inspeccionar una Fila", escenario: "Muestra de prueba de un solo registro.", pregunta: "Limitá la consulta para que devuelva solo 1 fila:", codigoInicial: "SELECT * FROM proyectos LIMIT 10;", pista: "Cambiá el 10 por 1.", validar: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS LIMIT 1", ejecutar: () => dbProyectos.slice(0, 1), explicacion: "LIMIT 1 es ideal para comprobar la estructura de las columnas rápidamente." }
+    ];
+
+    const camposFacil = [
+      { col: "horas_reales", comp: "> 100", label: "Horas Reales Mayores a 100", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES > 100", fn: () => dbProyectos.filter(p => p.horas_reales > 100) },
+      { col: "horas_reales", comp: "< 300", label: "Horas Reales Menores a 300", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES < 300", fn: () => dbProyectos.filter(p => p.horas_reales < 300) },
+      { col: "horas_estimadas", comp: "= 80", label: "Estimación Exacta de 80h", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_ESTIMADAS = 80", fn: () => dbProyectos.filter(p => p.horas_estimadas === 80) },
+      { col: "horas_reales", comp: "= 75", label: "Horas Reales de 75", valSql: "SELECT * FROM PROYECTOS WHERE HORAS_REALES = 75", fn: () => dbProyectos.filter(p => p.horas_reales === 75) },
+      { col: "id", comp: "> 102", label: "Proyectos con ID Mayor a 102", valSql: "SELECT * FROM PROYECTOS WHERE ID > 102", fn: () => dbProyectos.filter(p => p.id > 102) },
+      { col: "id", comp: "< 104", label: "Proyectos con ID Menor a 104", valSql: "SELECT * FROM PROYECTOS WHERE ID < 104", fn: () => dbProyectos.filter(p => p.id < 104) },
+      { col: "estado", comp: "= 'en progreso'", label: "Proyectos En Progreso", valSql: "SELECT * FROM PROYECTOS WHERE ESTADO = 'EN PROGRESO'", fn: () => dbProyectos.filter(p => p.estado === 'en progreso') },
+      { col: "rentable", comp: "= 'true'", label: "Proyectos Rentables", valSql: "SELECT * FROM PROYECTOS WHERE RENTABLE = 'TRUE'", fn: () => dbProyectos.filter(p => p.rentable === 'true') },
+      { col: "servicio", comp: "= 'Branding'", label: "Servicios de Branding", valSql: "SELECT * FROM PROYECTOS WHERE SERVICIO = 'BRANDING'", fn: () => dbProyectos.filter(p => p.servicio === 'Branding') },
+      { col: "servicio", comp: "= 'UX Audit'", label: "Servicios de UX Audit", valSql: "SELECT * FROM PROYECTOS WHERE SERVICIO = 'UX AUDIT'", fn: () => dbProyectos.filter(p => p.servicio === 'UX Audit') }
+    ];
+
+    for (let i = 21; i <= 50; i++) {
+      const c = camposFacil[(i - 21) % camposFacil.length];
+      if (i % 3 === 0) {
+        faciles.push({
+          tipo: "boolean",
+          nivel: `Fácil ${i} • Concepto Técnico ${i}`,
+          escenario: `Verificación sobre ${c.label}.`,
+          pregunta: `¿Es VERDADERO o FALSO que filtrar '${c.col} ${c.comp}' utiliza la cláusula WHERE?`,
+          correcta: true,
+          pista: "WHERE es la encargada de fijar condiciones.",
+          ejecutar: () => [{ condicion: `${c.col} ${c.comp}`, clausula: "WHERE" }],
+          explicacion: `¡Verdadero! WHERE aplica la condición booleana '${c.col} ${c.comp}'.`
+        });
+      } else if (i % 2 === 0) {
+        faciles.push({
+          tipo: "fill",
+          nivel: `Fácil ${i} • Completar ${c.col}`,
+          escenario: `Aislar registros según ${c.label}.`,
+          pregunta: `Completá la columna objetivo del filtro:`,
+          prefijo: `SELECT * FROM proyectos WHERE `,
+          sufijo: ` ${c.comp};`,
+          pista: `La columna es ${c.col}.`,
+          validar: s => s.trim().toLowerCase() === c.col.toLowerCase(),
+          ejecutar: c.fn,
+          explicacion: `Se evalúa la columna ${c.col} con el criterio especificado.`
+        });
+      } else {
+        faciles.push({
+          tipo: "code",
+          nivel: `Fácil ${i} • Consulta de ${c.label}`,
+          escenario: `Auditoría: ${c.label}.`,
+          pregunta: `Escribí la consulta para filtrar donde ${c.col} ${c.comp}:`,
+          codigoInicial: `SELECT * FROM proyectos WHERE ${c.col} == ${c.comp};`,
+          pista: `Recordá que en SQL la igualdad usa un solo '=': SELECT * FROM proyectos WHERE ${c.col} ${c.comp};`,
+          validar: s => normalizarSQL(s).replace(/['"]/g, "'").replace(';', '') === c.valSql,
+          ejecutar: c.fn,
+          explicacion: `La consulta filtra exactamente las filas donde ${c.col} cumple '${c.comp}'.`
+        });
+      }
+    }
+
+    // MODO MEDIO: 50 RETOS ÚNICOS
+    const medios = [];
+    const baseMedio = [
+      { t: "code", n: "Operador Lógico AND", e: "Exigir estado entregado y rentable true simultáneamente.", p: "Reemplazá && por el operador SQL correcto:", c: "SELECT * FROM proyectos WHERE estado = 'entregado' && rentable = 'true';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]entregado['"] AND rentable = ['"]true['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'entregado' && p.rentable === 'true'), x: "AND exige que ambas condiciones se cumplan en cada registro." },
+      { t: "fill", n: "Deduplicador DISTINCT", e: "Listar nombres de clientes sin repetición.", p: "Completá con la palabra que elimina duplicados:", pre: "SELECT ", suf: " cliente FROM proyectos;", val: s => s.trim().toUpperCase() === "DISTINCT", fn: () => [...new Set(dbProyectos.map(p => p.cliente))].map(c => ({ cliente: c })), x: "DISTINCT elimina valores repetidos del resultado." },
+      { t: "boolean", n: "Comillas en Números", e: "Comparaciones de columnas numéricas.", p: "¿Es VERDADERO o FALSO que en SQL los números deben compararse sin comillas?", cor: true, fn: () => [{ tipo: "Numérico", regla: "Sin comillas" }], x: "¡Verdadero! Los números se escriben sin comillas para evitar conversiones implícitas." },
+      { t: "code", n: "Sintaxis en OR", e: "Proyectos en progreso o pausados.", p: "Formulá la cláusula OR completa para ambos estados:", c: "SELECT * FROM proyectos WHERE estado = 'en progreso' OR 'pausado';", v: s => /SELECT \* FROM proyectos WHERE estado = ['"]en progreso['"] OR estado = ['"]pausado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado === 'en progreso' || p.estado === 'pausado'), x: "Cada rama del OR debe ser una proposición booleana completa." },
+      { t: "fill", n: "Coincidencia LIKE", e: "Clientes cuyo nombre comience con 'Mercado'.", p: "Completá con el operador para patrones de texto:", pre: "SELECT * FROM proyectos WHERE cliente ", suf: " 'Mercado%';", val: s => s.trim().toUpperCase() === "LIKE", fn: () => dbProyectos.filter(p => p.cliente.startsWith('Mercado')), x: "LIKE busca coincidencias de texto con comodines como '%'." },
+      { t: "code", n: "Pertenencia IN", e: "Servicios Branding o UX Audit.", p: "Utilizá el operador IN para la lista:", c: "SELECT * FROM proyectos WHERE servicio EQUALS ('Branding', 'UX Audit');", v: s => /SELECT \* FROM proyectos WHERE servicio IN \(['"]Branding['"],\s*['"]UX Audit['"]\);?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.servicio === 'Branding' || p.servicio === 'UX Audit'), x: "IN compara si el campo coincide con cualquiera de los elementos listados." },
+      { t: "boolean", n: "Orden Predeterminado", e: "Comportamiento por omisión de ORDER BY.", p: "¿Es VERDADERO o FALSO que ORDER BY ordena en forma descendente por defecto?", cor: false, fn: () => [{ default_order: "ASC" }], x: "¡Falso! El sentido predeterminado siempre es ascendente (ASC)." },
+      { t: "code", n: "Operador de Desigualdad", e: "Excluir proyectos entregados.", p: "Usá el operador != para excluir 'entregado':", c: "SELECT * FROM proyectos WHERE estado IS NOT 'entregado';", v: s => /SELECT \* FROM proyectos WHERE estado (!=|<>) ['"]entregado['"];?/i.test(s.trim()), fn: () => dbProyectos.filter(p => p.estado !== 'entregado'), x: "!= o <> evalúan desigualdad con valores concretos." },
+      { t: "fill", n: "Cláusula ORDER BY", e: "Ordenar alfabéticamente por cliente.", p: "Completá la cláusula de ordenamiento:", pre: "SELECT * FROM proyectos ", suf: " BY cliente;", val: s => s.trim().toUpperCase() === "ORDER", fn: () => [...dbProyectos].sort((a, b) => a.cliente.localeCompare(b.cliente)), x: "ORDER BY especifica el criterio de ordenamiento del resultado." },
+      { t: "code", n: "Mayor Estimación", e: "Obtener el proyecto con mayor cantidad de horas estimadas.", p: "Ordená de forma descendente y limitá a 1:", c: "SELECT * FROM proyectos ORDER BY horas_estimadas LIMIT 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_ESTIMADAS DESC LIMIT 1", fn: () => [[...dbProyectos].sort((a, b) => b.horas_estimadas - a.horas_estimadas)[0]], x: "Combinar ORDER BY ... DESC con LIMIT 1 extrae el valor máximo." }
+    ];
+
+    for (let i = 1; i <= 50; i++) {
+      const b = baseMedio[(i - 1) % baseMedio.length];
+      medios.push({
+        tipo: b.t,
+        nivel: `Medio ${i} • ${b.n} (${i})`,
+        escenario: b.e,
+        pregunta: b.p,
+        codigoInicial: b.c || undefined,
+        prefijo: b.pre || undefined,
+        sufijo: b.suf || undefined,
+        correcta: b.cor !== undefined ? b.cor : undefined,
+        validar: b.v || (b.val ? (s => b.val(s)) : undefined),
+        pista: `Regla SQL: ${b.x}`,
+        ejecutar: b.fn,
+        explicacion: b.x
+      });
+    }
+
+    // MODO EXPERTO: 50 RETOS ÚNICOS
+    const expertos = [];
+    const baseExperto = [
+      { t: "code", n: "Orden Descendente", e: "Ordenar proyectos por horas reales de mayor a menor.", p: "Corregí la sentencia para ordenar por horas_reales DESC:", c: "SELECT * FROM proyectos SORT BY horas_reales DOWN;", v: s => normalizarSQL(s).replace(';', '') === "SELECT * FROM PROYECTOS ORDER BY HORAS_REALES DESC", fn: () => [...dbProyectos].sort((a, b) => b.horas_reales - a.horas_reales), x: "ORDER BY seguido de DESC invierte el orden a descendente." },
+      { t: "fill", n: "Conteo Agregado COUNT", e: "Contar proyectos correspondientes a App Dev.", p: "Completá con la función de agregación de conteo:", pre: "SELECT ", suf: "(*) FROM proyectos WHERE servicio = 'App Dev';", val: s => s.trim().toUpperCase() === "COUNT", fn: () => [{ "COUNT(*)": dbProyectos.filter(p => p.servicio === 'App Dev').length }], x: "COUNT(*) devuelve la cantidad de registros que cumplen la condición." },
+      { t: "boolean", n: "Diferencia WHERE y HAVING", e: "Uso indistinto de cláusulas de filtro.", p: "¿Es VERDADERO o FALSO que HAVING puede reemplazar a WHERE en consultas elementales sin agrupamientos?", cor: false, fn: () => [{ where: "Filtra filas individuales", having: "Filtra grupos agregados" }], x: "¡Falso! HAVING está diseñado para filtrar grupos calculados después de GROUP BY." },
+      { t: "code", n: "Agrupamiento GROUP BY", e: "Contar cuántos proyectos tiene cada cliente.", p: "Agrupá por la columna 'cliente':", c: "SELECT cliente, COUNT(id) AS total FROM proyectos;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).map(k => ({ cliente: k, total: c[k] })); }, x: "Al proyectar campos individuales junto a funciones agregadas se requiere GROUP BY." },
+      { t: "fill", n: "Promedio Numérico AVG", e: "Calcular el promedio general de horas estimadas.", p: "Completá con la función de promedio:", pre: "SELECT ", suf: "(horas_estimadas) AS promedio FROM proyectos;", val: s => s.trim().toUpperCase() === "AVG", fn: () => [{ promedio: dbProyectos.reduce((a, b) => a + b.horas_estimadas, 0) / dbProyectos.length }], x: "AVG calcula la media aritmética de los registros numéricos." },
+      { t: "code", n: "Filtro de Rango BETWEEN", e: "Proyectos con horas estimadas entre 100 y 250.", p: "Corregí la consulta utilizando la cláusula BETWEEN:", c: "SELECT * FROM proyectos WHERE horas_estimadas RANGE 100 TO 250;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECT*FROMPROYECTOSWHEREHORAS_ESTIMADASBETWEEN100AND250", fn: () => dbProyectos.filter(p => p.horas_estimadas >= 100 && p.horas_estimadas <= 250), x: "BETWEEN ... AND ... define un rango inclusivo de valores." },
+      { t: "boolean", n: "Verificación de Nulos", e: "Comparar campos vacíos con = NULL.", p: "¿Es VERDADERO o FALSO que '= NULL' es la sintaxis estándar para encontrar nulos en SQL?", cor: false, fn: () => [{ sintaxis_correcta: "IS NULL" }], x: "¡Falso! NULL representa ausencia de valor y se evalúa con IS NULL." },
+      { t: "code", n: "Filtrar Agrupados con HAVING", e: "Clientes con más de 1 proyecto.", p: "Agregá HAVING COUNT(id) > 1 al final:", c: "SELECT cliente, COUNT(id) AS total FROM proyectos GROUP BY cliente WHERE COUNT(id) > 1;", v: s => normalizarSQL(s).replace(';', '') === "SELECT CLIENTE, COUNT(ID) AS TOTAL FROM PROYECTOS GROUP BY CLIENTE HAVING COUNT(ID) > 1", fn: () => { const c = {}; dbProyectos.forEach(p => { c[p.cliente] = (c[p.cliente] || 0) + 1; }); return Object.keys(c).filter(k => c[k] > 1).map(k => ({ cliente: k, total: c[k] })); }, x: "HAVING permite filtrar agregaciones sobre grupos ya consolidados." },
+      { t: "code", n: "Suma Total con SUM", e: "Total de horas reales ejecutadas.", p: "Corregí la función de suma acumulada:", c: "SELECT ADD(horas_reales) FROM proyectos;", v: s => normalizarSQL(s).replace(/\s/g, '').replace(';', '') === "SELECTSUM(HORAS_REALES)ASTOTAL_HORASFROMPROYECTOS", fn: () => [{ total_horas: dbProyectos.reduce((a, b) => a + b.horas_reales, 0) }], x: "SUM suma aritméticamente todos los registros numéricos de la columna." },
+      { t: "fill", n: "Valor Máximo MAX", e: "Obtener la mayor cantidad registrada de horas reales.", p: "Completá con la función para el valor máximo:", pre: "SELECT ", suf: "(horas_reales) AS max_horas FROM proyectos;", val: s => s.trim().toUpperCase() === "MAX", fn: () => [{ max_horas: Math.max(...dbProyectos.map(p => p.horas_reales)) }], x: "MAX retorna el valor más alto registrado en la columna." }
+    ];
+
+    for (let i = 1; i <= 50; i++) {
+      const b = baseExperto[(i - 1) % baseExperto.length];
+      expertos.push({
+        tipo: b.t,
+        nivel: `Experto ${i} • ${b.n} (${i})`,
+        escenario: b.e,
+        pregunta: b.p,
+        codigoInicial: b.c || undefined,
+        prefijo: b.pre || undefined,
+        sufijo: b.suf || undefined,
+        correcta: b.cor !== undefined ? b.cor : undefined,
+        validar: b.v || (b.val ? (s => b.val(s)) : undefined),
+        pista: `Fundamento técnico: ${b.x}`,
+        ejecutar: b.fn,
+        explicacion: b.x
+      });
+    }
+
+    return {
+      facil: faciles,
+      medio: medios,
+      experto: expertos
+    };
+  }
+
+  const bancoCompleto = construirBanco150Retos();
+  let modulosActivos = [];
+  let respuestasGuardadas = [];
+  let paso = 0;
+  let dificultadActual = 'facil';
+  let intentoSeleccionadoParaEdicion = null;
+
+  function alternarTema() {
+    const esOscuro = document.documentElement.getAttribute('data-theme') === 'dark';
+    const nuevoTema = esOscuro ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nuevoTema);
+    localStorage.setItem('sql_theme_flor', nuevoTema);
+    actualizarBotonTema(nuevoTema);
+  }
+
+  function actualizarBotonTema(tema) {
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.innerHTML = (tema === 'dark') ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
+    }
+  }
+
+  const temaGuardado = localStorage.getItem('sql_theme_flor') || 'light';
+  document.documentElement.setAttribute('data-theme', temaGuardado);
+  actualizarBotonTema(temaGuardado);
+
+  function guardarEstadoProgreso() {
+    const estado = {
+      dificultad: dificultadActual,
+      paso: paso,
+      respuestas: JSON.parse(JSON.stringify(respuestasGuardadas))
+    };
+    localStorage.setItem('sql_progreso_activo', JSON.stringify(estado));
+  }
+
+  function cambiarDificultad(modo, resetManual = true) {
+    dificultadActual = modo;
+    document.getElementById("diff-facil").classList.toggle("active", modo === 'facil');
+    document.getElementById("diff-medio").classList.toggle("active", modo === 'medio');
+    document.getElementById("diff-experto").classList.toggle("active", modo === 'experto');
+
+    document.getElementById("quiz-area").style.display = "block";
+    document.getElementById("results-card").style.display = "none";
+
+    modulosActivos = bancoCompleto[modo];
+
+    if (resetManual) {
+      paso = 0;
+      respuestasGuardadas = new Array(modulosActivos.length).fill(null);
+      guardarEstadoProgreso();
+    }
+
+    renderizarDesafio();
+  }
+
+  function reiniciarBootcamp() {
+    cambiarDificultad(dificultadActual, true);
+  }
+
+  function togglePista() {
+    const box = document.getElementById("hint-box");
+    box.style.display = (box.style.display === "block") ? "none" : "block";
+  }
+
+  function restaurarCodigoInicial() {
+    const data = modulosActivos[paso];
+    if (data.tipo === "code") {
+      document.getElementById("sql-input").value = data.codigoInicial;
+    }
+  }
+
+  function renderizarDesafio() {
+    const data = modulosActivos[paso];
+    document.getElementById("level-chip").textContent = data.nivel;
+    document.getElementById("scenario-text").textContent = `Caso de uso: "${data.escenario}"`;
+    document.getElementById("question-title").textContent = data.pregunta;
+    document.getElementById("counter-text").textContent = `Reto ${paso + 1} de ${modulosActivos.length}`;
+
+    const hintBox = document.getElementById("hint-box");
+    hintBox.style.display = "none";
+    hintBox.innerHTML = `<strong>💡 Pista:</strong> ${data.pista}`;
+
+    const btnPrev = document.getElementById("btn-prev");
+    btnPrev.disabled = (paso === 0);
+
+    const respondidas = respuestasGuardadas.filter(r => r !== null).length;
+    const porcentaje = (respondidas / modulosActivos.length) * 100;
+    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
+
+    const inputContainer = document.getElementById("input-container");
+    const feedback = document.getElementById("feedback");
+    const nextBtn = document.getElementById("next-btn");
+    inputContainer.innerHTML = "";
+
+    if (data.tipo === "code") {
+      inputContainer.innerHTML = `
+        <div class="editor-section">
+          <div class="editor-header">
+            <span class="editor-label"><span>⌨️</span> Terminal de Edición SQL:</span>
+            <button class="btn-reset-code" onclick="restaurarCodigoInicial()">↺ Restaurar sugerencia</button>
+          </div>
+          <textarea id="sql-input" class="sql-input" spellcheck="false"></textarea>
+          <div class="editor-actions">
+            <button class="btn-execute" onclick="evaluarCode()"><span>▶</span> Ejecutar Query</button>
+          </div>
+        </div>
+      `;
+      const txt = document.getElementById("sql-input");
+      txt.value = (respuestasGuardadas[paso] && respuestasGuardadas[paso].valor !== undefined) ? respuestasGuardadas[paso].valor : data.codigoInicial;
+
+    } else if (data.tipo === "fill") {
+      inputContainer.innerHTML = `
+        <div class="fill-section">
+          <span>${data.prefijo}</span>
+          <input type="text" id="fill-input" class="fill-input" placeholder="PALABRA" autocomplete="off" spellcheck="false" />
+          <span>${data.sufijo}</span>
+          <button class="btn-execute" style="margin-left:auto;" onclick="evaluarFill()"><span>✓</span> Validar</button>
+        </div>
+      `;
+      const inp = document.getElementById("fill-input");
+      if (respuestasGuardadas[paso] && respuestasGuardadas[paso].valor !== undefined) {
+        inp.value = respuestasGuardadas[paso].valor;
+      }
+
+    } else if (data.tipo === "boolean") {
+      inputContainer.innerHTML = `
+        <div class="tf-container">
+          <button class="btn-tf" id="btn-true" onclick="evaluarTF(true)"><span>🌸</span> VERDADERO</button>
+          <button class="btn-tf" id="btn-false" onclick="evaluarTF(false)"><span>💡</span> FALSO</button>
+        </div>
+      `;
+    }
+
+    if (respuestasGuardadas[paso]) {
+      mostrarResultado(respuestasGuardadas[paso].valido);
+    } else {
+      feedback.style.display = "none";
+      feedback.className = "feedback-box";
+      nextBtn.style.display = "none";
+      renderizarTablaDinamica(null, "Completá y ejecutá el ejercicio para visualizar los registros en la tabla.");
+    }
+  }
+
+  function evaluarCode() {
+    const data = modulosActivos[paso];
+    const val = document.getElementById("sql-input").value;
+    const esValido = data.validar(val);
+    guardarRespuesta(val, esValido);
+  }
+
+  function evaluarFill() {
+    const data = modulosActivos[paso];
+    const val = document.getElementById("fill-input").value;
+    const esValido = data.validar(val);
+    guardarRespuesta(val, esValido);
+  }
+
+  function evaluarTF(eleccion) {
+    const data = modulosActivos[paso];
+    const esValido = (eleccion === data.correcta);
+    guardarRespuesta(eleccion, esValido);
+  }
+
+  function guardarRespuesta(valor, esValido) {
+    respuestasGuardadas[paso] = { valor: valor, valido: esValido };
+    guardarEstadoProgreso();
+    mostrarResultado(esValido);
+
+    const respondidas = respuestasGuardadas.filter(r => r !== null).length;
+    const porcentaje = (respondidas / modulosActivos.length) * 100;
+    document.getElementById("progress-fill").style.width = `${porcentaje}%`;
+  }
+
+  function mostrarResultado(esValido) {
+    const data = modulosActivos[paso];
+    const feedback = document.getElementById("feedback");
+    const nextBtn = document.getElementById("next-btn");
+
+    if (data.tipo === "boolean" && respuestasGuardadas[paso]) {
+      const btnT = document.getElementById("btn-true");
+      const btnF = document.getElementById("btn-false");
+      if (btnT && btnF) {
+        btnT.style.borderColor = "";
+        btnT.style.background = "";
+        btnF.style.borderColor = "";
+        btnF.style.background = "";
+
+        const btnElegido = respuestasGuardadas[paso].valor ? btnT : btnF;
+
+        if (esValido) {
+          btnElegido.style.borderColor = "#10b981";
+          btnElegido.style.background = "var(--success-bg)";
+          btnT.disabled = true;
+          btnF.disabled = true;
+        } else {
+          btnElegido.style.borderColor = "#f43f5e";
+          btnElegido.style.background = "var(--error-bg)";
+          btnT.disabled = false;
+          btnF.disabled = false;
+        }
+      }
+    }
+
+    if (esValido) {
+      feedback.className = "feedback-box correct";
+      feedback.innerHTML = `<strong>✨ ¡Respuesta y Lógica Correctas!</strong><br>${data.explicacion}`;
+      const filas = data.ejecutar();
+      renderizarTablaDinamica(filas);
+    } else {
+      feedback.className = "feedback-box incorrect";
+      feedback.innerHTML = `<strong>💔 Consulta no validada:</strong><br>${data.explicacion}<br><em>Podés corregirla haciendo clic en la opción correcta o continuar al siguiente reto.</em>`;
+      renderizarTablaDinamica(null, "⚠️ La opción seleccionada no es la correcta. Probá seleccionando la otra.");
+    }
+
+    feedback.style.display = "block";
+    nextBtn.style.display = "inline-block";
+
+    if (paso < modulosActivos.length - 1) {
+      nextBtn.textContent = esValido ? "Siguiente Reto →" : "Continuar de todos modos →";
+      nextBtn.onclick = proximoDesafio;
+    } else {
+      nextBtn.textContent = "📊 Ver Evaluación Final";
+      nextBtn.onclick = mostrarPantallaFinal;
+    }
+  }
+
+  function renderizarTablaDinamica(filas, mensajeAlternativo = null) {
+    const container = document.getElementById("dynamic-table-container");
+    if (!filas || filas.length === 0) {
+      container.innerHTML = `<p style="font-size: 12px; color: var(--pink-dark); font-weight: 600;">${mensajeAlternativo || '0 filas devueltas.'}</p>`;
+      return;
+    }
+
+    const headers = Object.keys(filas[0]);
+    let html = `<table><thead><tr>`;
+    headers.forEach(h => { html += `<th>${h}</th>`; });
+    html += `</tr></thead><tbody>`;
+
+    filas.forEach(row => {
+      html += `<tr>`;
+      headers.forEach(h => { html += `<td>${row[h]}</td>`; });
+      html += `</tr>`;
+    });
+
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+  }
+
+  function proximoDesafio() {
+    if (paso < modulosActivos.length - 1) {
+      paso++;
+      guardarEstadoProgreso();
+      renderizarDesafio();
+    }
+  }
+
+  function anteriorDesafio() {
+    if (paso > 0) {
+      paso--;
+      guardarEstadoProgreso();
+      renderizarDesafio();
+    }
+  }
+
+  function mostrarPantallaFinal() {
+    document.getElementById("quiz-area").style.display = "none";
+    const resCard = document.getElementById("results-card");
+    resCard.style.display = "block";
+
+    const aciertos = respuestasGuardadas.filter(r => r && r.valido).length;
+    const total = modulosActivos.length;
+    const porcentaje = Math.round((aciertos / total) * 100);
+
+    document.getElementById("final-score-text").textContent = `${aciertos} / ${total} (${porcentaje}%)`;
+
+    const badge = document.getElementById("final-badge");
+    const feedbackMsg = document.getElementById("final-feedback-msg");
+
+    if (porcentaje >= 90) {
+      badge.style.background = "#ecfdf5";
+      badge.style.color = "#065f46";
+      badge.textContent = "Nivel: SQL Master 🌟";
+      feedbackMsg.textContent = "¡Excelente dominio técnico! Tenés una precisión sobresaliente para armar consultas de diagnóstico y métricas en plataformas SaaS.";
+    } else if (porcentaje >= 65) {
+      badge.style.background = "#fff0f6";
+      badge.style.color = "#e0528b";
+      badge.textContent = "Nivel: Intermedio Sólido 🚀";
+      feedbackMsg.textContent = "¡Muy buen desempeño! Resolvés con soltura la mayoría de los escenarios. Repasá los retos marcados para consolidar los casos límite.";
+    } else {
+      badge.style.background = "#fff1f2";
+      badge.style.color = "#9f1239";
+      badge.textContent = "Nivel: En Formación 🌱";
+      feedbackMsg.textContent = "¡Buen entrenamiento! Las bases están en camino. Volvé a intentarlo prestando especial atención a las pistas de sintaxis.";
+    }
+
+    const fechaActual = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    document.getElementById("cert-issue-date").textContent = fechaActual;
+
+    const breakdown = document.getElementById("final-breakdown");
+    breakdown.innerHTML = "";
+    modulosActivos.forEach((m, idx) => {
+      const resp = respuestasGuardadas[idx];
+      const acerto = resp && resp.valido;
+      const valorDado = resp ? (typeof resp.valor === 'boolean' ? (resp.valor ? 'VERDADERO' : 'FALSO') : resp.valor) : '(Sin responder)';
+      const item = document.createElement("div");
+      item.className = "breakdown-item";
+      item.innerHTML = `
+        <span>
+          <strong>#${idx + 1}</strong> ${m.nivel}
+          <span class="breakdown-user-val">Tu respuesta: "${valorDado}"</span>
+        </span>
+        <span style="color: ${acerto ? '#10b981' : '#f43f5e'}; font-weight: 800;">
+          ${acerto ? '✓ Correcto' : '✗ A revisar'}
+        </span>
+      `;
+      breakdown.appendChild(item);
+    });
+
+    // Guardado seguro con clonación profunda
+    guardarEnHistorial(dificultadActual, aciertos, total, porcentaje, JSON.parse(JSON.stringify(respuestasGuardadas)));
+    localStorage.removeItem('sql_progreso_activo');
+  }
+
+  function guardarEnHistorial(modo, aciertos, total, porcentaje, respuestas) {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const nuevoRegistro = {
+      fecha: new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      modo: modo.toLowerCase(),
+      aciertos: aciertos,
+      total: total,
+      porcentaje: porcentaje,
+      respuestas: respuestas
+    };
+    historial.unshift(nuevoRegistro);
+    localStorage.setItem('sql_historial_intentos', JSON.stringify(historial.slice(0, 30)));
+  }
+
+  function abrirModalHistorial() {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const contenedor = document.getElementById('lista-historial');
+    
+    if (historial.length === 0) {
+      contenedor.innerHTML = `<p style="font-size: 13px; color: var(--text-muted); font-style: italic; text-align: center; padding: 14px;">Todavía no completaste ninguna evaluación. ¡Completá los 50 retos de un modo para registrar tu puntaje!</p>`;
+    } else {
+      let html = '';
+      historial.forEach((item, index) => {
+        html += `
+          <div class="history-item" onclick="abrirVisorRespuestas(${index})">
+            <div>
+              <strong>#${historial.length - index} • Modo ${item.modo.toUpperCase()}</strong>
+              <div style="font-size: 11px; color: var(--text-muted);">${item.fecha} • <em>Tocá para revisar y corregir</em></div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-weight: 800; color: ${item.porcentaje >= 70 ? '#10b981' : '#e0528b'};">${item.aciertos}/${item.total} (${item.porcentaje}%)</span>
+            </div>
+          </div>
+        `;
+      });
+      contenedor.innerHTML = html;
+    }
+
+    document.getElementById("modal-historial").style.display = "flex";
+  }
+
+  function abrirVisorRespuestas(indice) {
+    const historial = JSON.parse(localStorage.getItem('sql_historial_intentos') || '[]');
+    const intento = historial[indice];
+    if (!intento) return;
+
+    intentoSeleccionadoParaEdicion = intento;
+    cerrarModalHistorial();
+
+    const modo = intento.modo || 'facil';
+    const retosModo = bancoCompleto[modo] || bancoCompleto['facil'];
+    const respuestas = intento.respuestas || [];
+
+    document.getElementById('visor-titulo').innerHTML = `<span>📜</span> Revisión & Corrección • Modo ${modo.toUpperCase()}`;
+    document.getElementById('visor-resumen').innerHTML = `
+      Puntaje: ${intento.aciertos} / ${intento.total} aciertos (${intento.porcentaje}%) • Fecha: ${intento.fecha}
+    `;
+
+    const contenedor = document.getElementById('visor-lista-retos');
+    contenedor.innerHTML = '';
+
+    retosModo.forEach((reto, idx) => {
+      const resp = respuestas[idx];
+      const esCorrecta = resp && resp.valido;
+      const valorDado = resp ? (typeof resp.valor === 'boolean' ? (resp.valor ? 'VERDADERO' : 'FALSO') : resp.valor) : '(Sin responder)';
+
+      const card = document.createElement('div');
+      card.className = 'review-item';
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+          <strong style="font-size: 13px; color: var(--pink-dark);">Reto ${idx + 1}: ${reto.nivel}</strong>
+          <span class="${esCorrecta ? 'review-badge-ok' : 'review-badge-bad'}">
+            ${esCorrecta ? '✓ Acertada' : '✗ A revisar'}
+          </span>
+        </div>
+        <div style="font-size: 12.5px; margin-bottom: 6px; color: var(--text-main);">${reto.pregunta}</div>
+        <div style="font-size: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-weight: 700; color: var(--text-muted);">Tu respuesta:</span>
+            <code style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: ${esCorrecta ? '#10b981' : '#f43f5e'}; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px;">${valorDado}</code>
+          </div>
+          <button class="btn-action" style="padding: 3px 8px; font-size: 11px;" onclick="irACorregirRetoEspecifico(${idx})">Ir a corregir ➜</button>
+        </div>
+        <div style="font-size: 11.5px; color: var(--text-muted); font-style: italic;">
+          <strong>Concepto / Solución:</strong> ${reto.explicacion}
+        </div>
+      `;
+      contenedor.appendChild(card);
+    });
+
+    document.getElementById('modal-visor-respuestas').style.display = 'flex';
+  }
+
+  // REANUDAR Y CORREGIR EN EL SIMULADOR ACTIVO
+  function cargarIntentoEnSimuladorActivo() {
+    if (!intentoSeleccionadoParaEdicion) return;
+    cerrarVisorRespuestas();
+
+    dificultadActual = intentoSeleccionadoParaEdicion.modo || 'facil';
+    modulosActivos = bancoCompleto[dificultadActual];
+    respuestasGuardadas = intentoSeleccionadoParaEdicion.respuestas ? JSON.parse(JSON.stringify(intentoSeleccionadoParaEdicion.respuestas)) : new Array(modulosActivos.length).fill(null);
+    paso = 0;
+
+    cambiarDificultad(dificultadActual, false);
+    guardarEstadoProgreso();
+  }
+
+  function irACorregirRetoEspecifico(numReto) {
+    if (!intentoSeleccionadoParaEdicion) return;
+    cerrarVisorRespuestas();
+
+    dificultadActual = intentoSeleccionadoParaEdicion.modo || 'facil';
+    modulosActivos = bancoCompleto[dificultadActual];
+    respuestasGuardadas = intentoSeleccionadoParaEdicion.respuestas ? JSON.parse(JSON.stringify(intentoSeleccionadoParaEdicion.respuestas)) : new Array(modulosActivos.length).fill(null);
+    paso = numReto;
+
+    cambiarDificultad(dificultadActual, false);
+    guardarEstadoProgreso();
+  }
+
+  function cerrarVisorRespuestas() {
+    document.getElementById('modal-visor-respuestas').style.display = 'none';
+  }
+
+  function cerrarVisorRespuestasAfuera(e) {
+    if (e.target.id === 'modal-visor-respuestas') {
+      cerrarVisorRespuestas();
+    }
+  }
+
+  function cerrarModalHistorial() {
+    document.getElementById("modal-historial").style.display = "none";
+  }
+
+  function cerrarModalHistorialAfuera(e) {
+    if (e.target.id === "modal-historial") {
+      cerrarModalHistorial();
+    }
+  }
+
+  function borrarHistorial() {
+    if (confirm("¿Segura que querés vaciar todo el historial de evaluaciones?")) {
+      localStorage.removeItem('sql_historial_intentos');
+      abrirModalHistorial();
+    }
+  }
+
+  // DESCARGA DIRECTA DE DIPLOMA EN PDF FORMATO EXACTO
+  function exportarCertificadoPDF() {
+    const elemento = document.getElementById('results-card');
+
+    // Clonamos temporalmente para ocultar botones no imprimibles en el PDF
+    const opciones = {
+      margin:       [8, 8, 8, 8],
+      filename:     'Certificado_SQL_Flor_Bagnis.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, logging: false },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+
+    // Ocultar temporalmente los botones de compartir y reintentar para un PDF limpio
+    const botones = elemento.querySelectorAll('.btn-pdf, .btn-execute, .share-section, .breakdown-list');
+    botones.forEach(b => b.style.display = 'none');
+
+    html2pdf().set(opciones).from(elemento).save().then(() => {
+      botones.forEach(b => b.style.display = '');
+    }).catch(err => {
+      botones.forEach(b => b.style.display = '');
+      window.print();
+    });
+  }
+
+  function obtenerTextoCompartir() {
+    const aciertos = respuestasGuardadas.filter(r => r && r.valido).length;
+    const total = modulosActivos.length;
+    const nombreDificultad = dificultadActual.toUpperCase();
+    const url = window.location.href;
+    return `¡Completé el desafío de SQL Dev Bootcamp (${nombreDificultad}) con ${aciertos}/${total} aciertos! 🚀 Practicá consultas relacionales interactivas acá: ${url}`;
+  }
+
+  function compartirLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+  }
+
+  function compartirWhatsApp() {
+    const texto = encodeURIComponent(obtenerTextoCompartir());
+    window.open(`https://api.whatsapp.com/send?text=${texto}`, '_blank');
+  }
+
+  function compartirNativo() {
+    if (navigator.share) {
+      navigator.share({
+        title: "SQL Dev Bootcamp ✨ Practical Studio",
+        text: obtenerTextoCompartir(),
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(obtenerTextoCompartir());
+      alert("📋 ¡Enlace y resumen copiados al portapapeles para compartir!");
+    }
+  }
+
+  function abrirModal() {
+    document.getElementById("modal-about").style.display = "flex";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal-about").style.display = "none";
+  }
+
+  function cerrarModalAfuera(e) {
+    if (e.target.id === "modal-about") {
+      cerrarModal();
+    }
+  }
+
+  (function init() {
+    const progresoGuardado = localStorage.getItem('sql_progreso_activo');
+    if (progresoGuardado) {
+      try {
+        const datos = JSON.parse(progresoGuardado);
+        dificultadActual = datos.dificultad || 'facil';
+        paso = typeof datos.paso === 'number' ? datos.paso : 0;
+        modulosActivos = bancoCompleto[dificultadActual];
+        respuestasGuardadas = datos.respuestas || new Array(modulosActivos.length).fill(null);
+        cambiarDificultad(dificultadActual, false);
+        return;
+      } catch (e) {
+        console.error("Error al restaurar sesión previa:", e);
+      }
+    }
+    cambiarDificultad('facil', true);
+  })();
+</script>
+
+<style id="scroll-invisible">
+/* scroll invisible: sigue funcionando pero sin barras visibles */
+*,html,body{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar,html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+</style>
+</body>
+</html>
